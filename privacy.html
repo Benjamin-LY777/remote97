@@ -1,50 +1,60 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CinaHub 隐私政策</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px 20px; color: #333; line-height: 1.8; }
-        h1 { color: #1a1a1a; border-bottom: 2px solid #007AFF; padding-bottom: 10px; }
-        h2 { color: #007AFF; margin-top: 30px; }
-        .last-updated { color: #888; font-size: 14px; }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>隐私政策 — Remote97</title>
+<meta name="description" content="Remote97 隐私政策：说明 App 如何收集与使用数据。" />
+<style>
+  :root{--bg:#0e1116;--txt:#e7edf3;--mid:#9aa7b4;--accent:#4ea1ff;--card:#1b212b;--line:#2a323d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--txt);line-height:1.8;padding:40px 20px}
+  .wrap{max-width:820px;margin:0 auto}
+  h1{font-size:30px;margin-bottom:8px}
+  h2{font-size:20px;margin:28px 0 10px}
+  p,li{color:var(--mid);font-size:15px}
+  a{color:var(--accent)}
+  .meta{color:#5e6a76;font-size:13px;margin-bottom:24px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-top:20px}
+</style>
 </head>
 <body>
-    <h1>CinaHub 隐私政策</h1>
-    <p class="last-updated">最后更新日期：2026年7月12日</p>
+<div class="wrap">
+  <h1>Remote97 隐私政策</h1>
+  <p class="meta">最后更新：2026-10-12</p>
 
-    <h2>概述</h2>
-    <p>CinaHub 是一款家庭影院智能中控应用，用于在局域网内控制您的电视、功放等设备。我们非常重视您的隐私。</p>
-
-    <h2>数据收集</h2>
-    <p>CinaHub <strong>不收集任何用户个人数据</strong>。具体而言：</p>
+  <div class="card">
+    <h2>1. 我们收集什么</h2>
+    <p>Remote97 的核心控制功能完全在您的<strong>本地局域网</strong>内完成。App 不会将您的设备控制指令、设备列表或网络信息上传到任何远程服务器。</p>
     <ul>
-        <li>我们不收集个人身份信息（如姓名、邮箱、电话号码）</li>
-        <li>我们不收集设备标识符（如 IDFA、IDFV）</li>
-        <li>我们不收集位置信息</li>
-        <li>我们不收集使用数据或分析数据</li>
-        <li>我们不收集任何形式的用户数据</li>
+      <li>设备发现：仅扫描您所在的局域网（SSDP / mDNS / 定向探测），用于识别同网段设备。</li>
+      <li>设备状态：设备在线状态、音量、输入源等仅保存在本机，用于界面展示与场景执行。</li>
+      <li>我们<strong>不收集</strong>您的姓名、手机号、精确地理位置，也不上传任何使用行为数据。</li>
     </ul>
+  </div>
 
-    <h2>网络通信</h2>
-    <p>CinaHub 仅在您的本地局域网（Wi-Fi）内与您家中的设备进行通信，用于发送控制指令（如切换信号源、调节音量等）。所有通信均在局域网内完成，<strong>不经过任何外部服务器</strong>。</p>
+  <div class="card">
+    <h2>2. 数据存储</h2>
+    <p>所有设备配置与场景数据均存储在您的设备本地（应用沙盒 / 本地数据库），不会同步到云端。</p>
+  </div>
 
-    <h2>第三方服务</h2>
-    <p>CinaHub 不集成任何第三方服务、SDK 或分析工具，不包含任何广告。</p>
+  <div class="card">
+    <h2>3. 第三方服务</h2>
+    <p>App 本身不集成任何第三方数据分析或广告 SDK。通过各大应用商店分发时，商店平台自身的隐私政策独立适用。</p>
+  </div>
 
-    <h2>数据存储</h2>
-    <p>CinaHub 仅在您的设备本地存储应用设置（如设备列表、连接配置），这些数据不会上传或传输到任何服务器。卸载应用后，这些数据将被清除。</p>
+  <div class="card">
+    <h2>4. 您的权利</h2>
+    <p>您可以随时在 App 内删除任意设备与场景数据；卸载 App 会清除全部本地数据。</p>
+  </div>
 
-    <h2>儿童隐私</h2>
-    <p>CinaHub 不针对 13 周岁以下儿童，也不收集任何年龄段的个人信息。</p>
+  <div class="card">
+    <h2>5. 联系方式</h2>
+    <p>如对本政策有疑问，请联系：<a href="mailto:fzit@qq.com">fzit@qq.com</a></p>
+  </div>
 
-    <h2>隐私政策变更</h2>
-    <p>如果我们更新本隐私政策，将在此页面上发布最新版本，并更新"最后更新日期"。</p>
-
-    <h2>联系我们</h2>
-    <p>如果您对本隐私政策有任何疑问，请通过以下方式联系我们：</p>
-    <p>邮箱：<a href="mailto:fzit@qq.com">fzit@qq.com</a></p>
+  <p style="margin-top:30px"><a href="index.html">← 返回首页</a></p>
+</div>
 </body>
 </html>
