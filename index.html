@@ -4,133 +4,615 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Remote97 — 家庭影院中控</title>
-<meta name="description" content="Remote97：用一台手机 / 电脑 + WiFi，替代昂贵的家庭影院中控主机。支持 Denon、Marantz、Sony、Samsung、Apple TV、Roku、Xiaomi、LG、Yamaha、Sonos 等主流设备。" />
+<meta name="description" content="Remote97：用纯软件替代昂贵的家庭影院中控主机。通过本地 WiFi 控制功放、电视、流媒体播放器，支持 Denon、Marantz、Sony、Samsung、Apple TV、Roku、LG、Yamaha、Sonos 等主流设备。免费下载，数据不出局域网。" />
+<meta property="og:title" content="Remote97 — 家庭影院中控" />
+<meta property="og:description" content="一个 App，掌控整个家庭影院。本地 WiFi 直控，免费下载。" />
+<meta property="og:image" content="screenshots/screenshot2.jpg" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#0e1116; --bg2:#151a22; --card:#1b212b; --line:#2a323d;
-    --txt:#e7edf3; --mid:#9aa7b4; --accent:#4ea1ff; --accent2:#7c5cff;
+    --ink:#0B1020; --ink2:#111A36; --ink3:#0D1428;
+    --line:rgba(150,165,200,.14); --line-strong:rgba(150,165,200,.26);
+    --txt:#EAEFF9; --mid:#93A0BE; --dim:#5F6C8C;
+    --org:#F07E1D; --org-hot:#FF9436; --org-soft:rgba(240,126,29,.12);
+    --navy:#17335F;
+    --r:18px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
-    background:var(--bg);color:var(--txt);line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{color:var(--accent);text-decoration:none}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-  header{padding:22px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-  .logo{font-weight:800;font-size:22px;letter-spacing:.5px}
-  .logo span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  nav a{margin-left:22px;color:var(--mid);font-size:14px}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Sora",system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    background:var(--ink);color:var(--txt);line-height:1.65;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,16,32,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .bar{display:flex;align-items:center;gap:28px;height:66px}
+  .brand img{height:27px;display:block}
+  nav{display:flex;gap:26px;margin-left:auto}
+  nav a{color:var(--mid);font-size:14px;font-weight:500;transition:color .18s}
   nav a:hover{color:var(--txt)}
-  .hero{padding:80px 0 60px;text-align:center}
-  .hero h1{font-size:46px;line-height:1.15;margin-bottom:18px}
-  .hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero p{color:var(--mid);font-size:18px;max-width:680px;margin:0 auto 30px}
-  .badges{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;font-size:15px;
-    border:1px solid var(--line);background:var(--card);color:var(--txt);transition:.2s}
-  .btn:hover{border-color:var(--accent);transform:translateY(-1px)}
-  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;color:#fff}
-  section{padding:54px 0}
-  h2{font-size:30px;margin-bottom:10px}
-  .sub{color:var(--mid);margin-bottom:30px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
-  .card h3{font-size:18px;margin-bottom:8px}
-  .card p{color:var(--mid);font-size:14px}
-  .dl{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .dl .grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-  .store{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;text-align:center}
-  .store .t{font-weight:700;font-size:16px;margin-bottom:4px}
-  .store .d{color:var(--mid);font-size:13px;margin-bottom:14px;min-height:34px}
-  footer{padding:40px 0;border-top:1px solid var(--line);color:var(--mid);font-size:13px;text-align:center}
-  footer a{margin:0 8px}
-  @media(max-width:560px){.hero h1{font-size:34px}.hero{padding:54px 0 40px}}
+  .lang{position:relative;margin-left:6px}
+  .lang select{
+    appearance:none;-webkit-appearance:none;
+    background:var(--ink2);color:var(--txt);border:1px solid var(--line-strong);
+    border-radius:10px;padding:7px 30px 7px 12px;font:inherit;font-size:13px;cursor:pointer;
+  }
+  .lang::after{
+    content:"";position:absolute;right:12px;top:50%;width:7px;height:7px;
+    border-right:1.6px solid var(--mid);border-bottom:1.6px solid var(--mid);
+    transform:translateY(-70%) rotate(45deg);pointer-events:none;
+  }
+  .gh-link{display:flex;align-items:center;color:var(--mid);transition:color .18s}
+  .gh-link:hover{color:var(--txt)}
+  .gh-link svg{width:20px;height:20px;fill:currentColor}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:88px 0 72px}
+  .glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+  .glow.a{width:520px;height:520px;background:rgba(240,126,29,.13);top:-140px;right:-80px}
+  .glow.b{width:460px;height:460px;background:rgba(23,51,95,.5);bottom:-200px;left:-140px}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .kicker{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;color:var(--org);
+    background:var(--org-soft);border:1px solid rgba(240,126,29,.3);
+    border-radius:999px;padding:6px 14px;margin-bottom:26px;
+  }
+  .kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--org)}
+  h1{
+    font-size:clamp(2.4rem,5.2vw,3.9rem);line-height:1.12;letter-spacing:-.02em;
+    font-weight:800;margin-bottom:22px;
+  }
+  h1 em{font-style:normal;color:var(--org)}
+  .hero-sub{color:var(--mid);font-size:17.5px;max-width:560px;margin-bottom:34px}
+  .ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:14px 26px;border-radius:13px;font-weight:600;font-size:15.5px;
+    border:1px solid var(--line-strong);color:var(--txt);
+    transition:transform .18s,border-color .18s,background .18s,box-shadow .18s;
+  }
+  .btn svg{width:19px;height:19px;fill:currentColor}
+  .btn:hover{transform:translateY(-2px);border-color:var(--org)}
+  .btn-primary{
+    background:linear-gradient(180deg,var(--org-hot),var(--org));
+    border:none;color:#16100A;box-shadow:0 10px 30px -8px rgba(240,126,29,.55);
+  }
+  .btn-primary:hover{box-shadow:0 14px 36px -8px rgba(240,126,29,.7);border:none}
+  .hero-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;color:var(--dim);font-size:13.5px}
+  .hero-meta span{display:inline-flex;align-items:center;gap:7px}
+  .hero-meta span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--org);opacity:.75}
+  .dl-note{margin-top:14px;font-size:12.5px;color:var(--dim)}
+
+  /* phone mockup */
+  .phone-stage{position:relative;display:flex;justify-content:center}
+  .phone{
+    position:relative;
+    width:284px;border-radius:42px;padding:11px;
+    background:linear-gradient(180deg,#1B2547,#0D1428);
+    border:1px solid var(--line-strong);
+    box-shadow:0 40px 90px -22px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.03) inset;
+    animation:rise .8s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .phone img{display:block;width:100%;border-radius:32px}
+  .phone::after{
+    content:"";position:absolute;top:11px;left:50%;transform:translateX(-50%);
+    width:96px;height:22px;border-radius:0 0 16px 16px;background:#0D1428;z-index:2;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  .fade{animation:rise .7s .08s cubic-bezier(.2,.7,.2,1) both}
+  .fade2{animation:rise .7s .16s cubic-bezier(.2,.7,.2,1) both}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .phone,.fade,.fade2{animation:none}
+    .btn,.btn:hover{transition:none;transform:none}
+  }
+
+  /* ---------- brand strip ---------- */
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;background:var(--ink3)}
+  .strip .wrap{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap}
+  .strip .lab{font-size:13px;font-weight:700;color:var(--org);letter-spacing:.02em;white-space:nowrap}
+  .strip .names{color:var(--dim);font-size:14px;letter-spacing:.02em}
+
+  /* ---------- sections ---------- */
+  section{padding:84px 0}
+  .sec-head{margin-bottom:44px;max-width:640px}
+  h2{font-size:clamp(1.7rem,3vw,2.4rem);letter-spacing:-.015em;font-weight:800;line-height:1.2;margin-bottom:12px}
+  .sec-sub{color:var(--mid);font-size:16.5px}
+
+  /* features */
+  .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .fcard{
+    background:var(--ink2);border:1px solid var(--line);border-radius:var(--r);
+    padding:28px;transition:border-color .2s,transform .2s;
+  }
+  .fcard:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+  .fcard h3{font-size:17px;font-weight:700;margin-bottom:9px}
+  .fcard p{color:var(--mid);font-size:14.5px}
+  .fcard.big{grid-column:span 2;grid-row:span 1;display:flex;flex-direction:column;justify-content:space-between;gap:22px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{
+    font-size:12px;font-weight:600;color:var(--mid);
+    border:1px solid var(--line-strong);border-radius:8px;padding:4px 10px;letter-spacing:.03em;
+  }
+  .chip.o{color:var(--org);border-color:rgba(240,126,29,.4);background:var(--org-soft)}
+
+  /* downloads */
+  #download{background:var(--ink3);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .dtile{
+    position:relative;display:flex;flex-direction:column;gap:14px;
+    background:var(--ink2);border:1px solid var(--line);border-radius:var(--r);
+    padding:26px;transition:border-color .2s,transform .2s,box-shadow .2s;
+  }
+  .dtile:hover{transform:translateY(-3px)}
+  .dtile.direct{border-color:rgba(240,126,29,.45)}
+  .dtile.direct:hover{border-color:var(--org);box-shadow:0 18px 44px -18px rgba(240,126,29,.35)}
+  .badge{
+    position:absolute;top:18px;right:18px;
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--org);background:var(--org-soft);border:1px solid rgba(240,126,29,.35);
+    border-radius:999px;padding:4px 10px;
+  }
+  .dicon{width:44px;height:44px;border-radius:12px;background:var(--ink);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center}
+  .dicon svg{width:24px;height:24px;fill:var(--txt)}
+  .direct .dicon{background:var(--org-soft);border-color:rgba(240,126,29,.4)}
+  .direct .dicon svg{fill:var(--org)}
+  .dtile h3{font-size:16.5px;font-weight:700}
+  .dtile .dd{color:var(--mid);font-size:13.5px;flex:1}
+  .dmeta{font-size:12.5px;color:var(--dim)}
+  .dbtn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    border-radius:11px;padding:11px 18px;font-weight:600;font-size:14px;
+    border:1px solid var(--line-strong);transition:.18s;
+  }
+  .dbtn svg{width:16px;height:16px;fill:currentColor}
+  .dtile:not(.direct) .dbtn:hover{border-color:var(--org)}
+  .direct .dbtn{
+    background:linear-gradient(180deg,var(--org-hot),var(--org));
+    border:none;color:#16100A;font-weight:700;
+  }
+  .direct .dbtn:hover{filter:brightness(1.06)}
+
+  /* devices */
+  .vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .vcard{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+  .vcard h3{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--txt)}
+  .vcard h3 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--org);margin-right:11px;vertical-align:2px}
+  .vcard p{color:var(--mid);font-size:14.5px}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:44px 0 52px;background:var(--ink3)}
+  .f-links{display:flex;gap:24px;flex-wrap:wrap;font-size:14px;margin-bottom:20px}
+  .f-links a{color:var(--mid);transition:color .18s}
+  .f-links a:hover{color:var(--txt)}
+  .f-links img{height:20px;vertical-align:-4px;margin-right:8px}
+  .f-note{color:var(--dim);font-size:12.5px;line-height:1.7}
+
+  /* responsive */
+  @media(max-width:960px){
+    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .phone-stage{order:2}
+    .hero{padding:64px 0 56px}
+    .fgrid,.dgrid,.vgrid{grid-template-columns:repeat(2,1fr)}
+    .fcard.big{grid-column:span 2}
+  }
+  @media(max-width:620px){
+    nav a:not(.keep){display:none}
+    .fgrid,.dgrid,.vgrid{grid-template-columns:1fr}
+    .fcard.big{grid-column:span 1}
+    h1{font-size:2.15rem}
+    .phone{width:248px}
+    .bar{gap:14px}
+    .lang select{padding:6px 26px 6px 10px;font-size:12px}
+  }
 </style>
 </head>
 <body>
-<header class="wrap">
-  <div class="logo">Remote<span>97</span></div>
-  <nav>
-    <a href="#features">功能</a>
-    <a href="#download">下载</a>
-    <a href="privacy.html">隐私政策</a>
-    <a href="https://github.com/Benjamin-LY777/remote97">GitHub</a>
-  </nav>
-</header>
 
-<section class="hero wrap">
-  <h1>用一台手机 / 电脑<br>替代昂贵的<span>家庭影院中控</span></h1>
-  <p>Remote97 是一款纯软件的家庭影院遥控中心：无需中控主机，通过 WiFi 直接控制你的功放、电视、流媒体播放器，并把它们编排成一键场景。</p>
-  <div class="badges">
-    <a class="btn primary" href="#download">免费下载</a>
-    <a class="btn" href="#features">查看支持设备</a>
-  </div>
-</section>
-
-<section id="features" class="wrap">
-  <h2>核心能力</h2>
-  <p class="sub">一个 App，控制整个影音室。</p>
-  <div class="grid">
-    <div class="card"><h3>多品牌统一遥控</h3><p>功放、电视、流媒体播放器集中在同一界面，告别一堆各自为战的遥控器。</p></div>
-    <div class="card"><h3>一键场景</h3><p>“观影模式”“K 歌模式”一键联动：关灯、开功放、切信号源、调音量自动完成。</p></div>
-    <div class="card"><h3>纯局域网控制</h3><p>设备指令全部走本地 WiFi（Telnet / HTTP / WebSocket / UPnP），不依赖云端，断网也能用。</p></div>
-    <div class="card"><h3>自动发现</h3><p>打开 App 即在后台发现同网段设备，省去手动配置 IP 的麻烦。</p></div>
-    <div class="card"><h3>跨平台</h3><p>Android、Windows、iOS、微软商店多端覆盖，随时随地控制。</p></div>
-    <div class="card"><h3>持续扩展</h3><p>已在路线图中规划 Roku、Yamaha、Sonos、Onkyo、Bluesound 等更多设备。</p></div>
-  </div>
-</section>
-
-<section id="download" class="dl">
-  <div class="wrap">
-    <h2>下载 Remote97</h2>
-    <p class="sub">选择你的平台。APK 与 Windows 版也可从 GitHub Releases 直接获取。</p>
-    <div class="grid">
-      <div class="store">
-        <div class="t">Google Play</div>
-        <div class="d">Android 官方商店</div>
-        <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.cinahub.app">前往下载</a>
-      </div>
-      <div class="store">
-        <div class="t">App Store</div>
-        <div class="d">iPhone / iPad（新版本审核中，敬请期待）</div>
-        <a class="btn" href="https://apps.apple.com/app/id6790016957">前往下载</a>
-      </div>
-      <div class="store">
-        <div class="t">Microsoft Store</div>
-        <div class="d">Windows 官方商店</div>
-        <a class="btn" href="https://apps.microsoft.com/detail/9pdxn0618930">前往下载</a>
-      </div>
-      <div class="store">
-        <div class="t">Android APK</div>
-        <div class="d">直接安装（适合无法访问商店的用户）</div>
-        <a class="btn" href="https://github.com/Benjamin-LY777/remote97/releases">下载 APK</a>
-      </div>
-      <div class="store">
-        <div class="t">Windows 版 (ZIP)</div>
-        <div class="d">便携版，解压即用</div>
-        <a class="btn" href="https://github.com/Benjamin-LY777/remote97/releases">下载 ZIP</a>
-      </div>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#" aria-label="Remote97">
+      <img src="remote97_wordmark.png" alt="Remote97" />
+    </a>
+    <nav>
+      <a href="#features" data-i18n="nav.features">功能</a>
+      <a href="#download" data-i18n="nav.download" class="keep">下载</a>
+      <a href="#devices" data-i18n="nav.devices">支持设备</a>
+      <a href="privacy.html" data-i18n="nav.privacy">隐私政策</a>
+    </nav>
+    <a class="gh-link" href="https://github.com/Benjamin-LY777/remote97" aria-label="GitHub">
+      <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+    <div class="lang">
+      <select id="langSel" aria-label="Language">
+        <option value="en">English</option>
+        <option value="zh">简体中文</option>
+        <option value="ja">日本語</option>
+        <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+      </select>
     </div>
   </div>
-</section>
+</header>
 
-<section class="wrap">
-  <h2>支持的设备（持续增加中）</h2>
-  <p class="sub">覆盖主流家庭影院品牌。</p>
-  <div class="grid">
-    <div class="card"><h3>功放 AVR</h3><p>Denon、Marantz、Yamaha、Onkyo</p></div>
-    <div class="card"><h3>电视</h3><p>Sony BRAVIA、Samsung、LG webOS、Xiaomi / Redmi、Apple TV、Roku</p></div>
-    <div class="card"><h3>流媒体 / 音响</h3><p>Sonos、Bluesound（BluOS）、WiiM、Arylic（LinkPlay）</p></div>
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="glow a"></div><div class="glow b"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker fade" data-i18n="hero.kicker">纯软件中控 · 无需硬件</span>
+        <h1 class="fade" data-i18n="hero.title_html">一个 App，掌控<em>整个家庭影院</em></h1>
+        <p class="hero-sub fade" data-i18n="hero.sub">Remote97 用纯软件替代昂贵的中控主机：通过本地 WiFi 直接控制功放、电视与流媒体播放器——不依赖云端，无需额外硬件，更没有订阅费。</p>
+        <div class="ctas fade2">
+          <a class="btn btn-primary" id="ctaZip" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.5/Remote97-v1.2.5-windows-x64.zip">
+            <svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg>
+            <span data-i18n="hero.cta_zip">下载 Windows 版</span>
+          </a>
+          <a class="btn" id="ctaApk" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.3/app-release.apk">
+            <svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg>
+            <span data-i18n="hero.cta_apk">下载 Android APK</span>
+          </a>
+        </div>
+        <div class="hero-meta fade2">
+          <span data-i18n="hero.m1">免费 · 无广告</span>
+          <span data-i18n="hero.m2">数据不出局域网</span>
+          <span data-i18n="hero.m3">v1.2.5 · Windows / Android / iOS</span>
+        </div>
+        <p class="dl-note" data-i18n="hero.note">直链下载 · 托管于 GitHub Releases</p>
+      </div>
+      <div class="phone-stage">
+        <div class="phone">
+          <img src="screenshots/screenshot2.jpg" alt="Remote97 app — device control" width="869" height="1850" loading="eager" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BRAND STRIP ============ -->
+  <div class="strip">
+    <div class="wrap">
+      <span class="lab" data-i18n="strip.lab">已支持</span>
+      <span class="names">Denon · Marantz · Sony · Samsung · LG · Yamaha · Onkyo · Sonos · Apple TV · Roku · Xiaomi / Redmi · WiiM · Arylic · Bluesound (BluOS) …</span>
+    </div>
   </div>
-</section>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features" class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="feat.title">为整套影音系统而生</h2>
+      <p class="sec-sub" data-i18n="feat.sub">过去需要一把把遥控器做的事，现在集中在一处。</p>
+    </div>
+    <div class="fgrid">
+      <div class="fcard big">
+        <div>
+          <h3 data-i18n="f1.t">纯局域网控制</h3>
+          <p data-i18n="f1.d">所有指令都走本地网络，不经过任何云端服务器——家里外网断了，照样能控。</p>
+        </div>
+        <div class="chips">
+          <span class="chip o">Local</span>
+          <span class="chip">Telnet</span>
+          <span class="chip">HTTP</span>
+          <span class="chip">WebSocket</span>
+          <span class="chip">UPnP</span>
+          <span class="chip">mDNS</span>
+          <span class="chip">SSDP</span>
+        </div>
+      </div>
+      <div class="fcard"><h3 data-i18n="f2.t">多品牌统一遥控</h3><p data-i18n="f2.d">功放、电视、流媒体播放器集中在同一界面，告别茶几上的遥控器堆。</p></div>
+      <div class="fcard"><h3 data-i18n="f3.t">一键场景</h3><p data-i18n="f3.d">「观影模式」一键联动：开功放、切信号源、调音量，按你编排的顺序自动完成。</p></div>
+      <div class="fcard"><h3 data-i18n="f4.t">自动发现</h3><p data-i18n="f4.d">打开 App 即自动扫描同一 WiFi 下的设备，选中即连，无需手动配置 IP。</p></div>
+      <div class="fcard"><h3 data-i18n="f5.t">多端覆盖</h3><p data-i18n="f5.d">Android、Windows、iOS 三端同一体验，手机、平板、电脑都能当遥控器。</p></div>
+      <div class="fcard"><h3 data-i18n="f6.t">持续扩展</h3><p data-i18n="f6.d">设备支持按路线图稳步增加：Roku、Yamaha、Sonos、Bluesound 等已在路上。</p></div>
+    </div>
+  </section>
+
+  <!-- ============ DOWNLOAD ============ -->
+  <section id="download">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="dl.title">下载 Remote97</h2>
+        <p class="sec-sub" data-i18n="dl.sub">点击即下载，无需跳转。商店版与直链版内容一致。</p>
+      </div>
+      <div class="dgrid">
+        <a class="dtile direct" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.3/app-release.apk">
+          <span class="badge" data-i18n="badge.direct">直链</span>
+          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M7.6 9.3a5.6 5.6 0 0 1 8.8 0l1.2-.9a.6.6 0 1 1 .72.96l-1.1.83c.4.75.63 1.6.63 2.51H5.15c0-.9.23-1.76.63-2.5l-1.1-.84a.6.6 0 1 1 .72-.96l1.2.9zM9.5 13a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6zm5 0a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6zM5.2 13.9h13.6v5a1.3 1.3 0 0 1-1.3 1.3H6.5a1.3 1.3 0 0 1-1.3-1.3v-5zM8.3 4.7a.55.55 0 1 1 .95-.56l.86 1.5a7.9 7.9 0 0 1 3.78 0l.86-1.5a.55.55 0 1 1 .95.56l-.83 1.44a6.9 6.9 0 0 1 3.23 3.06H5.9A6.9 6.9 0 0 1 9.13 6.14L8.3 4.7z"/></svg></div>
+          <div>
+            <h3>Android APK</h3>
+            <p class="dd" data-i18n="t.apk.d">直接安装，无需应用商店</p>
+          </div>
+          <span class="dmeta">v1.2.3 · 55.5 MB</span>
+          <span class="dbtn"><svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg><span data-i18n="btn.direct">直接下载</span></span>
+        </a>
+        <a class="dtile direct" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.5/Remote97-v1.2.5-windows-x64.zip">
+          <span class="badge" data-i18n="badge.direct">直链</span>
+          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm0 13 7.5 1.1v-7H3v5.9zM11.5 4.2 21 3v8.5h-9.5V4.2zm0 15.6 9.5 1.2v-8.5h-9.5v7.3z"/></svg></div>
+          <div>
+            <h3>Windows 便携版</h3>
+            <p class="dd" data-i18n="t.zip.d">解压即用，无需安装</p>
+          </div>
+          <span class="dmeta">v1.2.5 · 15.4 MB · x64</span>
+          <span class="dbtn"><svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg><span data-i18n="btn.direct">直接下载</span></span>
+        </a>
+        <a class="dtile" href="https://play.google.com/store/apps/details?id=com.cinahub.app" target="_blank" rel="noopener">
+          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M5 3.6c0-.9.95-1.45 1.7-1L19.2 10c.8.5.8 1.6 0 2.1L6.7 19.5c-.75.45-1.7-.1-1.7-1V3.6zM4.6 5.6 12 12l-7.4 6.4c-.4-.2-.6-.6-.6-1V6.6c0-.4.2-.8.6-1z" opacity=".55"/><path d="M4.6 5.6c0-.4.2-.8.6-1L15.9 12 5.2 19.4c-.4-.2-.6-.6-.6-1V5.6z"/></svg></div>
+          <div>
+            <h3>Google Play</h3>
+            <p class="dd" data-i18n="t.gp.d">Android 官方商店</p>
+          </div>
+          <span class="dbtn"><span data-i18n="btn.store">前往商店</span></span>
+        </a>
+        <a class="dtile" href="https://apps.apple.com/app/id6790016957" target="_blank" rel="noopener">
+          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M16.6 12.9c0-2.1 1.7-3.1 1.8-3.2-1-1.4-2.5-1.6-3-1.7-1.3-.1-2.5.8-3.1.8-.6 0-1.6-.8-2.7-.7-1.4 0-2.7.8-3.4 2-1.5 2.5-.4 6.3 1 8.3.7 1 1.5 2.1 2.6 2.1 1 0 1.4-.7 2.7-.7s1.6.7 2.7.7c1.1 0 1.8-1 2.5-2 .8-1.2 1.1-2.3 1.2-2.4-.1-.1-2.3-.9-2.3-3.2zM14.6 6.6c.6-.7 1-1.6.9-2.6-.9 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.5 1 .1 2-.5 2.5-1.2z"/></svg></div>
+          <div>
+            <h3>App Store</h3>
+            <p class="dd" data-i18n="t.as.d">iPhone / iPad</p>
+          </div>
+          <span class="dbtn"><span data-i18n="btn.store">前往商店</span></span>
+        </a>
+        <a class="dtile" href="https://apps.microsoft.com/detail/9pdxn0618930" target="_blank" rel="noopener">
+          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm0 13 7.5 1.1v-7H3v5.9zM11.5 4.2 21 3v8.5h-9.5V4.2zm0 15.6 9.5 1.2v-8.5h-9.5v7.3z"/></svg></div>
+          <div>
+            <h3>Microsoft Store</h3>
+            <p class="dd" data-i18n="t.ms.d">Windows 官方商店</p>
+          </div>
+          <span class="dbtn"><span data-i18n="btn.store">前往商店</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DEVICES ============ -->
+  <section id="devices" class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="dev.title">支持的设备</h2>
+      <p class="sec-sub" data-i18n="dev.sub">覆盖主流家庭影院品牌，持续增加中。</p>
+    </div>
+    <div class="vgrid">
+      <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g1.t">功放 AVR</span></h3><p>Denon · Marantz · Yamaha · Onkyo</p></div>
+      <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g2.t">电视与盒子</span></h3><p>Sony BRAVIA · Samsung · LG webOS · Xiaomi / Redmi · Apple TV · Roku</p></div>
+      <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g3.t">流媒体与音响</span></h3><p>Sonos · Bluesound (BluOS) · WiiM · Arylic (LinkPlay)</p></div>
+    </div>
+  </section>
+</main>
 
 <footer>
-  <div>
-    <a href="privacy.html">隐私政策</a> ·
-    <a href="https://github.com/Benjamin-LY777/remote97">GitHub</a> ·
-    <a href="mailto:fzit@qq.com">技术支持</a>
+  <div class="wrap">
+    <div class="f-links">
+      <a href="privacy.html" data-i18n="nav.privacy">隐私政策</a>
+      <a href="https://github.com/Benjamin-LY777/remote97">GitHub</a>
+      <a href="mailto:fzit@qq.com" data-i18n="foot.support">技术支持</a>
+    </div>
+    <p class="f-note" data-i18n="foot.rights">© 2026 Remote97 · 保留所有权利</p>
+    <p class="f-note" data-i18n="foot.disc">Remote97 与所列品牌无隶属关系，仅通过标准网络协议进行本地控制。</p>
   </div>
-  <p style="margin-top:12px">© 2026 Remote97. 保留所有权利。</p>
-  <p style="margin-top:6px;color:#5e6a76">Remote97 与所列品牌厂商无隶属关系，仅通过标准网络协议进行控制。</p>
 </footer>
+
+<script>
+(function(){
+  "use strict";
+  var I18N = {
+    zh:{
+      "title":"Remote97 — 家庭影院中控",
+      "nav.features":"功能","nav.download":"下载","nav.devices":"支持设备","nav.privacy":"隐私政策",
+      "hero.kicker":"纯软件中控 · 无需硬件",
+      "hero.title_html":"一个 App，掌控<em>整个家庭影院</em>",
+      "hero.sub":"Remote97 用纯软件替代昂贵的中控主机：通过本地 WiFi 直接控制功放、电视与流媒体播放器——不依赖云端，无需额外硬件，更没有订阅费。",
+      "hero.cta_zip":"下载 Windows 版","hero.cta_apk":"下载 Android APK",
+      "hero.m1":"免费 · 无广告","hero.m2":"数据不出局域网","hero.m3":"v1.2.5 · Windows / Android / iOS",
+      "hero.note":"直链下载 · 托管于 GitHub Releases",
+      "strip.lab":"已支持",
+      "feat.title":"为整套影音系统而生",
+      "feat.sub":"过去需要一把把遥控器做的事，现在集中在一处。",
+      "f1.t":"纯局域网控制","f1.d":"所有指令都走本地网络，不经过任何云端服务器——家里外网断了，照样能控。",
+      "f2.t":"多品牌统一遥控","f2.d":"功放、电视、流媒体播放器集中在同一界面，告别茶几上的遥控器堆。",
+      "f3.t":"一键场景","f3.d":"「观影模式」一键联动：开功放、切信号源、调音量，按你编排的顺序自动完成。",
+      "f4.t":"自动发现","f4.d":"打开 App 即自动扫描同一 WiFi 下的设备，选中即连，无需手动配置 IP。",
+      "f5.t":"多端覆盖","f5.d":"Android、Windows、iOS 三端同一体验，手机、平板、电脑都能当遥控器。",
+      "f6.t":"持续扩展","f6.d":"设备支持按路线图稳步增加：Roku、Yamaha、Sonos、Bluesound 等已在路上。",
+      "dl.title":"下载 Remote97","dl.sub":"点击即下载，无需跳转。商店版与直链版内容一致。",
+      "badge.direct":"直链",
+      "t.apk.d":"直接安装，无需应用商店","t.zip.d":"解压即用，无需安装",
+      "t.gp.d":"Android 官方商店","t.as.d":"iPhone / iPad","t.ms.d":"Windows 官方商店",
+      "btn.direct":"直接下载","btn.store":"前往商店",
+      "dev.title":"支持的设备","dev.sub":"覆盖主流家庭影院品牌，持续增加中。",
+      "dev.g1.t":"功放 AVR","dev.g2.t":"电视与盒子","dev.g3.t":"流媒体与音响",
+      "foot.support":"技术支持","foot.rights":"© 2026 Remote97 · 保留所有权利",
+      "foot.disc":"Remote97 与所列品牌无隶属关系，仅通过标准网络协议进行本地控制。"
+    },
+    en:{
+      "title":"Remote97 — Home Theater Control Hub",
+      "nav.features":"Features","nav.download":"Download","nav.devices":"Devices","nav.privacy":"Privacy",
+      "hero.kicker":"Pure software · no hardware hub",
+      "hero.title_html":"One app for your <em>entire home theater</em>",
+      "hero.sub":"Remote97 replaces expensive control processors with pure software. Control your AV receiver, TV and streamers over local WiFi — no cloud, no extra hardware, no subscription.",
+      "hero.cta_zip":"Download for Windows","hero.cta_apk":"Download Android APK",
+      "hero.m1":"Free · no ads","hero.m2":"Data never leaves your LAN","hero.m3":"v1.2.5 · Windows / Android / iOS",
+      "hero.note":"Direct download · hosted on GitHub Releases",
+      "strip.lab":"Works with",
+      "feat.title":"Built for the whole system",
+      "feat.sub":"What used to take a drawer full of remotes — now in one place.",
+      "f1.t":"Pure local control","f1.d":"Every command stays on your home network (Telnet / HTTP / WebSocket / UPnP / mDNS). No cloud in between — it works even when the internet is down.",
+      "f2.t":"One remote for every brand","f2.d":"Receivers, TVs and streamers in a single interface. Retire the pile of remotes on the coffee table.",
+      "f3.t":"One-tap scenes","f3.d":"\u201cMovie night\u201d runs your sequence automatically: power the receiver, switch inputs, set the volume.",
+      "f4.t":"Automatic discovery","f4.d":"Open the app and devices on your WiFi appear on their own — no manual IP setup.",
+      "f5.t":"Every screen","f5.d":"Android, Windows and iOS share the same experience. Phone, tablet or PC — all become the remote.",
+      "f6.t":"Growing fast","f6.d":"New brands land steadily: Roku, Yamaha, Sonos, Bluesound and more are on the roadmap.",
+      "dl.title":"Download Remote97","dl.sub":"Tap and it downloads — no redirect. Store builds and direct links are identical.",
+      "badge.direct":"Direct",
+      "t.apk.d":"Install without an app store","t.zip.d":"Unzip and run — no installer",
+      "t.gp.d":"Official Android store","t.as.d":"iPhone / iPad","t.ms.d":"Official Windows store",
+      "btn.direct":"Direct download","btn.store":"Open store",
+      "dev.title":"Supported devices","dev.sub":"The mainstream brands of home theater, with more on the way.",
+      "dev.g1.t":"AV receivers","dev.g2.t":"TVs & boxes","dev.g3.t":"Streamers & speakers",
+      "foot.support":"Support","foot.rights":"© 2026 Remote97. All rights reserved.",
+      "foot.disc":"Remote97 is not affiliated with the brands listed; it controls devices locally over standard network protocols."
+    },
+    ja:{
+      "title":"Remote97 — ホームシアター統合リモート",
+      "nav.features":"機能","nav.download":"ダウンロード","nav.devices":"対応デバイス","nav.privacy":"プライバシー",
+      "hero.kicker":"純ソフトウェア · ハブ不要",
+      "hero.title_html":"ひとつのアプリで、<em>ホームシアター全体</em>を",
+      "hero.sub":"Remote97 は高価なコントロールプロセッサーを純ソフトウェアで置き換えます。LAN 内の Wi-Fi だけでアンプ・テレビ・ストリーミング機器を操作。クラウドもハブもサブスクも不要です。",
+      "hero.cta_zip":"Windows 版をダウンロード","hero.cta_apk":"Android APK をダウンロード",
+      "hero.m1":"無料 · 広告なし","hero.m2":"データは LAN 内だけ","hero.m3":"v1.2.5 · Windows / Android / iOS",
+      "hero.note":"直接ダウンロード · GitHub Releases から配信",
+      "strip.lab":"対応デバイス",
+      "feat.title":"システム全体を、ひとつのアプリに",
+      "feat.sub":"かつて何本もあったリモコンの仕事を、ここに集約。",
+      "f1.t":"完全ローカル制御","f1.d":"すべてのコマンドは自宅ネットワーク内（Telnet / HTTP / WebSocket / UPnP / mDNS）で完結。クラウドを介さないため、インターネットが切れても操作できます。",
+      "f2.t":"すべてのブランドを一つの画面に","f2.d":"アンプ・テレビ・ストリーマーを一つの UI で操作。リモコンの山とはお別れです。",
+      "f3.t":"ワンタップシーン","f3.d":"「映画モード」をワンタップ。アンプの電源・入力切替・音量調整を自動で実行します。",
+      "f4.t":"自動発見","f4.d":"アプリを開けば同じ Wi-Fi の機器を自動検出。IP 設定は不要です。",
+      "f5.t":"マルチプラットフォーム","f5.d":"Android・Windows・iOS で同じ体験。スマホもタブレットも PC もリモコンになります。",
+      "f6.t":"順次拡大","f6.d":"Roku・Yamaha・Sonos・Bluesound など、対応機種を継続的に追加中。",
+      "dl.title":"Remote97 をダウンロード","dl.sub":"タップですぐダウンロード。ストア版と直リンク版は同じ内容です。",
+      "badge.direct":"直リンク",
+      "t.apk.d":"ストアなしで直接インストール","t.zip.d":"解凍してすぐ実行",
+      "t.gp.d":"Android 公式ストア","t.as.d":"iPhone / iPad","t.ms.d":"Windows 公式ストア",
+      "btn.direct":"直接ダウンロード","btn.store":"ストアへ",
+      "dev.title":"対応デバイス","dev.sub":"ホームシアターの主要ブランドに対応、続々追加中。",
+      "dev.g1.t":"AV アンプ","dev.g2.t":"テレビ & ボックス","dev.g3.t":"ストリーマー & スピーカー",
+      "foot.support":"サポート","foot.rights":"© 2026 Remote97. All rights reserved.",
+      "foot.disc":"Remote97 は記載のブランドと提携関係にありません。標準ネットワークプロトコルによるローカル制御のみを行います。"
+    },
+    de:{
+      "title":"Remote97 — Steuerzentrale für dein Heimkino",
+      "nav.features":"Funktionen","nav.download":"Download","nav.devices":"Geräte","nav.privacy":"Datenschutz",
+      "hero.kicker":"Reine Software · keine Hardware nötig",
+      "hero.title_html":"Eine App für dein <em>komplettes Heimkino</em>",
+      "hero.sub":"Remote97 ersetzt teure Steuerzentralen durch pure Software. AV-Receiver, TVs und Streamer werden direkt über dein Heimnetzwerk gesteuert — keine Cloud, kein Zusatzgerät, kein Abo.",
+      "hero.cta_zip":"Für Windows herunterladen","hero.cta_apk":"Android APK herunterladen",
+      "hero.m1":"Kostenlos · keine Werbung","hero.m2":"Daten bleiben im Heimnetz","hero.m3":"v1.2.5 · Windows / Android / iOS",
+      "hero.note":"Direktdownload · gehostet auf GitHub Releases",
+      "strip.lab":"Kompatibel mit",
+      "feat.title":"Gebaut für das ganze System",
+      "feat.sub":"Wofür früher eine Schublade voller Fernbedienungen nötig war — jetzt an einem Ort.",
+      "f1.t":"Rein lokale Steuerung","f1.d":"Jeder Befehl bleibt im Heimnetzwerk (Telnet / HTTP / WebSocket / UPnP / mDNS). Keine Cloud dazwischen — funktioniert auch ohne Internet.",
+      "f2.t":"Ein Remote für alle Marken","f2.d":"Receiver, TVs und Streamer in einer Oberfläche. Der Fernbedienungs-Stapel kann gehen.",
+      "f3.t":"Szenen auf einen Tipp","f3.d":"\u201eFilmabend\u201c startet deine Folge automatisch: Receiver ein, Quelle wählen, Lautstärke setzen.",
+      "f4.t":"Automatische Erkennung","f4.d":"App öffnen, Geräte im WLAN erscheinen von selbst — keine manuelle IP-Konfiguration.",
+      "f5.t":"Für jeden Bildschirm","f5.d":"Android, Windows und iOS mit demselben Erlebnis. Handy, Tablet oder PC — alles wird zur Fernbedienung.",
+      "f6.t":"Stetiges Wachstum","f6.d":"Neue Marken kommen regelmäßig dazu: Roku, Yamaha, Sonos, Bluesound und mehr.",
+      "dl.title":"Remote97 herunterladen","dl.sub":"Antippen und los — keine Weiterleitung. Store- und Direktversion sind identisch.",
+      "badge.direct":"Direkt",
+      "t.apk.d":"Installieren ohne App-Store","t.zip.d":"Entpacken und starten — kein Installer",
+      "t.gp.d":"Offizieller Android-Store","t.as.d":"iPhone / iPad","t.ms.d":"Offizieller Windows-Store",
+      "btn.direct":"Direktdownload","btn.store":"Zum Store",
+      "dev.title":"Unterstützte Geräte","dev.sub":"Die gängigen Marken des Heimkinos — laufend mehr.",
+      "dev.g1.t":"AV-Receiver","dev.g2.t":"TVs & Boxen","dev.g3.t":"Streamer & Lautsprecher",
+      "foot.support":"Support","foot.rights":"© 2026 Remote97. Alle Rechte vorbehalten.",
+      "foot.disc":"Remote97 steht in keiner Verbindung zu den genannten Marken; die Steuerung erfolgt lokal über Standard-Netzwerkprotokolle."
+    },
+    es:{
+      "title":"Remote97 — Control total de tu home cinema",
+      "nav.features":"Funciones","nav.download":"Descargar","nav.devices":"Dispositivos","nav.privacy":"Privacidad",
+      "hero.kicker":"Software puro · sin hardware extra",
+      "hero.title_html":"Una app para todo tu <em>home cinema</em>",
+      "hero.sub":"Remote97 reemplaza los caros procesadores de control con software puro. Controla tu receptor AV, TV y reproductores por WiFi local — sin nube, sin hardware extra, sin suscripción.",
+      "hero.cta_zip":"Descargar para Windows","hero.cta_apk":"Descargar APK de Android",
+      "hero.m1":"Gratis · sin anuncios","hero.m2":"Los datos no salen de tu red","hero.m3":"v1.2.5 · Windows / Android / iOS",
+      "hero.note":"Descarga directa · alojado en GitHub Releases",
+      "strip.lab":"Compatible con",
+      "feat.title":"Pensado para todo el sistema",
+      "feat.sub":"Lo que antes exigía un cajón lleno de mandos, ahora en un solo lugar.",
+      "f1.t":"Control 100 % local","f1.d":"Cada orden viaja por tu red doméstica (Telnet / HTTP / WebSocket / UPnP / mDNS), sin nubes de por medio. Funciona incluso sin internet.",
+      "f2.t":"Un mando para todas las marcas","f2.d":"Receptores, TVs y reproductores en una sola interfaz. Adiós a la pila de mandos.",
+      "f3.t":"Escenas con un toque","f3.d":"«Noche de cine» ejecuta tu secuencia: encender el receptor, cambiar de entrada, ajustar el volumen.",
+      "f4.t":"Detección automática","f4.d":"Abre la app y los dispositivos de tu WiFi aparecen solos — sin configurar IPs.",
+      "f5.t":"En todas tus pantallas","f5.d":"Android, Windows e iOS comparten la misma experiencia. Móvil, tablet o PC: todos son el mando.",
+      "f6.t":"En constante crecimiento","f6.d":"Nuevas marcas llegando paso a paso: Roku, Yamaha, Sonos, Bluesound y más.",
+      "dl.title":"Descargar Remote97","dl.sub":"Toca y se descarga, sin redirecciones. Las versiones de tienda y los enlaces directos son idénticos.",
+      "badge.direct":"Directo",
+      "t.apk.d":"Instala sin tienda de apps","t.zip.d":"Descomprime y ejecuta, sin instalador",
+      "t.gp.d":"Tienda oficial de Android","t.as.d":"iPhone / iPad","t.ms.d":"Tienda oficial de Windows",
+      "btn.direct":"Descarga directa","btn.store":"Abrir tienda",
+      "dev.title":"Dispositivos compatibles","dev.sub":"Las principales marcas del home cinema, y siguen sumando.",
+      "dev.g1.t":"Receptores AV","dev.g2.t":"TVs y boxes","dev.g3.t":"Streamers y altavoces",
+      "foot.support":"Soporte","foot.rights":"© 2026 Remote97. Todos los derechos reservados.",
+      "foot.disc":"Remote97 no está afiliado a las marcas mencionadas; controla los dispositivos localmente mediante protocolos de red estándar."
+    },
+    pt:{
+      "title":"Remote97 — Central do seu home theater",
+      "nav.features":"Recursos","nav.download":"Download","nav.devices":"Dispositivos","nav.privacy":"Privacidade",
+      "hero.kicker":"Software puro · sem hardware extra",
+      "hero.title_html":"Um app para todo o seu <em>home theater</em>",
+      "hero.sub":"O Remote97 substitui caros processadores de controle por software puro. Controle receiver, TV e players pelo Wi-Fi local — sem nuvem, sem hardware extra, sem assinatura.",
+      "hero.cta_zip":"Baixar para Windows","hero.cta_apk":"Baixar APK para Android",
+      "hero.m1":"Grátis · sem anúncios","hero.m2":"Seus dados não saem da rede local","hero.m3":"v1.2.5 · Windows / Android / iOS",
+      "hero.note":"Download direto · hospedado no GitHub Releases",
+      "strip.lab":"Compatível com",
+      "feat.title":"Feito para o sistema inteiro",
+      "feat.sub":"O que antes exigia uma gaveta de controles, agora em um só lugar.",
+      "f1.t":"Controle 100% local","f1.d":"Cada comando circula na sua rede doméstica (Telnet / HTTP / WebSocket / UPnP / mDNS), sem nuvem no caminho. Funciona até sem internet.",
+      "f2.t":"Um controle para todas as marcas","f2.d":"Receivers, TVs e players em uma única interface. Adeus, pilha de controles.",
+      "f3.t":"Cenas com um toque","f3.d":"«Noite de cinema» executa sua sequência: liga o receiver, troca a entrada, ajusta o volume.",
+      "f4.t":"Descoberta automática","f4.d":"Abra o app e os dispositivos do seu Wi-Fi aparecem sozinhos — sem configurar IP.",
+      "f5.t":"Em todas as suas telas","f5.d":"Android, Windows e iOS com a mesma experiência. Celular, tablet ou PC: todos viram o controle.",
+      "f6.t":"Em constante expansão","f6.d":"Novas marcas chegando sem parar: Roku, Yamaha, Sonos, Bluesound e mais.",
+      "dl.title":"Baixar o Remote97","dl.sub":"Toque e baixe, sem redirecionamento. As versões da loja e os links diretos são idênticos.",
+      "badge.direct":"Direto",
+      "t.apk.d":"Instale sem loja de aplicativos","t.zip.d":"Extraia e execute, sem instalador",
+      "t.gp.d":"Loja oficial do Android","t.as.d":"iPhone / iPad","t.ms.d":"Loja oficial do Windows",
+      "btn.direct":"Download direto","btn.store":"Abrir loja",
+      "dev.title":"Dispositivos compatíveis","dev.sub":"As principais marcas do home theater, e sempre crescendo.",
+      "dev.g1.t":"Receivers AV","dev.g2.t":"TVs e boxes","dev.g3.t":"Players e caixas de som",
+      "foot.support":"Suporte","foot.rights":"© 2026 Remote97. Todos os direitos reservados.",
+      "foot.disc":"O Remote97 não é afiliado às marcas citadas; o controle é feito localmente por protocolos de rede padrão."
+    }
+  };
+  var LANGS = ["en","zh","ja","de","es","pt"];
+  var HTMLLANG = {en:"en",zh:"zh-CN",ja:"ja",de:"de",es:"es",pt:"pt"};
+
+  function detect(){
+    var q = new URLSearchParams(location.search).get("lang");
+    if (q && LANGS.indexOf(q) >= 0) return q;
+    var saved = null;
+    try { saved = localStorage.getItem("r97lang"); } catch(e){}
+    if (saved && LANGS.indexOf(saved) >= 0) return saved;
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
+    nav = nav.toLowerCase();
+    if (nav.indexOf("zh") === 0) return "zh";
+    if (nav.indexOf("ja") === 0) return "ja";
+    if (nav.indexOf("de") === 0) return "de";
+    if (nav.indexOf("es") === 0) return "es";
+    if (nav.indexOf("pt") === 0) return "pt";
+    return "en";
+  }
+
+  function apply(lang){
+    var dict = I18N[lang] || I18N.en;
+    var nodes = document.querySelectorAll("[data-i18n]");
+    for (var i = 0; i < nodes.length; i++){
+      var key = nodes[i].getAttribute("data-i18n");
+      if (dict[key]) nodes[i].innerHTML = dict[key];
+    }
+    document.documentElement.lang = HTMLLANG[lang] || lang;
+    document.title = dict["title"];
+    try { localStorage.setItem("r97lang", lang); } catch(e){}
+    var sel = document.getElementById("langSel");
+    if (sel) sel.value = lang;
+  }
+
+  var sel = document.getElementById("langSel");
+  if (sel) sel.addEventListener("change", function(){ apply(sel.value); });
+  apply(detect());
+})();
+</script>
 </body>
 </html>
