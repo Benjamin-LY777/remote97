@@ -1,77 +1,82 @@
-# CinaHub
+# Remote97
 
-**Turn any phone into a universal remote for your home theater — over Wi‑Fi, no infrared needed.**
+**One app to control your entire home theater — no hub hardware required.**
 
-CinaHub is a free, cross‑platform remote‑control app. Instead of juggling a drawer of remotes (or buying an expensive control hub like Control4 / ELAN), CinaHub talks to your gear directly over your home Wi‑Fi network. One app, one phone, every device.
+Remote97 is a pure-software universal remote for your home cinema. Traditional setups require an expensive control hub (Control4, ELAN, Savant) plus professional programming. Remote97 replaces that with the phone or PC you already own, talking to your gear directly over the local Wi-Fi network. Zero extra hardware, zero monthly fees.
 
-[![Download on the App Store](https://img.shields.io/badge/App_Store-Download-0A7CF5?logo=apple&logoColor=white)](https://apps.apple.com/us/app/cinahub/id6790016957?utm_source=github&utm_medium=repo)
-[![Get it on Google Play](https://img.shields.io/badge/Google_Play-Download-414FA1?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.cinahub.app&utm_source=github&utm_medium=repo)
-[![Get it from Microsoft Store](https://img.shields.io/badge/Microsoft_Store-Download-0078D4?logo=microsoft&logoColor=white)](https://apps.microsoft.com/store/detail/9pdxn0618930?utm_source=github&utm_medium=repo)
+Official site: **https://remote97.com**
 
 ---
 
-## Why CinaHub
+## Why Remote97
 
-- **No hub, no extra hardware** — a phone on your LAN is all you need.
-- **No infrared** — control works through Wi‑Fi / local network, so any phone works, even one with no IR blaster.
-- **Free** — no subscription, no license fee.
-- **Cross‑platform** — Android, iOS and Windows from a single Flutter codebase.
-- **Real‑time sync** — power, volume and input source update live as you use them.
-
-## Features
-
-- Universal remote for multiple brands in one screen
-- One‑tap scenes ("Watch a movie", "Listen to music") generated from your device setup
-- Live device status (volume, input source, power)
-- Directional pad, home / back / menu / OK for each device
-- Per‑device volume, mute and source switching
+- **No hub, no hardware** — runs as an app on devices you already have; connects straight to your equipment over LAN.
+- **Auto discovery** — finds supported devices on the network (SSDP / mDNS / vendor probes), no manual IP typing needed.
+- **One unified remote** — volume, input source, power & standby, sound modes, EQ, and on-screen text input, all in one place.
+- **Multi-room audio** — group and control Sonos, Bluesound (BluOS), WiiM, and Arylic speakers together.
+- **Custom layouts & themes** — organize devices your way; multiple UI themes including glassmorphism and ink-wash.
+- **Windows with global hotkeys** — control the whole stack from the keyboard while seated.
+- **Privacy-first** — no cloud, no account, no telemetry. Everything stays on your local network.
+- **Free.**
 
 ## Supported devices
 
-| Brand / Device | Protocol | Notes |
-|----------------|----------|-------|
-| **Denon / Marantz** AVR | Telnet (23) + HTTP API | Full series: AVR‑X2800H, X3800H, X4800H, AVC‑X6800H, SR7015, SR8015, etc. |
-| **Apple TV** | mDNS + MRP | 2015+ models (HD 2015, 4K 1–3 gen 2017–2022) |
-| **Roku** | HTTP (8060) | Streaming players & Roku TVs |
-| **Samsung** Smart TV | WebSocket + JSON‑RPC (8001) | Modern Tizen models |
-| **Sony Bravia** | REST API + IRCC (20060) | Android TV models |
-| **VidOn** (威动) | TCP (33080) | Media players / servers |
-| **Xiaomi / Redmi** TV | HTTP (6095) | Source switching limited to HDMI 1 / 2 by the TV API |
+| Category | Brands / Protocol |
+|----------|-------------------|
+| AV receivers | **Denon / Marantz** (Telnet + HTTP), **Yamaha** MusicCast (YXC) |
+| TVs | **Sony** Bravia (REST + IRCC), **Samsung** (WebSocket / JSON-RPC), **Xiaomi / Redmi** (HTTP), **LG webOS** (SSAP), **Apple TV** (MRP), **Roku** (ECP) |
+| Streamers / media hubs | **Zidoo**, **Vidoo / 威动** |
+| Wireless audio | **Sonos**, **Bluesound BluOS**, **WiiM**, **Arylic** (LinkPlay) |
+| Projectors | **PJLink** (TCP 4352) |
 
-**Planned:** LG OLED (WebSocket 3000), Epson projectors (ESC/VP21), and more.
+> Device coverage grows over time. New families are added through a documented device-research + simulator standard so each addition ships with a test harness.
+
+## Platforms
+
+| Platform | Distribution |
+|----------|--------------|
+| Android | Google Play + direct APK |
+| iOS / iPadOS | Apple App Store |
+| Windows | Microsoft Store + portable ZIP (no install) |
+| Web | responsive site at https://remote97.com |
 
 ## Download
 
-Pick your platform:
+All download options (Google Play, App Store, Microsoft Store, APK, Windows ZIP) are listed on the site: **https://remote97.com**
 
-- **iPhone / iPad** — [App Store](https://apps.apple.com/us/app/cinahub/id6790016957?utm_source=github&utm_medium=repo)
-- **Android** — [Google Play](https://play.google.com/store/apps/details?id=com.cinahub.app&utm_source=github&utm_medium=repo) or sideload the v1.2.3 APK from [GitHub Releases](https://github.com/Benjamin-LY777/cinahub/releases/tag/v1.2.3)
-- **Windows** — [Microsoft Store](https://apps.microsoft.com/store/detail/9pdxn0618930?utm_source=github&utm_medium=repo)
+Direct releases are also published on the [GitHub Releases](https://github.com/Benjamin-LY777/remote97/releases) page.
 
-> Android users in regions without Google Play can install the APK from GitHub Releases. Allow "Install from unknown sources" when prompted.
+## Project layout
 
-## How it works
-
-CinaHub runs entirely on your local network. It discovers devices via SSDP / mDNS and controls them through their native IP protocols — there is no cloud relay, so control keeps working even when the internet is down.
-
-## Privacy
-
-CinaHub does not upload your usage or device data. See the [privacy policy](https://benjamin-ly777.github.io/cinahub/privacy.html).
+```
+remote97/
+├─ cinehub_app/            # Flutter app (Android / iOS / Windows)
+├─ website/                # Static marketing site (https://remote97.com)
+├─ store_listing/          # App-store screenshots & copy
+├─ simulators/             # Device simulators for development & testing
+└─ tools/                  # Build & dev helper scripts
+```
 
 ## Development
 
+The app is built with [Flutter](https://flutter.dev).
+
 ```bash
-# Build the Android release APK (signed with cinahub-release.jks)
+# Pull dependencies
 cd cinehub_app
-flutter build apk --release
+flutter pub get
 
-# Serve the APK on your LAN for phone install
-python serve_apk.py
+# Run on a connected device / desktop
+flutter run
 
-# Run the device simulator GUI (no real hardware needed for testing)
-python -m cinehub.simulators.run_gui
+# Build release artifacts
+flutter build apk --release            # Android
+flutter build windows --release        # Windows
+# iOS builds are produced via CI (Codemagic)
 ```
+
+Device simulators (no real hardware needed for development) live under `simulators/` and follow `SIMULATOR_STANDARD.md`.
 
 ## License
 
-MIT
+MIT — see the repository for details.
