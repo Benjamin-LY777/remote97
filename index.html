@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="ink">
+<html lang="en" data-theme="glass">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Remote97 — 家庭影院中控</title>
-<meta name="description" content="Remote97：用纯软件替代昂贵的家庭影院中控主机。通过本地 WiFi 控制功放、电视、流媒体播放器，支持 Denon、Marantz、Sony、Samsung、Apple TV、Roku、LG、Yamaha、Sonos 等主流设备。免费下载，数据不出局域网。" />
-<meta property="og:title" content="Remote97 — 家庭影院中控" />
-<meta property="og:description" content="一个 App，掌控整个家庭影院。本地 WiFi 直控，免费下载。" />
-<meta property="og:image" content="screenshots/screenshot2.jpg" />
+<title>Remote97 — One app for your entire home theater</title>
+<meta name="description" content="Remote97 is free home theater control software for Android, Windows and iOS. Control Denon, Marantz, Sony, Samsung, LG, Yamaha, Sonos, Apple TV, Roku and more over local WiFi — no cloud, no hub, no subscription. See features, supported devices and FAQ." />
+<meta name="keywords" content="home theater remote, AV receiver control app, Denon remote, Marantz, Sony BRAVIA remote, Samsung TV remote, Apple TV remote, Roku remote, Sonos, Yamaha, universal remote app, local network control, no subscription" />
+<link rel="canonical" href="https://remote97.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://remote97.com/" />
+<meta property="og:title" content="Remote97 — One app for your entire home theater" />
+<meta property="og:description" content="Free home theater control software. Control receivers, TVs and streamers over local WiFi — no cloud, no hub, no subscription." />
+<meta property="og:image" content="https://benjamin-ly777.github.io/remote97/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Remote97 — One app for your entire home theater" />
+<meta name="twitter:description" content="Free home theater control software. Control receivers, TVs and streamers over local WiFi." />
+<meta name="twitter:image" content="https://benjamin-ly777.github.io/remote97/og-image.png" />
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -152,7 +163,7 @@
   }
   [data-theme="glass"] .phone{box-shadow:0 30px 70px -20px rgba(90,200,250,.28),0 2px 8px rgba(0,0,0,.4)}
   .phone img{
-    display:block;width:100%;height:auto;aspect-ratio:869/1850;
+    display:block;width:100%;height:auto;aspect-ratio:869/1850;object-fit:cover;object-position:top;
     border-radius:33px;background:var(--paper2);
   }
   .phone::after{
@@ -200,15 +211,19 @@
 
   /* downloads */
   #download{background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  /* 玻璃主题：下载区不能是死黑板块，改为透出壁纸的浅玻璃 */
+  [data-theme="glass"] #download{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.10)}
+  [data-theme="glass"] .chip{background:rgba(255,255,255,.06)}
+  .dgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
   .dtile{
     position:relative;display:flex;flex-direction:column;gap:14px;
+    grid-column:span 2;
     background:var(--card-bg);border:1px solid var(--line);border-radius:var(--r);
     padding:26px;transition:border-color .2s,transform .2s,box-shadow .2s;
     backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));
   }
   .dtile:hover{transform:translateY(-3px);box-shadow:0 16px 34px -22px rgba(0,0,0,.3)}
-  .dtile.direct{border:1.5px solid var(--accent-line)}
+  .dtile.direct{grid-column:span 3;border:1.5px solid var(--accent-line)}
   .dtile.direct:hover{border-color:var(--accent);box-shadow:0 18px 40px -20px var(--accent)}
   .badge{
     position:absolute;top:18px;right:18px;
@@ -253,13 +268,83 @@
   .f-links a:hover{color:var(--accent-ink)}
   .f-note{color:var(--low);font-size:12.5px;line-height:1.7}
 
+  /* ---------- how it works ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .step{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;
+    backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));position:relative}
+  .step .num{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--accent-ink);margin-bottom:16px;text-transform:uppercase}
+  .step h3{font-size:18px;font-weight:700;margin-bottom:10px;color:var(--ink)}
+  .step p{color:var(--mid);font-size:14.5px;line-height:1.66}
+
+  /* ---------- capabilities ---------- */
+  .capgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 22px}
+  .cap{display:flex;gap:13px;align-items:flex-start;padding:16px 18px;border:1px solid var(--line);border-radius:14px;
+    background:var(--card-bg);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
+  .cap .ck{flex:0 0 auto;width:22px;height:22px;border-radius:7px;background:var(--accent-soft);border:1px solid var(--accent-line);
+    display:flex;align-items:center;justify-content:center;margin-top:2px}
+  .cap .ck svg{width:13px;height:13px;fill:var(--accent)}
+  .cap h3{font-size:15px;font-weight:700;margin-bottom:3px;color:var(--ink)}
+  .cap p{color:var(--mid);font-size:13.5px;line-height:1.6}
+
+  /* ---------- scenarios ---------- */
+  .scgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .scard{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;
+    backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
+  .scard .ico{width:46px;height:46px;border-radius:13px;background:var(--accent-soft);border:1px solid var(--accent-line);
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .scard .ico svg{width:24px;height:24px;fill:var(--accent)}
+  .scard h3{font-size:17px;font-weight:700;margin-bottom:9px;color:var(--ink)}
+  .scard p{color:var(--mid);font-size:14px;line-height:1.62}
+  .scard ul{margin:14px 0 0;padding-left:18px;color:var(--mid);font-size:13.5px}
+  .scard li{margin:6px 0}
+
+  /* ---------- privacy ---------- */
+  .priv{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}
+  .priv .plist{display:grid;gap:16px}
+  .prow{display:flex;gap:14px;align-items:flex-start}
+  .prow .pic{flex:0 0 auto;width:42px;height:42px;border-radius:12px;background:var(--accent-soft);border:1px solid var(--accent-line);
+    display:flex;align-items:center;justify-content:center}
+  .prow .pic svg{width:22px;height:22px;fill:var(--accent)}
+  .prow h3{font-size:15.5px;font-weight:700;margin-bottom:3px;color:var(--ink)}
+  .prow p{color:var(--mid);font-size:13.5px;line-height:1.6}
+  .pbox{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--r);padding:26px;
+    backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
+  .pbox h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+  .pbox p{color:var(--mid);font-size:13.5px;margin-bottom:14px;line-height:1.65}
+  .pbox a{color:var(--accent-ink);font-weight:600}
+
+  /* ---------- faq ---------- */
+  .faq{display:grid;gap:12px;max-width:840px}
+  .faq details{background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:0 22px;
+    backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
+  .faq summary{list-style:none;cursor:pointer;padding:18px 0;font-size:16px;font-weight:600;color:var(--ink);
+    display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"";flex:0 0 auto;width:11px;height:11px;border-right:2px solid var(--mid);border-bottom:2px solid var(--mid);
+    transform:rotate(45deg);transition:transform .2s;margin-right:4px}
+  .faq details[open] summary::after{transform:rotate(-135deg)}
+  .faq .ans{padding:0 0 20px;color:var(--mid);font-size:14.5px;line-height:1.72}
+
+  /* ---------- cta band ---------- */
+  .cta-band{text-align:center;background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  [data-theme="glass"] .cta-band{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.10)}
+  .cta-band h2{margin-bottom:12px}
+  .cta-band p{color:var(--mid);font-size:16px;margin-bottom:28px;max-width:560px;margin-left:auto;margin-right:auto}
+  .cta-band .ctas{justify-content:center}
+
   /* responsive */
   @media(max-width:960px){
     .hero-grid{grid-template-columns:1fr;gap:48px}
     .phone-stage{order:2}
     .hero{padding:64px 0 56px}
-    .fgrid,.dgrid,.vgrid{grid-template-columns:repeat(2,1fr)}
+    .fgrid,.vgrid{grid-template-columns:repeat(2,1fr)}
     .fcard.big{grid-column:span 2}
+    .dgrid{grid-template-columns:repeat(2,1fr)}
+    .dgrid .dtile{grid-column:auto}
+    .steps{grid-template-columns:1fr}
+    .capgrid{grid-template-columns:1fr}
+    .scgrid{grid-template-columns:1fr}
+    .priv{grid-template-columns:1fr;gap:26px}
   }
   @media(max-width:620px){
     nav a:not(.keep){display:none}
@@ -273,6 +358,26 @@
     .lang select{padding:6px 26px 6px 10px;font-size:12px}
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"SoftwareApplication",
+  "name":"Remote97",
+  "applicationCategory":"UtilitiesApplication",
+  "applicationSubCategory":"Remote Control",
+  "operatingSystem":"Android, Windows, iOS",
+  "softwareVersion":"1.2.5",
+  "url":"https://remote97.com/",
+  "description":"Remote97 is free home theater control software that lets you control AV receivers, TVs and streamers over your local WiFi network. No cloud, no hub, no subscription.",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "author":{"@type":"Organization","name":"Remote97"},
+  "availableOn":[
+    {"@type":"MobileApplication","name":"Google Play","operatingSystem":"Android","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"MobileApplication","name":"App Store","operatingSystem":"iOS","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"SoftwareApplication","name":"Microsoft Store","operatingSystem":"Windows","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -282,9 +387,11 @@
       <img src="remote97_wordmark.png" alt="Remote97" />
     </a>
     <nav>
+      <a href="#how" data-i18n="nav.how">工作原理</a>
       <a href="#features" data-i18n="nav.features">功能</a>
-      <a href="#download" data-i18n="nav.download" class="keep">下载</a>
       <a href="#devices" data-i18n="nav.devices">支持设备</a>
+      <a href="#faq" data-i18n="nav.faq">常见问题</a>
+      <a href="#download" data-i18n="nav.download" class="keep">下载</a>
       <a href="privacy.html" data-i18n="nav.privacy">隐私政策</a>
     </nav>
     <a class="gh-link" href="https://github.com/Benjamin-LY777/remote97" aria-label="GitHub">
@@ -317,13 +424,9 @@
         <h1 class="fade"><span data-i18n="hero.title_html">一个 App，掌控<em>整个家庭影院</em></span></h1>
         <p class="hero-sub fade" data-i18n="hero.sub">Remote97 用纯软件替代昂贵的中控主机：通过本地 WiFi 直接控制功放、电视与流媒体播放器——不依赖云端，无需额外硬件，更没有订阅费。</p>
         <div class="ctas fade2">
-          <a class="btn btn-primary" id="ctaZip" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.5/Remote97-v1.2.5-windows-x64.zip" download="Remote97-v1.2.5-windows-x64.zip">
+          <a class="btn btn-primary" href="#download">
             <svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg>
-            <span data-i18n="hero.cta_zip">下载 Windows 版</span>
-          </a>
-          <a class="btn" id="ctaApk" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.3/Remote97-v1.2.3-android.apk" download="Remote97-v1.2.3-android.apk">
-            <svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg>
-            <span data-i18n="hero.cta_apk">下载 Android APK</span>
+            <span data-i18n="hero.cta_dl">Download Remote97</span>
           </a>
         </div>
         <div class="hero-meta fade2">
@@ -331,11 +434,11 @@
           <span data-i18n="hero.m2">数据不出局域网</span>
           <span data-i18n="hero.m3">v1.2.5 · Windows / Android / iOS</span>
         </div>
-        <p class="dl-note" data-i18n="hero.note">直链下载 · 托管于 GitHub Releases</p>
+        <p class="dl-note" data-i18n="hero.note">全部 5 种下载方式见下方 ↓</p>
       </div>
       <div class="phone-stage">
         <div class="phone">
-          <img src="screenshots/screenshot2.jpg" alt="Remote97 app — device control" loading="eager" />
+          <img src="screenshots/hero_en.png" alt="Remote97 app — AV receiver remote (English UI)" loading="eager" />
         </div>
       </div>
     </div>
@@ -348,6 +451,91 @@
       <span class="names">Denon · Marantz · Sony · Samsung · LG · Yamaha · Onkyo · Sonos · Apple TV · Roku · Xiaomi / Redmi · WiiM · Arylic · Bluesound (BluOS) …</span>
     </div>
   </div>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="how" class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="how.title">几分钟即可上手</h2>
+      <p class="sec-sub" data-i18n="how.sub">无需中控主机、无需布线、无需注册账号。</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num" data-i18n="how.s1.num">STEP 1</div>
+        <h3 data-i18n="how.s1.t">安装并打开</h3>
+        <p data-i18n="how.s1.d">从 Google Play、App Store、Microsoft Store，或直接下载 APK / ZIP。无需注册账号，也没有繁琐的设置向导——打开即用。</p>
+      </div>
+      <div class="step">
+        <div class="num" data-i18n="how.s2.num">STEP 2</div>
+        <h3 data-i18n="how.s2.t">自动发现</h3>
+        <p data-i18n="how.s2.d">Remote97 通过 SSDP、mDNS 与定向探针扫描你的 WiFi，列出所有兼容的设备。从列表里挑出属于你的那些即可。</p>
+      </div>
+      <div class="step">
+        <div class="num" data-i18n="how.s3.num">STEP 3</div>
+        <h3 data-i18n="how.s3.t">控制与自动化</h3>
+        <p data-i18n="how.s3.d">点开任意设备即可遥控。把设备归入房间，再把它们串成「观影模式」这样的一键场景，按顺序自动执行。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CAPABILITIES (detailed) ============ -->
+  <section id="capabilities" class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="cap.title">实体遥控器能做的，这里都能做</h2>
+      <p class="sec-sub" data-i18n="cap.sub">更少的遥控、更统一的界面、更强的自动化。</p>
+    </div>
+    <div class="capgrid">
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap1.t">统一音量与静音</h3><p data-i18n="cap1.d">跨设备统一调节音量与静音，多台设备同步不混乱。</p></div></div>
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap2.t">输入源 / 信号切换</h3><p data-i18n="cap2.d">一键在 HDMI、电视、机顶盒等信号源之间切换。</p></div></div>
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap3.t">电源与待机</h3><p data-i18n="cap3.d">开机、关机、待机一键完成，可批量操作整组设备。</p></div></div>
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap4.t">音效模式 / 环绕预设</h3><p data-i18n="cap4.d">切换 Dolby、DTS、 stereo 等音效模式（Denon / Marantz 等支持时）。</p></div></div>
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap5.t">设备级 EQ 与音调</h3><p data-i18n="cap5.d">在支持的功放 / 音响上调节均衡器、低音、高音。</p></div></div>
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap6.t">屏幕文字输入</h3><p data-i18n="cap6.d">为 Apple TV、Android TV 等调用系统键盘输入账号与搜索词。</p></div></div>
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap7.t">多房间分组</h3><p data-i18n="cap7.d">把 Sonos、BluOS、WiiM 归为一组，一处控制全屋声音。</p></div></div>
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap8.t">自定义遥控布局</h3><p data-i18n="cap8.d">按使用习惯排列按键，常用功能触手可及。</p></div></div>
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap9.t">深浅主题随房间</h3><p data-i18n="cap9.d">内置水墨与液态玻璃等多套主题，匹配不同光线环境。</p></div></div>
+      <div class="cap"><span class="ck"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><div><h3 data-i18n="cap10.t">Windows 键盘快捷键</h3><p data-i18n="cap10.d">在电脑上当遥控器用时，可用键盘快速调音量、切源。</p></div></div>
+    </div>
+  </section>
+
+  <!-- ============ SCENARIOS ============ -->
+  <section id="scenarios" class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="scen.title">为真实的居家夜晚而做</h2>
+      <p class="sec-sub" data-i18n="scen.sub">不是功能清单，而是你每天会用到的时刻。</p>
+    </div>
+    <div class="scgrid">
+      <div class="scard">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 12.5 5-3.5-5-3.5v7z"/></svg></div>
+        <h3 data-i18n="sc1.t">观影之夜</h3>
+        <p data-i18n="sc1.d">一键进入观影模式，灯光、设备、声音自动就位。</p>
+        <ul>
+          <li data-i18n="sc1.l1">功放开机，自动切到 Apple TV 输入</li>
+          <li data-i18n="sc1.l2">电视亮起，音量设到合适档位</li>
+          <li data-i18n="sc1.l3">无需再找第三把遥控器</li>
+        </ul>
+      </div>
+      <div class="scard">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 14.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/></svg></div>
+        <h3 data-i18n="sc2.t">全屋音乐</h3>
+        <p data-i18n="sc2.d">把分散的音响收进一个界面，一处操控全屋声音。</p>
+        <ul>
+          <li data-i18n="sc2.l1">Sonos + BluOS + WiiM 统一编组</li>
+          <li data-i18n="sc2.l2">同步播放，或分区各听各的</li>
+          <li data-i18n="sc2.l3">音量、曲目一处调</li>
+        </ul>
+      </div>
+      <div class="scard">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v6l2.3 4.2A2 2 0 0 1 14.6 17H9.4a2 2 0 0 1-1.7-2.8L10 10V4a2 2 0 0 1 2-2zm0 19a2.5 2.5 0 0 1-2.5-2.5h5A2.5 2.5 0 0 1 12 21z"/></svg></div>
+        <h3 data-i18n="sc3.t">静夜模式</h3>
+        <p data-i18n="sc3.d">深夜不想吵到家人，几步把声音收起来。</p>
+        <ul>
+          <li data-i18n="sc3.l1">一键降低整体音量</li>
+          <li data-i18n="sc3.l2">切到立体声、关掉低音炮</li>
+          <li data-i18n="sc3.l3">不必再摸黑找遥控器</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ FEATURES ============ -->
   <section id="features" class="wrap">
@@ -387,26 +575,6 @@
         <p class="sec-sub" data-i18n="dl.sub">点击即下载，无需跳转。商店版与直链版内容一致。</p>
       </div>
       <div class="dgrid">
-        <a class="dtile direct" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.3/Remote97-v1.2.3-android.apk" download="Remote97-v1.2.3-android.apk">
-          <span class="badge" data-i18n="badge.direct">直链</span>
-          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M7.6 9.3a5.6 5.6 0 0 1 8.8 0l1.2-.9a.6.6 0 1 1 .72.96l-1.1.83c.4.75.63 1.6.63 2.51H5.15c0-.9.23-1.76.63-2.5l-1.1-.84a.6.6 0 1 1 .72-.96l1.2.9zM9.5 13a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6zm5 0a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6zM5.2 13.9h13.6v5a1.3 1.3 0 0 1-1.3 1.3H6.5a1.3 1.3 0 0 1-1.3-1.3v-5zM8.3 4.7a.55.55 0 1 1 .95-.56l.86 1.5a7.9 7.9 0 0 1 3.78 0l.86-1.5a.55.55 0 1 1 .95.56l-.83 1.44a6.9 6.9 0 0 1 3.23 3.06H5.9A6.9 6.9 0 0 1 9.13 6.14L8.3 4.7z"/></svg></div>
-          <div>
-            <h3>Android APK</h3>
-            <p class="dd" data-i18n="t.apk.d">直接安装，无需应用商店</p>
-          </div>
-          <span class="dmeta">v1.2.3 · 55.5 MB</span>
-          <span class="dbtn"><svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg><span data-i18n="btn.direct">直接下载</span></span>
-        </a>
-        <a class="dtile direct" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.5/Remote97-v1.2.5-windows-x64.zip" download="Remote97-v1.2.5-windows-x64.zip">
-          <span class="badge" data-i18n="badge.direct">直链</span>
-          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm0 13 7.5 1.1v-7H3v5.9zM11.5 4.2 21 3v8.5h-9.5V4.2zm0 15.6 9.5 1.2v-8.5h-9.5v7.3z"/></svg></div>
-          <div>
-            <h3>Windows 便携版</h3>
-            <p class="dd" data-i18n="t.zip.d">解压即用，无需安装</p>
-          </div>
-          <span class="dmeta">v1.2.5 · 15.4 MB · x64</span>
-          <span class="dbtn"><svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg><span data-i18n="btn.direct">直接下载</span></span>
-        </a>
         <a class="dtile" href="https://play.google.com/store/apps/details?id=com.cinahub.app" target="_blank" rel="noopener">
           <div class="dicon"><svg viewBox="0 0 24 24"><path d="M5 3.6c0-.9.95-1.45 1.7-1L19.2 10c.8.5.8 1.6 0 2.1L6.7 19.5c-.75.45-1.7-.1-1.7-1V3.6zM4.6 5.6 12 12l-7.4 6.4c-.4-.2-.6-.6-.6-1V6.6c0-.4.2-.8.6-1z" opacity=".55"/><path d="M4.6 5.6c0-.4.2-.8.6-1L15.9 12 5.2 19.4c-.4-.2-.6-.6-.6-1V5.6z"/></svg></div>
           <div>
@@ -431,6 +599,26 @@
           </div>
           <span class="dbtn"><span data-i18n="btn.store">前往商店</span></span>
         </a>
+        <a class="dtile direct" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.3/Remote97-v1.2.3-android.apk" download="Remote97-v1.2.3-android.apk">
+          <span class="badge" data-i18n="badge.direct">直链</span>
+          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M7.6 9.3a5.6 5.6 0 0 1 8.8 0l1.2-.9a.6.6 0 1 1 .72.96l-1.1.83c.4.75.63 1.6.63 2.51H5.15c0-.9.23-1.76.63-2.5l-1.1-.84a.6.6 0 1 1 .72-.96l1.2.9zM9.5 13a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6zm5 0a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6zM5.2 13.9h13.6v5a1.3 1.3 0 0 1-1.3 1.3H6.5a1.3 1.3 0 0 1-1.3-1.3v-5zM8.3 4.7a.55.55 0 1 1 .95-.56l.86 1.5a7.9 7.9 0 0 1 3.78 0l.86-1.5a.55.55 0 1 1 .95.56l-.83 1.44a6.9 6.9 0 0 1 3.23 3.06H5.9A6.9 6.9 0 0 1 9.13 6.14L8.3 4.7z"/></svg></div>
+          <div>
+            <h3>Android APK</h3>
+            <p class="dd" data-i18n="t.apk.d">直接安装，无需应用商店</p>
+          </div>
+          <span class="dmeta">v1.2.3 · 55.5 MB</span>
+          <span class="dbtn"><svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg><span data-i18n="btn.direct">直接下载</span></span>
+        </a>
+        <a class="dtile direct" href="https://github.com/Benjamin-LY777/remote97/releases/download/v1.2.5/Remote97-v1.2.5-windows-x64.zip" download="Remote97-v1.2.5-windows-x64.zip">
+          <span class="badge" data-i18n="badge.direct">直链</span>
+          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm0 13 7.5 1.1v-7H3v5.9zM11.5 4.2 21 3v8.5h-9.5V4.2zm0 15.6 9.5 1.2v-8.5h-9.5v7.3z"/></svg></div>
+          <div>
+            <h3>Windows 便携版</h3>
+            <p class="dd" data-i18n="t.zip.d">解压即用，无需安装</p>
+          </div>
+          <span class="dmeta">v1.2.5 · 15.4 MB · x64</span>
+          <span class="dbtn"><svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg><span data-i18n="btn.direct">直接下载</span></span>
+        </a>
       </div>
     </div>
   </section>
@@ -444,10 +632,61 @@
     <div class="vgrid">
       <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g1.t">功放 AVR</span></h3><p>Denon · Marantz · Yamaha · Onkyo</p></div>
       <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g2.t">电视与盒子</span></h3><p>Sony BRAVIA · Samsung · LG webOS · Xiaomi / Redmi · Apple TV · Roku</p></div>
-      <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g3.t">流媒体与音响</span></h3><p>Sonos · Bluesound (BluOS) · WiiM · Arylic (LinkPlay)</p></div>
+        <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g3.t">流媒体与音响</span></h3><p>Sonos · Bluesound (BluOS) · WiiM · Arylic (LinkPlay)</p></div>
+      </div>
+  </section>
+
+  <!-- ============ PRIVACY ============ -->
+  <section id="privacy" class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="priv.title">隐私优先的设计</h2>
+      <p class="sec-sub" data-i18n="priv.sub">控制指令只留在你的家里。</p>
+    </div>
+    <div class="priv">
+      <div class="plist">
+        <div class="prow"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3zm0 2.2 6 2.25V11c0 3.9-2.5 6.9-6 8.9-3.5-2-6-5-6-8.9V6.45L12 4.2z"/></svg></span><div><h3 data-i18n="pr1.t">无云端</h3><p data-i18n="pr1.d">每一条指令都走本地网络，不经过任何外部服务器；路由器外网断了也能控。</p></div></div>
+        <div class="prow"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5z"/></svg></span><div><h3 data-i18n="pr2.t">无需账号</h3><p data-i18n="pr2.d">没有注册、没有登录、没有邮箱。打开就能用，不绑定任何身份。</p></div></div>
+        <div class="prow"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></span><div><h3 data-i18n="pr3.t">无追踪</h3><p data-i18n="pr3.d">应用不收集任何分析数据或遥测；你的使用习惯不会被上报。</p></div></div>
+        <div class="prow"><span class="pic"><svg viewBox="0 0 24 24"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></span><div><h3 data-i18n="pr4.t">开源可审计</h3><p data-i18n="pr4.d">底层引擎公开在 GitHub，任何人都可以查看它是如何工作的。</p></div></div>
+      </div>
+      <div class="pbox">
+        <h3 data-i18n="priv.box.t">想看完整说明？</h3>
+        <p data-i18n="priv.box.d">我们准备了详细的隐私政策，逐条说明数据如何（不）被处理。</p>
+        <a href="privacy.html" data-i18n="priv.box.link">阅读隐私政策 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="faq.title">常见问题</h2>
+      <p class="sec-sub" data-i18n="faq.sub">还有疑问？这里也许有答案。</p>
+    </div>
+    <div class="faq">
+      <details><summary data-i18n="q1.q">Remote97 是免费的吗？</summary><div class="ans" data-i18n="q1.a">完全免费——无广告、无内购、无订阅。所有功能开箱即用。</div></details>
+      <details><summary data-i18n="q2.q">它需要联网吗？</summary><div class="ans" data-i18n="q2.a">不需要。所有控制都在本地完成；即使拔掉路由器的外网线，也能正常遥控家里的设备。</div></details>
+      <details><summary data-i18n="q3.q">支持哪些平台？</summary><div class="ans" data-i18n="q3.a">Android、Windows 与 iOS（iPhone / iPad）。三端界面与功能一致。</div></details>
+      <details><summary data-i18n="q4.q">需要注册账号吗？</summary><div class="ans" data-i18n="q4.a">不需要。应用不要求任何登录或注册即可使用。</div></details>
+      <details><summary data-i18n="q5.q">设备是怎么被找到的？</summary><div class="ans" data-i18n="q5.a">通过 WiFi 自动发现（SSDP / mDNS 与定向探测）列出兼容设备；也支持手动输入 IP 添加。</div></details>
+      <details><summary data-i18n="q6.q">我的数据安全吗？</summary><div class="ans" data-i18n="q6.a">没有任何数据离开你的局域网，应用也不含任何遥测或追踪。详见隐私政策。</div></details>
     </div>
   </section>
 </main>
+
+  <!-- ============ CTA BAND ============ -->
+  <section class="cta-band">
+    <div class="wrap">
+      <h2 data-i18n="cta.title">今天就把遥控器收起来</h2>
+      <p data-i18n="cta.sub">免费下载，本地控制——几分钟内让全家影音听你指挥。</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#download">
+          <svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg>
+          <span data-i18n="cta.btn">Download Remote97</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
 <footer>
   <div class="wrap">
@@ -472,9 +711,9 @@
       "hero.kicker":"纯软件中控 · 无需硬件",
       "hero.title_html":"一个 App，掌控<em>整个家庭影院</em>",
       "hero.sub":"Remote97 用纯软件替代昂贵的中控主机：通过本地 WiFi 直接控制功放、电视与流媒体播放器——不依赖云端，无需额外硬件，更没有订阅费。",
-      "hero.cta_zip":"下载 Windows 版","hero.cta_apk":"下载 Android APK",
+      "hero.cta_dl":"下载 Remote97","hero.cta_gh":"GitHub 主页",
       "hero.m1":"免费 · 无广告","hero.m2":"数据不出局域网","hero.m3":"v1.2.5 · Windows / Android / iOS",
-      "hero.note":"直链下载 · 托管于 GitHub Releases",
+      "hero.note":"全部 5 种下载方式见下方 ↓",
       "strip.lab":"已支持",
       "feat.title":"为整套影音系统而生",
       "feat.sub":"过去需要一把把遥控器做的事，现在集中在一处。",
@@ -492,7 +731,44 @@
       "dev.title":"支持的设备","dev.sub":"覆盖主流家庭影院品牌，持续增加中。",
       "dev.g1.t":"功放 AVR","dev.g2.t":"电视与盒子","dev.g3.t":"流媒体与音响",
       "foot.support":"技术支持","foot.rights":"© 2026 Remote97 · 保留所有权利",
-      "foot.disc":"Remote97 与所列品牌无隶属关系，仅通过标准网络协议进行本地控制。"
+      "foot.disc":"Remote97 与所列品牌无隶属关系，仅通过标准网络协议进行本地控制。",
+      "nav.how":"工作原理","nav.faq":"常见问题",
+      "how.title":"几分钟即可上手","how.sub":"无需中控主机、无需布线、无需注册账号。",
+      "how.s1.num":"STEP 1","how.s1.t":"安装并打开","how.s1.d":"从 Google Play、App Store、Microsoft Store，或直接下载 APK / ZIP。无需注册账号，也没有繁琐的设置向导——打开即用。",
+      "how.s2.num":"STEP 2","how.s2.t":"自动发现","how.s2.d":"Remote97 通过 SSDP、mDNS 与定向探针扫描你的 WiFi，列出所有兼容的设备。从列表里挑出属于你的那些即可。",
+      "how.s3.num":"STEP 3","how.s3.t":"控制与自动化","how.s3.d":"点开任意设备即可遥控。把设备归入房间，再把它们串成「观影模式」这样的一键场景，按顺序自动执行。",
+      "cap.title":"实体遥控器能做的，这里都能做","cap.sub":"更少的遥控、更统一的界面、更强的自动化。",
+      "cap1.t":"统一音量与静音","cap1.d":"跨设备统一调节音量与静音，多台设备同步不混乱。",
+      "cap2.t":"输入源 / 信号切换","cap2.d":"一键在 HDMI、电视、机顶盒等信号源之间切换。",
+      "cap3.t":"电源与待机","cap3.d":"开机、关机、待机一键完成，可批量操作整组设备。",
+      "cap4.t":"音效模式 / 环绕预设","cap4.d":"切换 Dolby、DTS、stereo 等音效模式（Denon / Marantz 等支持时）。",
+      "cap5.t":"设备级 EQ 与音调","cap5.d":"在支持的功放 / 音响上调节均衡器、低音、高音。",
+      "cap6.t":"屏幕文字输入","cap6.d":"为 Apple TV、Android TV 等调用系统键盘输入账号与搜索词。",
+      "cap7.t":"多房间分组","cap7.d":"把 Sonos、BluOS、WiiM 归为一组，一处控制全屋声音。",
+      "cap8.t":"自定义遥控布局","cap8.d":"按使用习惯排列按键，常用功能触手可及。",
+      "cap9.t":"深浅主题随房间","cap9.d":"内置水墨与液态玻璃等多套主题，匹配不同光线环境。",
+      "cap10.t":"Windows 键盘快捷键","cap10.d":"在电脑上当遥控器用时，可用键盘快速调音量、切源。",
+      "scen.title":"为真实的居家夜晚而做","scen.sub":"不是功能清单，而是你每天会用到的时刻。",
+      "sc1.t":"观影之夜","sc1.d":"一键进入观影模式，灯光、设备、声音自动就位。",
+      "sc1.l1":"功放开机，自动切到 Apple TV 输入","sc1.l2":"电视亮起，音量设到合适档位","sc1.l3":"无需再找第三把遥控器",
+      "sc2.t":"全屋音乐","sc2.d":"把分散的音响收进一个界面，一处操控全屋声音。",
+      "sc2.l1":"Sonos + BluOS + WiiM 统一编组","sc2.l2":"同步播放，或分区各听各的","sc2.l3":"音量、曲目一处调",
+      "sc3.t":"静夜模式","sc3.d":"深夜不想吵到家人，几步把声音收起来。",
+      "sc3.l1":"一键降低整体音量","sc3.l2":"切到立体声、关掉低音炮","sc3.l3":"不必再摸黑找遥控器",
+      "priv.title":"隐私优先的设计","priv.sub":"控制指令只留在你的家里。",
+      "pr1.t":"无云端","pr1.d":"每一条指令都走本地网络，不经过任何外部服务器；路由器外网断了也能控。",
+      "pr2.t":"无需账号","pr2.d":"没有注册、没有登录、没有邮箱。打开就能用，不绑定任何身份。",
+      "pr3.t":"无追踪","pr3.d":"应用不收集任何分析数据或遥测；你的使用习惯不会被上报。",
+      "pr4.t":"开源可审计","pr4.d":"底层引擎公开在 GitHub，任何人都可以查看它是如何工作的。",
+      "priv.box.t":"想看完整说明？","priv.box.d":"我们准备了详细的隐私政策，逐条说明数据如何（不）被处理。","priv.box.link":"阅读隐私政策 →",
+      "faq.title":"常见问题","faq.sub":"还有疑问？这里也许有答案。",
+      "q1.q":"Remote97 是免费的吗？","q1.a":"完全免费——无广告、无内购、无订阅。所有功能开箱即用。",
+      "q2.q":"它需要联网吗？","q2.a":"不需要。所有控制都在本地完成；即使拔掉路由器的外网线，也能正常遥控家里的设备。",
+      "q3.q":"支持哪些平台？","q3.a":"Android、Windows 与 iOS（iPhone / iPad）。三端界面与功能一致。",
+      "q4.q":"需要注册账号吗？","q4.a":"不需要。应用不要求任何登录或注册即可使用。",
+      "q5.q":"设备是怎么被找到的？","q5.a":"通过 WiFi 自动发现（SSDP / mDNS 与定向探测）列出兼容设备；也支持手动输入 IP 添加。",
+      "q6.q":"我的数据安全吗？","q6.a":"没有任何数据离开你的局域网，应用也不含任何遥测或追踪。详见隐私政策。",
+      "cta.title":"今天就把遥控器收起来","cta.sub":"免费下载，本地控制——几分钟内让全家影音听你指挥。","cta.btn":"下载 Remote97"
     },
     en:{
       "title":"Remote97 — Home Theater Control Hub",
@@ -501,9 +777,9 @@
       "hero.kicker":"Pure software · no hardware hub",
       "hero.title_html":"One app for your <em>entire home theater</em>",
       "hero.sub":"Remote97 replaces expensive control processors with pure software. Control your AV receiver, TV and streamers over local WiFi — no cloud, no extra hardware, no subscription.",
-      "hero.cta_zip":"Download for Windows","hero.cta_apk":"Download Android APK",
+      "hero.cta_dl":"Download Remote97","hero.cta_gh":"View on GitHub",
       "hero.m1":"Free · no ads","hero.m2":"Data never leaves your LAN","hero.m3":"v1.2.5 · Windows / Android / iOS",
-      "hero.note":"Direct download · hosted on GitHub Releases",
+      "hero.note":"All 5 download options below ↓",
       "strip.lab":"Works with",
       "feat.title":"Built for the whole system",
       "feat.sub":"What used to take a drawer full of remotes — now in one place.",
@@ -521,7 +797,44 @@
       "dev.title":"Supported devices","dev.sub":"The mainstream brands of home theater, with more on the way.",
       "dev.g1.t":"AV receivers","dev.g2.t":"TVs & boxes","dev.g3.t":"Streamers & speakers",
       "foot.support":"Support","foot.rights":"© 2026 Remote97. All rights reserved.",
-      "foot.disc":"Remote97 is not affiliated with the brands listed; it controls devices locally over standard network protocols."
+      "foot.disc":"Remote97 is not affiliated with the brands listed; it controls devices locally over standard network protocols.",
+      "nav.how":"How it works","nav.faq":"FAQ",
+      "how.title":"Up and running in minutes","how.sub":"No hub, no wiring, no account.",
+      "how.s1.num":"STEP 1","how.s1.t":"Install & open","how.s1.d":"Get it from Google Play, the App Store, Microsoft Store, or a direct APK / ZIP. No account and no setup wizard — just open it.",
+      "how.s2.num":"STEP 2","how.s2.t":"Auto-discover","how.s2.d":"Remote97 scans your WiFi with SSDP, mDNS and targeted probes, then lists every compatible device it finds. Pick the ones that are yours.",
+      "how.s3.num":"STEP 3","how.s3.t":"Control & automate","how.s3.d":"Tap any device to control it. Group devices into rooms, then chain them into one-tap scenes like “Movie night”.",
+      "cap.title":"Everything a physical remote does","cap.sub":"Fewer remotes, one consistent interface, more automation.",
+      "cap1.t":"Unified volume & mute","cap1.d":"Adjust volume and mute across devices; keep several in sync without confusion.",
+      "cap2.t":"Input / source switching","cap2.d":"Jump between HDMI, TV, set-top box and other inputs with one tap.",
+      "cap3.t":"Power & standby","cap3.d":"Power on, off and standby in one tap — and batch a whole group at once.",
+      "cap4.t":"Sound modes / surround","cap4.d":"Switch Dolby, DTS, stereo and more (on Denon / Marantz and others that support it).",
+      "cap5.t":"Per-device EQ & tone","cap5.d":"Tune equalizer, bass and treble on supported receivers and speakers.",
+      "cap6.t":"On-screen text input","cap6.d":"Bring up the system keyboard for Apple TV, Android TV and others to type accounts and searches.",
+      "cap7.t":"Multi-room grouping","cap7.d":"Group Sonos, BluOS and WiiM into one zone and control whole-home audio from a single place.",
+      "cap8.t":"Customizable layouts","cap8.d":"Arrange buttons to your habits so the controls you use most are always within reach.",
+      "cap9.t":"Themes for any room","cap9.d":"Multiple built-in themes — ink, liquid glass and more — to match different lighting.",
+      "cap10.t":"Windows keyboard shortcuts","cap10.d":"On a PC, use the keyboard to change volume and switch sources quickly.",
+      "scen.title":"Made for real evenings at home","scen.sub":"Not a feature list — the moments you'll actually use.",
+      "sc1.t":"Movie night","sc1.d":"One tap enters movie mode; lights, devices and sound fall into place.",
+      "sc1.l1":"Receiver powers on and switches to Apple TV","sc1.l2":"TV comes on, volume set to a sensible level","sc1.l3":"No third remote to hunt for",
+      "sc2.t":"Music everywhere","sc2.d":"Pull scattered speakers into one screen and run whole-home sound from one place.",
+      "sc2.l1":"Sonos + BluOS + WiiM grouped together","sc2.l2":"Sync playback, or split into zones","sc2.l3":"Volume and tracks controlled in one spot",
+      "sc3.t":"Quiet late night","sc3.d":"Late at night and don't want to wake anyone? Tuck the sound away in a few taps.",
+      "sc3.l1":"Drop the overall volume in one tap","sc3.l2":"Switch to stereo and mute the sub","sc3.l3":"No fumbling for remotes in the dark",
+      "priv.title":"Private by design","priv.sub":"Control commands stay inside your home.",
+      "pr1.t":"No cloud","pr1.d":"Every command travels on your local network and never reaches any external server — it works even with the internet unplugged.",
+      "pr2.t":"No account","pr2.d":"No sign-up, no login, no email. Open it and use it; nothing is tied to an identity.",
+      "pr3.t":"No tracking","pr3.d":"The app collects no analytics or telemetry; your habits are never reported.",
+      "pr4.t":"Open source","pr4.d":"The engine is public on GitHub, so anyone can see exactly how it works.",
+      "priv.box.t":"Want the full details?","priv.box.d":"We've written a detailed privacy policy that spells out how data is (not) handled.","priv.box.link":"Read the privacy policy →",
+      "faq.title":"Frequently asked questions","faq.sub":"Still wondering? The answer may be here.",
+      "q1.q":"Is Remote97 free?","q1.a":"Completely free — no ads, no in-app purchases, no subscription. Every feature is included out of the box.",
+      "q2.q":"Does it need the internet?","q2.a":"No. All control is local; it works even with your router's internet connection unplugged.",
+      "q3.q":"Which platforms are supported?","q3.a":"Android, Windows and iOS (iPhone / iPad). The interface and features are consistent across all three.",
+      "q4.q":"Do I need an account?","q4.a":"No. The app requires no login or registration to use.",
+      "q5.q":"How are devices found?","q5.a":"Automatic discovery over WiFi (SSDP / mDNS and targeted probes) lists compatible devices; manual IP entry is also supported.",
+      "q6.q":"Is my data safe?","q6.a":"Nothing leaves your local network, and the app contains no telemetry or tracking. See the privacy policy for details.",
+      "cta.title":"Put the remotes away today","cta.sub":"Free to download, local control — have your whole home theater obeying you in minutes.","cta.btn":"Download Remote97"
     },
     ja:{
       "title":"Remote97 — ホームシアター統合リモート",
@@ -530,9 +843,9 @@
       "hero.kicker":"純ソフトウェア · ハブ不要",
       "hero.title_html":"ひとつのアプリで、<em>ホームシアター全体</em>を",
       "hero.sub":"Remote97 は高価なコントロールプロセッサーを純ソフトウェアで置き換えます。LAN 内の Wi-Fi だけでアンプ・テレビ・ストリーミング機器を操作。クラウドもハブもサブスクも不要です。",
-      "hero.cta_zip":"Windows 版をダウンロード","hero.cta_apk":"Android APK をダウンロード",
+      "hero.cta_dl":"Remote97 をダウンロード","hero.cta_gh":"GitHub を見る",
       "hero.m1":"無料 · 広告なし","hero.m2":"データは LAN 内だけ","hero.m3":"v1.2.5 · Windows / Android / iOS",
-      "hero.note":"直接ダウンロード · GitHub Releases から配信",
+      "hero.note":"5 つのダウンロード方法は下へ ↓",
       "strip.lab":"対応デバイス",
       "feat.title":"システム全体を、ひとつのアプリに",
       "feat.sub":"かつて何本もあったリモコンの仕事を、ここに集約。",
@@ -550,7 +863,44 @@
       "dev.title":"対応デバイス","dev.sub":"ホームシアターの主要ブランドに対応、続々追加中。",
       "dev.g1.t":"AV アンプ","dev.g2.t":"テレビ & ボックス","dev.g3.t":"ストリーマー & スピーカー",
       "foot.support":"サポート","foot.rights":"© 2026 Remote97. All rights reserved.",
-      "foot.disc":"Remote97 は記載のブランドと提携関係にありません。標準ネットワークプロトコルによるローカル制御のみを行います。"
+      "foot.disc":"Remote97 は記載のブランドと提携関係にありません。標準ネットワークプロトコルによるローカル制御のみを行います。",
+      "nav.how":"使い方","nav.faq":"よくある質問",
+      "how.title":"数分で使い始められます","how.sub":"ハブ不要、配線不要、アカウント不要。",
+      "how.s1.num":"STEP 1","how.s1.t":"インストールして開く","how.s1.d":"Google Play、App Store、Microsoft Store、または直接 APK / ZIP から取得。アカウントも設定ウィザードも不要——開くだけです。",
+      "how.s2.num":"STEP 2","how.s2.t":"自動検出","how.s2.d":"Remote97 は SSDP・mDNS・指向プローブで WiFi をスキャンし、対応デバイスを一覧表示します。自分のものを選ぶだけ。",
+      "how.s3.num":"STEP 3","how.s3.t":"操作と自動化","how.s3.d":"デバイスをタップして操作。デバイスを部屋にまとめ、「映画モード」などのワンタップシーンに繋げられます。",
+      "cap.title":"物理リモコンと同じことが全部","cap.sub":"リモコンは減らして、統一された画面、より強力な自動化を。",
+      "cap1.t":"統一音量・ミュート","cap1.d":"複数デバイスの音量とミュートをまとめて調整し、同期を乱しません。",
+      "cap2.t":"入力切替","cap2.d":"HDMI・テレビ・STB などの入力をワンタップで切り替え。",
+      "cap3.t":"電源とスタンバイ","cap3.d":"電源オン・オフ・スタンバイをワンタップで——グループごと一括も可能。",
+      "cap4.t":"音場モード / サラウンド","cap4.d":"Dolby・DTS・ステレオなどを切替（Denon / Marantz など対応機）。",
+      "cap5.t":"デバイスごとの EQ・トーン","cap5.d":"対応するアンプやスピーカーでイコライザー・低音・高音を調整。",
+      "cap6.t":"画面キーボード入力","cap6.d":"Apple TV・Android TV などのシステムキーボードを呼び出し、アカウントや検索を入力。",
+      "cap7.t":"マルチルーム grouping","cap7.d":"Sonos・BluOS・WiiM を一つのゾーンにまとめ、全館オーディオを一か所で操作。",
+      "cap8.t":"レイアウトをカスタマイズ","cap8.d":"使いやすくボタンを配置し、よく使う操作をすぐ手元へ。",
+      "cap9.t":"部屋に合わせたテーマ","cap9.d":"墨・液ガラスなど複数テーマを内蔵し、光環境に合わせられます。",
+      "cap10.t":"Windows キーボードショートカット","cap10.d":"PC ではキーボードで音量変更や入力切替を素早く操作。",
+      "scen.title":"本当の「家の夜」のために","scen.sub":"機能リストではなく、実際に使う瞬間のために。",
+      "sc1.t":"映画の夜","sc1.d":"ワンタップで映画モードに——照明・機器・音が整います。",
+      "sc1.l1":"アンプが入り Apple TV 入力に切替","sc1.l2":"テレビが点き、音量が適切なレベルに","sc1.l3":"三つ目のリモコンを探さなくて済む",
+      "sc2.t":"家中の音楽","sc2.d":"散らばるスピーカーを一画面にまとめ、全館オーディオを一か所で。",
+      "sc2.l1":"Sonos + BluOS + WiiM を統合","sc2.l2":"同期再生、またはゾーン分割","sc2.l3":"音量も曲も一か所で操作",
+      "sc3.t":"静かな深夜","sc3.d":"深夜に家族を起こしたくない時も、数タップで音をしまえます。",
+      "sc3.l1":"ワンタップで全体音量を下げる","sc3.l2":"ステレオに切替えサブウーファーをミュート","sc3.l3":"暗闇でリモコンを探さなくて済む",
+      "priv.title":"プライバシー優先の設計","priv.sub":"操作コマンドは家の中に留まります。",
+      "pr1.t":"クラウドなし","pr1.d":"すべてのコマンドは自宅ネットワーク内を流れ、外部サーバーには届きません。インターネットを抜いても動作します。",
+      "pr2.t":"アカウントなし","pr2.d":"登録・ログイン・メールは不要。開いて使うだけで、identity に紐付きません。",
+      "pr3.t":"トラッキングなし","pr3.d":"アプリは分析データやテレメトリを収集せず、習慣が報告されることはありません。",
+      "pr4.t":"オープンソース","pr4.d":"エンジンは GitHub で公開されており、仕組みを誰でも確認できます。",
+      "priv.box.t":"詳細を見ますか？","priv.box.d":"データがどう（扱われないか）を逐条で説明する詳細なプライバシーポリシーを用意しています。","priv.box.link":"プライバシーポリシーを読む →",
+      "faq.title":"よくある質問","faq.sub":"まだ疑問がありますか？答えはここにあるかも。",
+      "q1.q":"Remote97 は無料ですか？","q1.a":"完全に無料です——広告・機内課金・サブスクリプションはありません。すべての機能が最初から使えます。",
+      "q2.q":"インターネットは必要ですか？","q2.a":"いいえ。すべての操作はローカルで行われ、ルーターのインターネット接続を抜いても正常に動作します。",
+      "q3.q":"対応プラットフォームは？","q3.a":"Android・Windows・iOS（iPhone / iPad）。三つとも画面と機能は共通です。",
+      "q4.q":"アカウントは必要ですか？","q4.a":"いいえ。アプリの使用にログインや登録は不要です。",
+      "q5.q":"デバイスはどう見つかりますか？","q5.a":"WiFi の自動検出（SSDP / mDNS と指向プローブ）で対応デバイスを一覧表示します。手動 IP 入力にも対応。",
+      "q6.q":"データは安全ですか？","q6.a":"データはローカルネットワークから出ず、アプリにテレメトリや追跡は含まれません。詳細はプライバシーポリシーを。",
+      "cta.title":"今日、リモコンを片付けよう","cta.sub":"無料でダウンロード、ローカル制御——数分でホームシアターがあなたの指図に従います。","cta.btn":"Remote97 をダウンロード"
     },
     de:{
       "title":"Remote97 — Steuerzentrale für dein Heimkino",
@@ -559,9 +909,9 @@
       "hero.kicker":"Reine Software · keine Hardware nötig",
       "hero.title_html":"Eine App für dein <em>komplettes Heimkino</em>",
       "hero.sub":"Remote97 ersetzt teure Steuerzentralen durch pure Software. AV-Receiver, TVs und Streamer werden direkt über dein Heimnetzwerk gesteuert — keine Cloud, kein Zusatzgerät, kein Abo.",
-      "hero.cta_zip":"Für Windows herunterladen","hero.cta_apk":"Android APK herunterladen",
+      "hero.cta_dl":"Remote97 herunterladen","hero.cta_gh":"Auf GitHub ansehen",
       "hero.m1":"Kostenlos · keine Werbung","hero.m2":"Daten bleiben im Heimnetz","hero.m3":"v1.2.5 · Windows / Android / iOS",
-      "hero.note":"Direktdownload · gehostet auf GitHub Releases",
+      "hero.note":"Alle 5 Download-Möglichkeiten unten ↓",
       "strip.lab":"Kompatibel mit",
       "feat.title":"Gebaut für das ganze System",
       "feat.sub":"Wofür früher eine Schublade voller Fernbedienungen nötig war — jetzt an einem Ort.",
@@ -579,7 +929,44 @@
       "dev.title":"Unterstützte Geräte","dev.sub":"Die gängigen Marken des Heimkinos — laufend mehr.",
       "dev.g1.t":"AV-Receiver","dev.g2.t":"TVs & Boxen","dev.g3.t":"Streamer & Lautsprecher",
       "foot.support":"Support","foot.rights":"© 2026 Remote97. Alle Rechte vorbehalten.",
-      "foot.disc":"Remote97 steht in keiner Verbindung zu den genannten Marken; die Steuerung erfolgt lokal über Standard-Netzwerkprotokolle."
+      "foot.disc":"Remote97 steht in keiner Verbindung zu den genannten Marken; die Steuerung erfolgt lokal über Standard-Netzwerkprotokolle.",
+      "nav.how":"So funktioniert's","nav.faq":"FAQ",
+      "how.title":"In wenigen Minuten startklar","how.sub":"Kein Hub, kein Kabel, kein Konto.",
+      "how.s1.num":"SCHRITT 1","how.s1.t":"Installieren & öffnen","how.s1.d":"Hol dir die App aus Google Play, dem App Store, Microsoft Store oder als direkten APK / ZIP. Kein Konto und kein Setup-Assistent — einfach öffnen.",
+      "how.s2.num":"SCHRITT 2","how.s2.t":"Auto-Erkennung","how.s2.d":"Remote97 scannt dein WiFi per SSDP, mDNS und gezielten Probes und listet jedes kompatible Gerät auf. Wähle einfach deine aus.",
+      "how.s3.num":"SCHRITT 3","how.s3.t":"Steuern & automatisieren","how.s3.d":"Tippe ein Gerät an, um es zu steuern. Fasse Geräte zu Räumen zusammen und verknüpfe sie zu Ein-Tasten-Szenen wie „Filmabend“.",
+      "cap.title":"Alles, was eine Fernbedienung kann","cap.sub":"Weniger Fernbedienungen, eine einheitliche Oberfläche, mehr Automatisierung.",
+      "cap1.t":"Einheitliche Lautstärke & Stumm","cap1.d":"Lautstärke und Stumm über Geräte hinweg regeln; mehrere bleiben synchron.",
+      "cap2.t":"Eingang / Quelle umschalten","cap2.d":"Zwischen HDMI, TV, Receiver und anderen Quellen mit einem Tipp.",
+      "cap3.t":"Ein / Standby","cap3.d":"Ein-, Ausschalten und Standby mit einem Tipp — und ganze Gruppen auf einmal.",
+      "cap4.t":"Klangmodi / Surround","cap4.d":"Dolby, DTS, Stereo und mehr umschalten (bei Denon / Marantz und anderen).",
+      "cap5.t":"Geräte-EQ & Klang","cap5.d":"Equalizer, Bass und Höhen an unterstützten Receivern und Speakern justieren.",
+      "cap6.t":"Bildschirm-Texteingabe","cap6.d":"Systemtastatur für Apple TV, Android TV u. a. aufrufen, um Konten und Suchen zu tippen.",
+      "cap7.t":"Multiroom-Gruppierung","cap7.d":"Sonos, BluOS und WiiM zu einer Zone gruppieren und die ganze Haus-Audio an einer Stelle steuern.",
+      "cap8.t":"Anpassbare Layouts","cap8.d":"Knöpfe nach Gewohnheit anordnen, sodass die wichtigsten Steuerungen griffbereit sind.",
+      "cap9.t":"Themen für jeden Raum","cap9.d":"Mehrere eingebaute Themen — Tinte, Flüssigglas und mehr — passend zur Beleuchtung.",
+      "cap10.t":"Windows-Tastenkürzel","cap10.d":"Am PC Tastatur nutzen, um Lautstärke zu ändern und Quellen zu wechseln.",
+      "scen.title":"Für echte Abende zu Hause gemacht","scen.sub":"Keine Feature-Liste — die Momente, die du wirklich nutzt.",
+      "sc1.t":"Filmabend","sc1.d":"Ein Tipp startet den Film-Modus; Licht, Geräte und Ton fallen an ihren Platz.",
+      "sc1.l1":"Receiver geht an und schaltet auf Apple TV","sc1.l2":"TV geht an, Lautstärke auf sinnvolles Level","sc1.l3":"Keine dritte Fernbedienung suchen",
+      "sc2.t":"Musik überall","sc2.d":"Zerstreute Lautsprecher in eine Oberfläche holen und die Haus-Audio an einer Stelle steuern.",
+      "sc2.l1":"Sonos + BluOS + WiiM gruppiert","sc2.l2":"Synchron abspielen oder in Zonen teilen","sc2.l3":"Lautstärke und Titel an einem Ort",
+      "sc3.t":"Stille Nacht","sc3.d":"Spätabends niemanden wecken? Ton in wenigen Tipps wegstecken.",
+      "sc3.l1":"Gesamtlautstärke mit einem Tipp senken","sc3.l2":"Auf Stereo wechseln und Subwoofer stummschalten","sc3.l3":"Nicht im Dunkeln nach Fernbedienung tasten",
+      "priv.title":"Privatsphäre von Haus aus","priv.sub":"Steuerbefehle bleiben zu Hause.",
+      "pr1.t":"Keine Cloud","pr1.d":"Jeder Befehl läuft über dein Heimnetzwerk und erreicht keinen externen Server — funktioniert auch ohne Internet.",
+      "pr2.t":"Kein Konto","pr2.d":"Keine Anmeldung, kein Login, keine E-Mail. Öffnen und nutzen; nichts wird an eine Identität gebunden.",
+      "pr3.t":"Keine Verfolgung","pr3.d":"Die App erfasst keine Analyse- oder Telemetriedaten; deine Gewohnheiten werden nicht gemeldet.",
+      "pr4.t":"Open Source","pr4.d":"Die Engine ist öffentlich auf GitHub, damit jeder genau sieht, wie sie funktioniert.",
+      "priv.box.t":"Alle Details?","priv.box.d":"Wir haben eine detaillierte Datenschutzerklärung, die Schritt für Schritt erklärt, wie Daten (nicht) verarbeitet werden.","priv.box.link":"Datenschutz lesen →",
+      "faq.title":"Häufige Fragen","faq.sub":"Noch Fragen? Die Antwort findest du vielleicht hier.",
+      "q1.q":"Ist Remote97 kostenlos?","q1.a":"Völlig kostenlos — keine Werbung, keine In-App-Käufe, kein Abo. Alle Funktionen sind ab Werk dabei.",
+      "q2.q":"Braucht es Internet?","q2.a":"Nein. Alle Steuerung ist lokal; es funktioniert sogar ohne Internetanschluss des Routers.",
+      "q3.q":"Welche Plattformen werden unterstützt?","q3.a":"Android, Windows und iOS (iPhone / iPad). Oberfläche und Funktionen sind identisch.",
+      "q4.q":"Brauche ich ein Konto?","q4.a":"Nein. Die App verlangt kein Login oder Registrierung.",
+      "q5.q":"Wie werden Geräte gefunden?","q5.a":"Automatische Erkennung über WiFi (SSDP / mDNS und gezielte Probes) listet kompatible Geräte auf; manuelle IP-Eingabe wird ebenfalls unterstützt.",
+      "q6.q":"Sind meine Daten sicher?","q6.a":"Nichts verlässt dein lokales Netzwerk, und die App enthält keine Telemetrie oder Verfolgung. Details in der Datenschutzerklärung.",
+      "cta.title":"Räume die Fernbedienungen heute weg","cta.sub":"Kostenlos herunterladen, lokale Steuerung — in Minuten gehorcht dir dein Heimkino.","cta.btn":"Remote97 herunterladen"
     },
     es:{
       "title":"Remote97 — Control total de tu home cinema",
@@ -588,9 +975,9 @@
       "hero.kicker":"Software puro · sin hardware extra",
       "hero.title_html":"Una app para todo tu <em>home cinema</em>",
       "hero.sub":"Remote97 reemplaza los caros procesadores de control con software puro. Controla tu receptor AV, TV y reproductores por WiFi local — sin nube, sin hardware extra, sin suscripción.",
-      "hero.cta_zip":"Descargar para Windows","hero.cta_apk":"Descargar APK de Android",
+      "hero.cta_dl":"Descargar Remote97","hero.cta_gh":"Ver en GitHub",
       "hero.m1":"Gratis · sin anuncios","hero.m2":"Los datos no salen de tu red","hero.m3":"v1.2.5 · Windows / Android / iOS",
-      "hero.note":"Descarga directa · alojado en GitHub Releases",
+      "hero.note":"Las 5 opciones de descarga abajo ↓",
       "strip.lab":"Compatible con",
       "feat.title":"Pensado para todo el sistema",
       "feat.sub":"Lo que antes exigía un cajón lleno de mandos, ahora en un solo lugar.",
@@ -608,7 +995,44 @@
       "dev.title":"Dispositivos compatibles","dev.sub":"Las principales marcas del home cinema, y siguen sumando.",
       "dev.g1.t":"Receptores AV","dev.g2.t":"TVs y boxes","dev.g3.t":"Streamers y altavoces",
       "foot.support":"Soporte","foot.rights":"© 2026 Remote97. Todos los derechos reservados.",
-      "foot.disc":"Remote97 no está afiliado a las marcas mencionadas; controla los dispositivos localmente mediante protocolos de red estándar."
+      "foot.disc":"Remote97 no está afiliado a las marcas mencionadas; controla los dispositivos localmente mediante protocolos de red estándar.",
+      "nav.how":"Cómo funciona","nav.faq":"Preguntas",
+      "how.title":"Listo en pocos minutos","how.sub":"Sin hub, sin cables, sin cuenta.",
+      "how.s1.num":"PASO 1","how.s1.t":"Instala y abre","how.s1.d":"Consíguelo en Google Play, App Store, Microsoft Store o como APK / ZIP directo. Sin cuenta ni asistente: solo ábrelo.",
+      "how.s2.num":"PASO 2","how.s2.t":"Auto-detección","how.s2.d":"Remote97 escanea tu WiFi con SSDP, mDNS y sondas dirigidas, y lista cada dispositivo compatible. Elige los tuyos.",
+      "how.s3.num":"PASO 3","how.s3.t":"Control y automatización","how.s3.d":"Toca cualquier dispositivo para controlarlo. Agrúpalos en habitaciones y encadénalos en escenas de un toque como «Noche de cine».",
+      "cap.title":"Todo lo que un mando físico","cap.sub":"Menos mandos, una interfaz coherente, más automatización.",
+      "cap1.t":"Volumen y silencio unificados","cap1.d":"Ajusta volumen y silencio entre dispositivos; mantén varios sincronizados.",
+      "cap2.t":"Cambio de entrada / fuente","cap2.d":"Salta entre HDMI, TV, descodificador y otras entradas con un toque.",
+      "cap3.t":"Encendido y espera","cap3.d":"Encender, apagar y standby en un toque — y un grupo completo de una vez.",
+      "cap4.t":"Modos de sonido / surround","cap4.d":"Cambia Dolby, DTS, estéreo y más (en Denon / Marantz y otros que lo soporten).",
+      "cap5.t":"EQ y tono por dispositivo","cap5.d":"Ajusta ecualizador, graves y agudos en receptores y altavoces compatibles.",
+      "cap6.t":"Entrada de texto en pantalla","cap6.d":"Invoca el teclado del sistema para Apple TV, Android TV y otros para escribir cuentas y búsquedas.",
+      "cap7.t":"Agrupación multiroom","cap7.d":"Agrupa Sonos, BluOS y WiiM en una zona y controla el audio de toda la casa desde un sitio.",
+      "cap8.t":"Disposiciones personalizables","cap8.d":"Ordena los botones a tu gusto para tener los controles más usados al alcance.",
+      "cap9.t":"Temas para cada sala","cap9.d":"Varios temas integrados — tinta, cristal líquido y más — para cada iluminación.",
+      "cap10.t":"Atajos de teclado en Windows","cap10.d":"En PC, usa el teclado para cambiar volumen y fuentes rápidamente.",
+      "scen.title":"Hecho para las noches reales en casa","scen.sub":"No es una lista de funciones — son los momentos que usarás.",
+      "sc1.t":"Noche de cine","sc1.d":"Un toque entra en modo cine; luces, dispositivos y sonido caen en su sitio.",
+      "sc1.l1":"El receptor se enciende y cambia a Apple TV","sc1.l2":"La TV se enciende, volumen en nivel sensato","sc1.l3":"Sin buscar un tercer mando",
+      "sc2.t":"Música por todas partes","sc2.d":"Reúne altavoces dispersos en una pantalla y controla el audio de toda la casa desde un sitio.",
+      "sc2.l1":"Sonos + BluOS + WiiM agrupados","sc2.l2":"Reproduce sincronizado o divide en zonas","sc2.l3":"Volumen y pistas en un solo lugar",
+      "sc3.t":"Noche silenciosa","sc3.d":"Por la noche, sin despertar a nadie, guarda el sonido en pocos toques.",
+      "sc3.l1":"Baja el volumen general en un toque","sc3.l2":"Pasa a estéreo y silencia el subwoofer","sc3.l3":"Sin buscar mandos a oscuras",
+      "priv.title":"Privado por diseño","priv.sub":"Las órdenes de control se quedan en tu casa.",
+      "pr1.t":"Sin nube","pr1.d":"Cada orden viaja por tu red local y no llega a ningún servidor externo — funciona incluso sin internet.",
+      "pr2.t":"Sin cuenta","pr2.d":"Sin registro, sin login, sin correo. Ábrelo y úsalo; nada se vincula a una identidad.",
+      "pr3.t":"Sin rastreo","pr3.d":"La app no recoge analíticas ni telemetría; tus hábitos nunca se informan.",
+      "pr4.t":"Código abierto","pr4.d":"El motor es público en GitHub, así cualquiera puede ver cómo funciona.",
+      "priv.box.t":"¿Quieres los detalles?","priv.box.d":"Tenemos una política de privacidad detallada que explica paso a paso cómo se (no) tratan los datos.","priv.box.link":"Leer política de privacidad →",
+      "faq.title":"Preguntas frecuentes","faq.sub":"¿Sigues con dudas? La respuesta puede estar aquí.",
+      "q1.q":"¿Remote97 es gratis?","q1.a":"Totalmente gratis — sin anuncios, sin compras, sin suscripción. Todas las funciones incluidas.",
+      "q2.q":"¿Necesita internet?","q2.a":"No. Todo el control es local; funciona incluso desconectando el internet del router.",
+      "q3.q":"¿Qué plataformas admite?","q3.a":"Android, Windows e iOS (iPhone / iPad). Interfaz y funciones iguales en las tres.",
+      "q4.q":"¿Necesito una cuenta?","q4.a":"No. La app no exige login ni registro para usarse.",
+      "q5.q":"¿Cómo se encuentran los dispositivos?","q5.a":"La detección automática por WiFi (SSDP / mDNS y sondas dirigidas) lista dispositivos compatibles; también se admite IP manual.",
+      "q6.q":"¿Mis datos están seguros?","q6.a":"Nada sale de tu red local y la app no tiene telemetría ni rastreo. Ver política de privacidad.",
+      "cta.title":"Guarda los mandos hoy","cta.sub":"Descarga gratis, control local — en minutos tu cine en casa te obedece.","cta.btn":"Descargar Remote97"
     },
     pt:{
       "title":"Remote97 — Central do seu home theater",
@@ -617,9 +1041,9 @@
       "hero.kicker":"Software puro · sem hardware extra",
       "hero.title_html":"Um app para todo o seu <em>home theater</em>",
       "hero.sub":"O Remote97 substitui caros processadores de controle por software puro. Controle receiver, TV e players pelo Wi-Fi local — sem nuvem, sem hardware extra, sem assinatura.",
-      "hero.cta_zip":"Baixar para Windows","hero.cta_apk":"Baixar APK para Android",
+      "hero.cta_dl":"Baixar o Remote97","hero.cta_gh":"Ver no GitHub",
       "hero.m1":"Grátis · sem anúncios","hero.m2":"Seus dados não saem da rede local","hero.m3":"v1.2.5 · Windows / Android / iOS",
-      "hero.note":"Download direto · hospedado no GitHub Releases",
+      "hero.note":"As 5 opções de download abaixo ↓",
       "strip.lab":"Compatível com",
       "feat.title":"Feito para o sistema inteiro",
       "feat.sub":"O que antes exigia uma gaveta de controles, agora em um só lugar.",
@@ -637,7 +1061,44 @@
       "dev.title":"Dispositivos compatíveis","dev.sub":"As principais marcas do home theater, e sempre crescendo.",
       "dev.g1.t":"Receivers AV","dev.g2.t":"TVs e boxes","dev.g3.t":"Players e caixas de som",
       "foot.support":"Suporte","foot.rights":"© 2026 Remote97. Todos os direitos reservados.",
-      "foot.disc":"O Remote97 não é afiliado às marcas citadas; o controle é feito localmente por protocolos de rede padrão."
+      "foot.disc":"O Remote97 não é afiliado às marcas citadas; o controle é feito localmente por protocolos de rede padrão.",
+      "nav.how":"Como funciona","nav.faq":"Perguntas",
+      "how.title":"Pronto em poucos minutos","how.sub":"Sem hub, sem fios, sem conta.",
+      "how.s1.num":"PASSO 1","how.s1.t":"Instale e abra","how.s1.d":"Pegue na Google Play, App Store, Microsoft Store ou como APK / ZIP direto. Sem conta nem assistente: basta abrir.",
+      "how.s2.num":"PASSO 2","how.s2.t":"Auto-descoberta","how.s2.d":"O Remote97 varre seu WiFi com SSDP, mDNS e sondas direcionadas e lista cada dispositivo compatível. Escolha os seus.",
+      "how.s3.num":"PASSO 3","how.s3.t":"Controle e automação","how.s3.d":"Toque em qualquer dispositivo para controlá-lo. Agrupe em cômodos e encadeie em cenas de um toque como «Noite de cinema».",
+      "cap.title":"Tudo que um controle físico faz","cap.sub":"Menos controles, uma interface coerente, mais automação.",
+      "cap1.t":"Volume e mudo unificados","cap1.d":"Ajuste volume e mudo entre dispositivos; mantenha vários sincronizados.",
+      "cap2.t":"Troca de entrada / fonte","cap2.d":"Pule entre HDMI, TV, decodificador e outras entradas com um toque.",
+      "cap3.t":"Ligar e standby","cap3.d":"Ligar, desligar e standby em um toque — e um grupo inteiro de uma vez.",
+      "cap4.t":"Modos de som / surround","cap4.d":"Troque Dolby, DTS, estéreo e mais (em Denon / Marantz e outros compatíveis).",
+      "cap5.t":"EQ e tom por dispositivo","cap5.d":"Ajuste equalizador, graves e agudos em receivers e caixas compatíveis.",
+      "cap6.t":"Entrada de texto na tela","cap6.d":"Chame o teclado do sistema para Apple TV, Android TV e outros e digite contas e buscas.",
+      "cap7.t":"Agrupamento multiambiente","cap7.d":"Agrupe Sonos, BluOS e WiiM em uma zona e controle o áudio de toda a casa num só lugar.",
+      "cap8.t":"Layouts personalizáveis","cap8.d":"Organize os botões ao seu gosto para ter os controles mais usados à mão.",
+      "cap9.t":"Temas para cada ambiente","cap9.d":"Vários temas integrados — tinta, vidro líquido e mais — para cada iluminação.",
+      "cap10.t":"Atalhos de teclado no Windows","cap10.d":"No PC, use o teclado para mudar volume e fontes rapidamente.",
+      "scen.title":"Feito para noites reais em casa","scen.sub":"Não é uma lista de recursos — são os momentos que você usará.",
+      "sc1.t":"Noite de cinema","sc1.d":"Um toque entra no modo cinema; luzes, dispositivos e som se ajeitam.",
+      "sc1.l1":"O receiver liga e troca para Apple TV","sc1.l2":"A TV acende, volume em nível sensato","sc1.l3":"Sem procurar um terceiro controle",
+      "sc2.t":"Música por toda parte","sc2.d":"Reúna caixas espalhadas numa tela e controle o áudio de toda a casa num só lugar.",
+      "sc2.l1":"Sonos + BluOS + WiiM agrupados","sc2.l2":"Reproduza sincronizado ou divida em zonas","sc2.l3":"Volume e faixas num só lugar",
+      "sc3.t":"Noite silenciosa","sc3.d":"De madrugada, sem acordar ninguém, guarde o som em poucos toques.",
+      "sc3.l1":"Baixe o volume geral em um toque","sc3.l2":"Mude para estéreo e mute o subwoofer","sc3.l3":"Sem procurar controles no escuro",
+      "priv.title":"Privado por design","priv.sub":"Os comandos de controle ficam dentro da sua casa.",
+      "pr1.t":"Sem nuvem","pr1.d":"Cada comando trafega na sua rede local e não chega a nenhum servidor externo — funciona mesmo sem internet.",
+      "pr2.t":"Sem conta","pr2.d":"Sem cadastro, sem login, sem e-mail. Abra e use; nada é ligado a uma identidade.",
+      "pr3.t":"Sem rastreamento","pr3.d":"O app não coleta análises nem telemetria; seus hábitos jamais são reportados.",
+      "pr4.t":"Código aberto","pr4.d":"O motor é público no GitHub, então qualquer um pode ver como funciona.",
+      "priv.box.t":"Quer os detalhes?","priv.box.d":"Temos uma política de privacidade detalhada que explica passo a passo como os dados são (não) tratados.","priv.box.link":"Ler política de privacidade →",
+      "faq.title":"Perguntas frequentes","faq.sub":"Ainda tem dúvidas? A resposta pode estar aqui.",
+      "q1.q":"O Remote97 é grátis?","q1.a":"Totalmente grátis — sem anúncios, sem compras, sem assinatura. Todos os recursos inclusos.",
+      "q2.q":"Precisa de internet?","q2.a":"Não. Todo o controle é local; funciona mesmo desligando o internet do roteador.",
+      "q3.q":"Quais plataformas são suportadas?","q3.a":"Android, Windows e iOS (iPhone / iPad). Interface e recursos iguais nas três.",
+      "q4.q":"Preciso de uma conta?","q4.a":"Não. O app não exige login nem registro para usar.",
+      "q5.q":"Como os dispositivos são encontrados?","q5.a":"A descoberta automática via WiFi (SSDP / mDNS e sondas direcionadas) lista dispositivos compatíveis; IP manual também é suportado.",
+      "q6.q":"Meus dados estão seguros?","q6.a":"Nada sai da sua rede local, e o app não tem telemetria nem rastreamento. Veja a política de privacidade.",
+      "cta.title":"Guardes os controles hoje","cta.sub":"Baixe grátis, controle local — em minutos seu home theater obedece a você.","cta.btn":"Baixar o Remote97"
     }
   };
   var LANGS = ["en","zh","ja","de","es","pt"];
@@ -690,8 +1151,8 @@
     if (brand) brand.src = (t === "glass") ? "remote97_wordmark_light.png" : "remote97_wordmark.png";
     try { localStorage.setItem(THEME_KEY, t); } catch(e){}
   }
-  var savedTheme = "ink";
-  try { savedTheme = localStorage.getItem(THEME_KEY) || "ink"; } catch(e){}
+  var savedTheme = "glass";
+  try { savedTheme = localStorage.getItem(THEME_KEY) || "glass"; } catch(e){}
   setTheme(savedTheme);
   var tg = document.getElementById("themeToggle");
   if (tg){
