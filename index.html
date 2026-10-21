@@ -82,7 +82,7 @@
   .bar{display:flex;align-items:center;gap:20px;height:72px}
   .brand img{height:40px;display:block}
   nav{display:flex;gap:26px;margin-left:auto}
-  nav a{color:var(--mid);font-size:14px;font-weight:500;transition:color .18s}
+  nav a{color:var(--mid);font-size:14px;font-weight:500;transition:color .18s;white-space:nowrap}
   nav a:hover{color:var(--accent-ink)}
   .lang{display:flex;align-items:center;gap:3px;background:var(--card);
     border:1px solid var(--line);border-radius:10px;padding:3px}
@@ -345,6 +345,9 @@
     .capgrid{grid-template-columns:1fr}
     .scgrid{grid-template-columns:1fr}
     .priv{grid-template-columns:1fr;gap:26px}
+  }
+  @media(max-width:1000px){
+    nav a:not(.keep){display:none}
   }
   @media(max-width:620px){
     nav a:not(.keep){display:none}
