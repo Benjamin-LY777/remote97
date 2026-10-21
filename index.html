@@ -71,7 +71,7 @@
     -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:1120px;margin:0 auto;padding-inline:24px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 
   /* ---------- header ---------- */
   header{
@@ -564,6 +564,7 @@
       <div class="fcard"><h3 data-i18n="f4.t">自动发现</h3><p data-i18n="f4.d">打开 App 即自动扫描同一 WiFi 下的设备，选中即连，无需手动配置 IP。</p></div>
       <div class="fcard"><h3 data-i18n="f5.t">多端覆盖</h3><p data-i18n="f5.d">Android、Windows、iOS 三端同一体验，手机、平板、电脑都能当遥控器。</p></div>
       <div class="fcard"><h3 data-i18n="f6.t">持续扩展</h3><p data-i18n="f6.d">设备支持按路线图稳步增加：Roku、Yamaha、Sonos、Bluesound 等已在路上。</p></div>
+      <div class="fcard"><h3 data-i18n="f7.t">自定义控制板</h3><p data-i18n="f7.d">把不同设备的常用控件聚合到同一页面——功放音量、电视电源、Apple TV 导航自由排布，组成一个专属遥控界面，一屏掌控整个影音系统。</p></div>
     </div>
   </section>
 
@@ -647,7 +648,6 @@
         <div class="prow"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3zm0 2.2 6 2.25V11c0 3.9-2.5 6.9-6 8.9-3.5-2-6-5-6-8.9V6.45L12 4.2z"/></svg></span><div><h3 data-i18n="pr1.t">无云端</h3><p data-i18n="pr1.d">每一条指令都走本地网络，不经过任何外部服务器；路由器外网断了也能控。</p></div></div>
         <div class="prow"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5z"/></svg></span><div><h3 data-i18n="pr2.t">无需账号</h3><p data-i18n="pr2.d">没有注册、没有登录、没有邮箱。打开就能用，不绑定任何身份。</p></div></div>
         <div class="prow"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></span><div><h3 data-i18n="pr3.t">无追踪</h3><p data-i18n="pr3.d">应用不收集任何分析数据或遥测；你的使用习惯不会被上报。</p></div></div>
-        <div class="prow"><span class="pic"><svg viewBox="0 0 24 24"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></span><div><h3 data-i18n="pr4.t">开源可审计</h3><p data-i18n="pr4.d">底层引擎公开在 GitHub，任何人都可以查看它是如何工作的。</p></div></div>
       </div>
       <div class="pbox">
         <h3 data-i18n="priv.box.t">想看完整说明？</h3>
@@ -723,6 +723,7 @@
       "f4.t":"自动发现","f4.d":"打开 App 即自动扫描同一 WiFi 下的设备，选中即连，无需手动配置 IP。",
       "f5.t":"多端覆盖","f5.d":"Android、Windows、iOS 三端同一体验，手机、平板、电脑都能当遥控器。",
       "f6.t":"持续扩展","f6.d":"设备支持按路线图稳步增加：Roku、Yamaha、Sonos、Bluesound 等已在路上。",
+      "f7.t":"自定义控制板","f7.d":"把不同设备的常用控件聚合到同一页面——功放音量、电视电源、Apple TV 导航自由排布，组成一个专属遥控界面，一屏掌控整个影音系统。",
       "dl.title":"下载 Remote97","dl.sub":"点击即下载，无需跳转。商店版与直链版内容一致。",
       "badge.direct":"直链",
       "t.apk.d":"直接安装，无需应用商店","t.zip.d":"解压即用，无需安装",
@@ -759,7 +760,6 @@
       "pr1.t":"无云端","pr1.d":"每一条指令都走本地网络，不经过任何外部服务器；路由器外网断了也能控。",
       "pr2.t":"无需账号","pr2.d":"没有注册、没有登录、没有邮箱。打开就能用，不绑定任何身份。",
       "pr3.t":"无追踪","pr3.d":"应用不收集任何分析数据或遥测；你的使用习惯不会被上报。",
-      "pr4.t":"开源可审计","pr4.d":"底层引擎公开在 GitHub，任何人都可以查看它是如何工作的。",
       "priv.box.t":"想看完整说明？","priv.box.d":"我们准备了详细的隐私政策，逐条说明数据如何（不）被处理。","priv.box.link":"阅读隐私政策 →",
       "faq.title":"常见问题","faq.sub":"还有疑问？这里也许有答案。",
       "q1.q":"Remote97 是免费的吗？","q1.a":"完全免费——无广告、无内购、无订阅。所有功能开箱即用。",
@@ -789,6 +789,7 @@
       "f4.t":"Automatic discovery","f4.d":"Open the app and devices on your WiFi appear on their own — no manual IP setup.",
       "f5.t":"Every screen","f5.d":"Android, Windows and iOS share the same experience. Phone, tablet or PC — all become the remote.",
       "f6.t":"Growing fast","f6.d":"New brands land steadily: Roku, Yamaha, Sonos, Bluesound and more are on the roadmap.",
+      "f7.t":"Custom control board","f7.d":"Put the controls of different devices on one page — receiver volume, TV power, Apple TV navigation — arranged into a personal remote interface that controls your whole home theater from a single screen.",
       "dl.title":"Download Remote97","dl.sub":"Tap and it downloads — no redirect. Store builds and direct links are identical.",
       "badge.direct":"Direct",
       "t.apk.d":"Install without an app store","t.zip.d":"Unzip and run — no installer",
@@ -825,7 +826,6 @@
       "pr1.t":"No cloud","pr1.d":"Every command travels on your local network and never reaches any external server — it works even with the internet unplugged.",
       "pr2.t":"No account","pr2.d":"No sign-up, no login, no email. Open it and use it; nothing is tied to an identity.",
       "pr3.t":"No tracking","pr3.d":"The app collects no analytics or telemetry; your habits are never reported.",
-      "pr4.t":"Open source","pr4.d":"The engine is public on GitHub, so anyone can see exactly how it works.",
       "priv.box.t":"Want the full details?","priv.box.d":"We've written a detailed privacy policy that spells out how data is (not) handled.","priv.box.link":"Read the privacy policy →",
       "faq.title":"Frequently asked questions","faq.sub":"Still wondering? The answer may be here.",
       "q1.q":"Is Remote97 free?","q1.a":"Completely free — no ads, no in-app purchases, no subscription. Every feature is included out of the box.",
@@ -855,6 +855,7 @@
       "f4.t":"自動発見","f4.d":"アプリを開けば同じ Wi-Fi の機器を自動検出。IP 設定は不要です。",
       "f5.t":"マルチプラットフォーム","f5.d":"Android・Windows・iOS で同じ体験。スマホもタブレットも PC もリモコンになります。",
       "f6.t":"順次拡大","f6.d":"Roku・Yamaha・Sonos・Bluesound など、対応機種を継続的に追加中。",
+      "f7.t":"カスタムコントロールパネル","f7.d":"異なる機器のコントロールを1つの画面に集約——アンプの音量、テレビの電源、Apple TV のナビゲーションを自由に配置し、専用の遥控インターフェースからホームシアター全体を一括操作。",
       "dl.title":"Remote97 をダウンロード","dl.sub":"タップですぐダウンロード。ストア版と直リンク版は同じ内容です。",
       "badge.direct":"直リンク",
       "t.apk.d":"ストアなしで直接インストール","t.zip.d":"解凍してすぐ実行",
@@ -891,7 +892,6 @@
       "pr1.t":"クラウドなし","pr1.d":"すべてのコマンドは自宅ネットワーク内を流れ、外部サーバーには届きません。インターネットを抜いても動作します。",
       "pr2.t":"アカウントなし","pr2.d":"登録・ログイン・メールは不要。開いて使うだけで、identity に紐付きません。",
       "pr3.t":"トラッキングなし","pr3.d":"アプリは分析データやテレメトリを収集せず、習慣が報告されることはありません。",
-      "pr4.t":"オープンソース","pr4.d":"エンジンは GitHub で公開されており、仕組みを誰でも確認できます。",
       "priv.box.t":"詳細を見ますか？","priv.box.d":"データがどう（扱われないか）を逐条で説明する詳細なプライバシーポリシーを用意しています。","priv.box.link":"プライバシーポリシーを読む →",
       "faq.title":"よくある質問","faq.sub":"まだ疑問がありますか？答えはここにあるかも。",
       "q1.q":"Remote97 は無料ですか？","q1.a":"完全に無料です——広告・機内課金・サブスクリプションはありません。すべての機能が最初から使えます。",
@@ -921,6 +921,7 @@
       "f4.t":"Automatische Erkennung","f4.d":"App öffnen, Geräte im WLAN erscheinen von selbst — keine manuelle IP-Konfiguration.",
       "f5.t":"Für jeden Bildschirm","f5.d":"Android, Windows und iOS mit demselben Erlebnis. Handy, Tablet oder PC — alles wird zur Fernbedienung.",
       "f6.t":"Stetiges Wachstum","f6.d":"Neue Marken kommen regelmäßig dazu: Roku, Yamaha, Sonos, Bluesound und mehr.",
+      "f7.t":"Individuelles Bedienfeld","f7.d":"Bringe die Steuerungen verschiedener Geräte auf eine Seite — Receiver-Lautstärke, TV-Strom, Apple-TV-Navigation — frei angeordnet zu einem persönlichen Bedieninterface für dein ganzes Heimkino.",
       "dl.title":"Remote97 herunterladen","dl.sub":"Antippen und los — keine Weiterleitung. Store- und Direktversion sind identisch.",
       "badge.direct":"Direkt",
       "t.apk.d":"Installieren ohne App-Store","t.zip.d":"Entpacken und starten — kein Installer",
@@ -957,7 +958,6 @@
       "pr1.t":"Keine Cloud","pr1.d":"Jeder Befehl läuft über dein Heimnetzwerk und erreicht keinen externen Server — funktioniert auch ohne Internet.",
       "pr2.t":"Kein Konto","pr2.d":"Keine Anmeldung, kein Login, keine E-Mail. Öffnen und nutzen; nichts wird an eine Identität gebunden.",
       "pr3.t":"Keine Verfolgung","pr3.d":"Die App erfasst keine Analyse- oder Telemetriedaten; deine Gewohnheiten werden nicht gemeldet.",
-      "pr4.t":"Open Source","pr4.d":"Die Engine ist öffentlich auf GitHub, damit jeder genau sieht, wie sie funktioniert.",
       "priv.box.t":"Alle Details?","priv.box.d":"Wir haben eine detaillierte Datenschutzerklärung, die Schritt für Schritt erklärt, wie Daten (nicht) verarbeitet werden.","priv.box.link":"Datenschutz lesen →",
       "faq.title":"Häufige Fragen","faq.sub":"Noch Fragen? Die Antwort findest du vielleicht hier.",
       "q1.q":"Ist Remote97 kostenlos?","q1.a":"Völlig kostenlos — keine Werbung, keine In-App-Käufe, kein Abo. Alle Funktionen sind ab Werk dabei.",
@@ -987,6 +987,7 @@
       "f4.t":"Detección automática","f4.d":"Abre la app y los dispositivos de tu WiFi aparecen solos — sin configurar IPs.",
       "f5.t":"En todas tus pantallas","f5.d":"Android, Windows e iOS comparten la misma experiencia. Móvil, tablet o PC: todos son el mando.",
       "f6.t":"En constante crecimiento","f6.d":"Nuevas marcas llegando paso a paso: Roku, Yamaha, Sonos, Bluesound y más.",
+      "f7.t":"Panel de control personalizado","f7.d":"Reúne los controles de distintos dispositivos en una página — volumen del receptor, encendido del TV, navegación de Apple TV — dispuestos en una interfaz de mando personal que controla todo tu cine en casa desde una sola pantalla.",
       "dl.title":"Descargar Remote97","dl.sub":"Toca y se descarga, sin redirecciones. Las versiones de tienda y los enlaces directos son idénticos.",
       "badge.direct":"Directo",
       "t.apk.d":"Instala sin tienda de apps","t.zip.d":"Descomprime y ejecuta, sin instalador",
@@ -1023,7 +1024,6 @@
       "pr1.t":"Sin nube","pr1.d":"Cada orden viaja por tu red local y no llega a ningún servidor externo — funciona incluso sin internet.",
       "pr2.t":"Sin cuenta","pr2.d":"Sin registro, sin login, sin correo. Ábrelo y úsalo; nada se vincula a una identidad.",
       "pr3.t":"Sin rastreo","pr3.d":"La app no recoge analíticas ni telemetría; tus hábitos nunca se informan.",
-      "pr4.t":"Código abierto","pr4.d":"El motor es público en GitHub, así cualquiera puede ver cómo funciona.",
       "priv.box.t":"¿Quieres los detalles?","priv.box.d":"Tenemos una política de privacidad detallada que explica paso a paso cómo se (no) tratan los datos.","priv.box.link":"Leer política de privacidad →",
       "faq.title":"Preguntas frecuentes","faq.sub":"¿Sigues con dudas? La respuesta puede estar aquí.",
       "q1.q":"¿Remote97 es gratis?","q1.a":"Totalmente gratis — sin anuncios, sin compras, sin suscripción. Todas las funciones incluidas.",
@@ -1053,6 +1053,7 @@
       "f4.t":"Descoberta automática","f4.d":"Abra o app e os dispositivos do seu Wi-Fi aparecem sozinhos — sem configurar IP.",
       "f5.t":"Em todas as suas telas","f5.d":"Android, Windows e iOS com a mesma experiência. Celular, tablet ou PC: todos viram o controle.",
       "f6.t":"Em constante expansão","f6.d":"Novas marcas chegando sem parar: Roku, Yamaha, Sonos, Bluesound e mais.",
+      "f7.t":"Painel de controle personalizado","f7.d":"Reúna os controles de diferentes dispositivos em uma página — volume do receiver, energia da TV, navegação da Apple TV — organizados em uma interface de controle pessoal que comanda todo o seu home cinema a partir de uma única tela.",
       "dl.title":"Baixar o Remote97","dl.sub":"Toque e baixe, sem redirecionamento. As versões da loja e os links diretos são idênticos.",
       "badge.direct":"Direto",
       "t.apk.d":"Instale sem loja de aplicativos","t.zip.d":"Extraia e execute, sem instalador",
@@ -1089,7 +1090,6 @@
       "pr1.t":"Sem nuvem","pr1.d":"Cada comando trafega na sua rede local e não chega a nenhum servidor externo — funciona mesmo sem internet.",
       "pr2.t":"Sem conta","pr2.d":"Sem cadastro, sem login, sem e-mail. Abra e use; nada é ligado a uma identidade.",
       "pr3.t":"Sem rastreamento","pr3.d":"O app não coleta análises nem telemetria; seus hábitos jamais são reportados.",
-      "pr4.t":"Código aberto","pr4.d":"O motor é público no GitHub, então qualquer um pode ver como funciona.",
       "priv.box.t":"Quer os detalhes?","priv.box.d":"Temos uma política de privacidade detalhada que explica passo a passo como os dados são (não) tratados.","priv.box.link":"Ler política de privacidade →",
       "faq.title":"Perguntas frequentes","faq.sub":"Ainda tem dúvidas? A resposta pode estar aqui.",
       "q1.q":"O Remote97 é grátis?","q1.a":"Totalmente grátis — sem anúncios, sem compras, sem assinatura. Todos os recursos inclusos.",
