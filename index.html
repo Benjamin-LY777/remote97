@@ -84,17 +84,17 @@
   nav{display:flex;gap:26px;margin-left:auto}
   nav a{color:var(--mid);font-size:14px;font-weight:500;transition:color .18s}
   nav a:hover{color:var(--accent-ink)}
-  .lang{position:relative}
-  .lang select{
-    appearance:none;-webkit-appearance:none;
-    background:var(--card);color:var(--ink);border:1px solid var(--line);
-    border-radius:10px;padding:7px 30px 7px 12px;font:inherit;font-size:13px;cursor:pointer;
+  .lang{display:flex;align-items:center;gap:3px;background:var(--card);
+    border:1px solid var(--line);border-radius:10px;padding:3px}
+  .lang button{
+    appearance:none;border:0;background:transparent;cursor:pointer;
+    font:inherit;line-height:1;padding:4px 5px;border-radius:6px;transition:.18s;
+    filter:grayscale(1);opacity:.5;
   }
-  .lang::after{
-    content:"";position:absolute;right:12px;top:50%;width:7px;height:7px;
-    border-right:1.6px solid var(--mid);border-bottom:1.6px solid var(--mid);
-    transform:translateY(-70%) rotate(45deg);pointer-events:none;
-  }
+  .lang button:hover{filter:none;opacity:1}
+  .lang button.active{filter:none;opacity:1;background:var(--line)}
+  .lang button svg{width:20px;height:14px;display:block;border-radius:2px;
+    box-shadow:0 0 0 .5px rgba(128,128,128,.45)}
   .gh-link{display:flex;align-items:center;color:var(--mid);transition:color .18s}
   .gh-link:hover{color:var(--ink)}
   .gh-link svg{width:20px;height:20px;fill:currentColor}
@@ -355,7 +355,8 @@
     .bar{gap:12px}
     .brand img{height:32px}
     .theme-toggle button{padding:5px 8px;font-size:11.5px}
-    .lang select{padding:6px 26px 6px 10px;font-size:12px}
+    .lang button{padding:3px 4px}
+    .lang button svg{width:17px;height:12px}
   }
 </style>
 <script type="application/ld+json">
@@ -401,15 +402,13 @@
       <button type="button" data-theme-set="ink" class="active" data-i18n="theme.ink">水墨</button>
       <button type="button" data-theme-set="glass" data-i18n="theme.glass">液态玻璃</button>
     </div>
-    <div class="lang">
-      <select id="langSel" aria-label="Language">
-        <option value="en">English</option>
-        <option value="zh">简体中文</option>
-        <option value="ja">日本語</option>
-        <option value="de">Deutsch</option>
-        <option value="es">Español</option>
-        <option value="pt">Português</option>
-      </select>
+    <div class="lang" id="langBar" role="group" aria-label="Language">
+      <button type="button" data-lang="en" title="English" aria-label="English"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0 L60 40 M60 0 L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0 L60 40 M60 0 L0 40" stroke="#C8102E" stroke-width="3.5"/><rect x="25" width="10" height="40" fill="#fff"/><rect y="15" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="40" fill="#C8102E"/><rect y="17" width="60" height="6" fill="#C8102E"/></svg></button>
+      <button type="button" data-lang="zh" title="简体中文" aria-label="简体中文"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#DE2910"/><polygon points="11,5 12.18,8.38 15.76,8.45 12.9,10.62 13.94,14.05 11,12 8.06,14.05 9.1,10.62 6.24,8.45 9.82,8.38" fill="#FFDE00"/><circle cx="20" cy="4.5" r="1.7" fill="#FFDE00"/><circle cx="23.5" cy="8.5" r="1.7" fill="#FFDE00"/><circle cx="23.5" cy="13.5" r="1.7" fill="#FFDE00"/><circle cx="20" cy="17.5" r="1.7" fill="#FFDE00"/></svg></button>
+      <button type="button" data-lang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><circle cx="30" cy="20" r="10" fill="#BC002D"/></svg></button>
+      <button type="button" data-lang="de" title="Deutsch" aria-label="Deutsch"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="13.3" fill="#000"/><rect y="13.3" width="60" height="13.4" fill="#DD0000"/><rect y="26.7" width="60" height="13.3" fill="#FFCE00"/></svg></button>
+      <button type="button" data-lang="es" title="Español" aria-label="Español"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#AA151B"/><rect y="10" width="60" height="20" fill="#F1BF00"/></svg></button>
+      <button type="button" data-lang="pt" title="Português" aria-label="Português"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#FF0000"/><rect width="24" height="40" fill="#006600"/><circle cx="24" cy="20" r="7" fill="#FFFF00"/><circle cx="24" cy="20" r="3.5" fill="#FF0000"/><rect width="60" height="40" fill="none" stroke="rgba(128,128,128,.25)" stroke-width="1"/></svg></button>
     </div>
   </div>
 </header>
@@ -1130,12 +1129,17 @@
     document.documentElement.lang = HTMLLANG[lang] || lang;
     document.title = dict["title"];
     try { localStorage.setItem("r97lang", lang); } catch(e){}
-    var sel = document.getElementById("langSel");
-    if (sel) sel.value = lang;
+    var btns = document.querySelectorAll("#langBar button");
+    for (var i = 0; i < btns.length; i++){
+      btns[i].classList.toggle("active", btns[i].getAttribute("data-lang") === lang);
+    }
   }
 
-  var sel = document.getElementById("langSel");
-  if (sel) sel.addEventListener("change", function(){ apply(sel.value); });
+  var langBar = document.getElementById("langBar");
+  if (langBar) langBar.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("button[data-lang]") : null;
+    if (b) apply(b.getAttribute("data-lang"));
+  });
   apply(detect());
 
   /* ===== 主题切换 ===== */
