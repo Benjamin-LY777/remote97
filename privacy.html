@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>隐私政策 — Remote97</title>
-<meta name="description" content="Remote97 隐私政策：说明 App 如何收集与使用数据。" />
+<title data-i18n="privacy.title">Remote97 — Privacy Policy</title>
+<meta name="description" content="Remote97 privacy policy: how the app handles your data locally." />
 <style>
   :root{--bg:#0e1116;--txt:#e7edf3;--mid:#9aa7b4;--accent:#4ea1ff;--card:#1b212b;--line:#2a323d}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
     background:var(--bg);color:var(--txt);line-height:1.8;padding:40px 20px}
+  .langbar{display:flex;gap:8px;justify-content:center;margin:0 auto 28px;max-width:820px}
+  .langbar button{width:36px;height:24px;border:1px solid var(--line);border-radius:4px;padding:0;cursor:pointer;background:none;opacity:.5;transition:opacity .15s}
+  .langbar button:hover{opacity:.85}
+  .langbar button.active{opacity:1;border-color:var(--accent)}
+  .langbar button svg{display:block;width:100%;height:100%;border-radius:3px}
   .wrap{max-width:820px;margin:0 auto}
   h1{font-size:30px;margin-bottom:8px}
   h2{font-size:20px;margin:28px 0 10px}
@@ -20,41 +25,38 @@
 </style>
 </head>
 <body>
+<div class="langbar" id="langBar"><button type="button" data-lang="en" title="en" aria-label="en"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0 L60 40 M60 0 L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0 L60 40 M60 0 L0 40" stroke="#C8102E" stroke-width="3.5"/><rect x="25" width="10" height="40" fill="#fff"/><rect y="15" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="40" fill="#C8102E"/><rect y="17" width="60" height="6" fill="#C8102E"/></svg></button><button type="button" data-lang="zh" title="zh" aria-label="zh"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#DE2910"/><polygon points="11,5 12.18,8.38 15.76,8.45 12.9,10.62 13.94,14.05 11,12 8.06,14.05 9.1,10.62 6.24,8.45 9.82,8.38" fill="#FFDE00"/><circle cx="20" cy="4.5" r="1.7" fill="#FFDE00"/><circle cx="23.5" cy="8.5" r="1.7" fill="#FFDE00"/><circle cx="23.5" cy="13.5" r="1.7" fill="#FFDE00"/><circle cx="20" cy="17.5" r="1.7" fill="#FFDE00"/></svg></button><button type="button" data-lang="ja" title="ja" aria-label="ja"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><circle cx="30" cy="20" r="10" fill="#BC002D"/></svg></button><button type="button" data-lang="de" title="de" aria-label="de"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="13.3" fill="#000"/><rect y="13.3" width="60" height="13.4" fill="#DD0000"/><rect y="26.7" width="60" height="13.3" fill="#FFCE00"/></svg></button><button type="button" data-lang="es" title="es" aria-label="es"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#AA151B"/><rect y="10" width="60" height="20" fill="#F1BF00"/></svg></button><button type="button" data-lang="pt" title="pt" aria-label="pt"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#FF0000"/><rect width="24" height="40" fill="#006600"/><circle cx="24" cy="20" r="7" fill="#FFFF00"/><circle cx="24" cy="20" r="3.5" fill="#FF0000"/><rect width="60" height="40" fill="none" stroke="rgba(128,128,128,.25)" stroke-width="1"/></svg></button></div>
 <div class="wrap">
-  <h1>Remote97 隐私政策</h1>
-  <p class="meta">最后更新：2026-10-12</p>
-
+  <h1 data-i18n="privacy.h1">Remote97 Privacy Policy</h1>
+  <p class="meta" data-i18n="privacy.updated">Last updated: 2026-10-12</p>
   <div class="card">
-    <h2>1. 我们收集什么</h2>
-    <p>Remote97 的核心控制功能完全在您的<strong>本地局域网</strong>内完成。App 不会将您的设备控制指令、设备列表或网络信息上传到任何远程服务器。</p>
+    <h2 data-i18n="privacy.s1.t">1. What we collect</h2>
+    <p data-i18n="privacy.s1.p"></p>
     <ul>
-      <li>设备发现：仅扫描您所在的局域网（SSDP / mDNS / 定向探测），用于识别同网段设备。</li>
-      <li>设备状态：设备在线状态、音量、输入源等仅保存在本机，用于界面展示与场景执行。</li>
-      <li>我们<strong>不收集</strong>您的姓名、手机号、精确地理位置，也不上传任何使用行为数据。</li>
+      <li data-i18n="privacy.s1.l1"></li>
+      <li data-i18n="privacy.s1.l2"></li>
+      <li data-i18n="privacy.s1.l3"></li>
     </ul>
   </div>
-
   <div class="card">
-    <h2>2. 数据存储</h2>
-    <p>所有设备配置与场景数据均存储在您的设备本地（应用沙盒 / 本地数据库），不会同步到云端。</p>
+    <h2 data-i18n="privacy.s2.t">2. Data storage</h2>
+    <p data-i18n="privacy.s2.p"></p>
   </div>
-
   <div class="card">
-    <h2>3. 第三方服务</h2>
-    <p>App 本身不集成任何第三方数据分析或广告 SDK。通过各大应用商店分发时，商店平台自身的隐私政策独立适用。</p>
+    <h2 data-i18n="privacy.s3.t">3. Third-party services</h2>
+    <p data-i18n="privacy.s3.p"></p>
   </div>
-
   <div class="card">
-    <h2>4. 您的权利</h2>
-    <p>您可以随时在 App 内删除任意设备与场景数据；卸载 App 会清除全部本地数据。</p>
+    <h2 data-i18n="privacy.s4.t">4. Your rights</h2>
+    <p data-i18n="privacy.s4.p"></p>
   </div>
-
   <div class="card">
-    <h2>5. 联系方式</h2>
-    <p>如对本政策有疑问，请联系：<a href="mailto:fzit@qq.com">fzit@qq.com</a></p>
+    <h2 data-i18n="privacy.s5.t">5. Contact</h2>
+    <p data-i18n="privacy.s5.p"></p>
   </div>
-
-  <p style="margin-top:30px"><a href="index.html">← 返回首页</a></p>
+  <p style="margin-top:30px"><a href="index.html" data-i18n="privacy.back">&larr; Back to home</a></p>
 </div>
+<script>window.I18N_TITLE_KEY="privacy.title";</script>
+<script src="i18n.js"></script>
 </body>
 </html>

@@ -1,143 +1,117 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote97 支持中心 / Support Center</title>
-    <meta name="description" content="Remote97（影控中心）支持中心：添加设备、支持的设备与协议、自定义遥控、场景联动、故障排查与联系方式。">
-    <style>
-        :root { --accent:#7C5CFF; --fg:#1a1a1a; --muted:#666; --line:#e3e0d8; --bg:#faf9f6; --card:#fff; }
-        * { box-sizing:border-box; }
-        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
-               max-width:860px; margin:0 auto; padding:32px 20px 64px; color:var(--fg);
-               background:var(--bg); line-height:1.75; }
-        h1 { font-size:28px; margin:0 0 4px; }
-        h2 { font-size:20px; color:var(--accent); margin-top:36px; border-bottom:2px solid var(--accent); padding-bottom:6px; }
-        h3 { font-size:16px; margin:22px 0 6px; }
-        p, li { color:#333; }
-        .muted { color:var(--muted); font-size:14px; }
-        .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:14px 0; }
-        a { color:var(--accent); text-decoration:none; }
-        a:hover { text-decoration:underline; }
-        .btn { display:inline-block; background:var(--accent); color:#fff; padding:10px 18px; border-radius:8px; font-weight:600; margin:6px 8px 6px 0; }
-        .btn.ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
-        ul { padding-left:20px; }
-        .en { color:var(--muted); font-size:13px; margin-top:2px; }
-        .tag { display:inline-block; background:#f0ecff; color:var(--accent); font-size:12px; padding:2px 8px; border-radius:6px; margin:2px 4px 2px 0; }
-        .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px; margin:12px 0; }
-        .gitem { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
-        .gitem strong { display:block; font-size:14px; margin-bottom:2px; }
-        .gitem span { color:var(--muted); font-size:12.5px; }
-        footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
-        code { background:#f0ecff; padding:1px 6px; border-radius:5px; font-size:13px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="support.title">Remote97 — Support Center</title>
+<meta name="description" content="Remote97 (影控中心) support center: add devices, supported devices & protocols, custom remotes, scenes, troubleshooting, languages.">
+<style>
+  :root { --accent:#7C5CFF; --fg:#1a1a1a; --muted:#666; --line:#e3e0d8; --bg:#faf9f6; --card:#fff; }
+  * { box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+         max-width:860px; margin:0 auto; padding:24px 20px 64px; color:var(--fg); background:var(--bg); line-height:1.75; }
+  .langbar{display:flex;gap:8px;justify-content:center;margin:0 auto 22px}
+  .langbar button{width:36px;height:24px;border:1px solid var(--line);border-radius:4px;padding:0;cursor:pointer;background:none;opacity:.5;transition:opacity .15s}
+  .langbar button:hover{opacity:.85}
+  .langbar button.active{opacity:1;border-color:var(--accent)}
+  .langbar button svg{display:block;width:100%;height:100%;border-radius:3px}
+  h1 { font-size:28px; margin:0 0 4px; }
+  h2 { font-size:20px; color:var(--accent); margin-top:36px; border-bottom:2px solid var(--accent); padding-bottom:6px; }
+  h3 { font-size:16px; margin:22px 0 6px; }
+  p, li { color:#333; }
+  .muted { color:var(--muted); font-size:14px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:14px 0; }
+  a { color:var(--accent); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; padding:10px 18px; border-radius:8px; font-weight:600; margin:6px 8px 6px 0; }
+  .btn.ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  ul { padding-left:20px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px; margin:12px 0; }
+  .gitem { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .gitem strong { display:block; font-size:14px; margin-bottom:2px; }
+  .gitem span { color:var(--muted); font-size:12.5px; }
+  footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
+  code { background:#f0ecff; padding:1px 6px; border-radius:5px; font-size:13px; }
+</style>
 </head>
 <body>
-    <h1>Remote97 支持中心</h1>
-    <p class="muted">Support Center · 家庭影院 / 智能影音中控应用 · 中国区名称：影控中心</p>
-
-    <div class="card">
-        <p><strong>Remote97（影控中心）是一款独立的第三方影音中控应用</strong>，用于在局域网内集中控制您自有的电视、功放、播放器、投影机与音响系统。
-        它通过设备厂商提供的标准开放控制协议（如 UPnP / SSDP、Telnet、HTTP API、ECP、SSAP、PJLink、Yamaha YXC 等）与您自己的设备通信。</p>
-        <p class="en">Remote97 is an independent third-party app. It is <strong>not affiliated with, endorsed by, or sponsored by</strong> any device manufacturer.
-        Brand names (Denon, Marantz, Sony, Samsung, LG, Xiaomi, Apple TV, Roku, Yamaha, Sonos, etc.) are referenced only to indicate device compatibility.</p>
-    </div>
-
-    <h2>快速开始 / Getting Started</h2>
-
-    <h3>1. 如何添加一台设备？ / How do I add a device?</h3>
-    <ul>
-        <li>打开 App → 进入「设备」页 → 点击「添加设备」。</li>
-        <li>选择设备类型（AV 功放 / 智能电视 / 流媒体 / 音响 / 投影机等），或直接使用<strong>自动发现</strong>。</li>
-        <li>确保设备与手机在<strong>同一局域网</strong>，并已开启设备端的「网络控制 / 局域网遥控」设置。</li>
-        <li>输入设备 IP（或使用自动发现），按提示完成首次配对。</li>
-    </ul>
-    <p class="en">Make sure the device and your phone are on the <strong>same Wi-Fi</strong> and that "network control / LAN remote" is enabled on the device. Enter the device IP or use auto-discovery.</p>
-
-    <h3>2. 支持哪些设备与协议？ / Supported devices &amp; protocols</h3>
-    <p>Remote97 目前支持 <strong>15+ 品牌、数十种型号</strong>，覆盖家庭影院的功放、电视、播放器、音响与投影机：</p>
-    <div class="grid">
-        <div class="gitem"><strong>AV 功放 / 接收机</strong><span>Denon · Marantz · Yamaha (MusicCast) · Onkyo</span></div>
-        <div class="gitem"><strong>智能电视</strong><span>Sony BRAVIA · Samsung · LG webOS · Xiaomi / Redmi</span></div>
-        <div class="gitem"><strong>流媒体 / 播放器</strong><span>Apple TV · Roku · NVIDIA SHIELD · Zidoo 芝杜 · VidOn / 威动</span></div>
-        <div class="gitem"><strong>音响 / 串流</strong><span>Sonos · Bluesound / NAD · WiiM · Arylic · BluOS</span></div>
-        <div class="gitem"><strong>投影机</strong><span>Epson · 其他 PJLink 兼容投影机</span></div>
-        <div class="gitem"><strong>开放协议</strong><span>UPnP / SSDP · Telnet · HTTP API · ECP · SSAP · PJLink · Yamaha YXC · LinkPlay</span></div>
-    </div>
-    <p class="muted">上述品牌名称仅用于说明 App 可连接的设备型号，不代表任何官方授权或合作关系。新设备持续接入中，欢迎在反馈中告诉我们您需要的型号。</p>
-    <p class="en">15+ brands across AV receivers, TVs, streaming players, speakers and projectors. Brand names indicate compatible models only; they do not imply any official partnership.</p>
-
-    <h3>3. 自定义遥控 / Build Your Own Remote</h3>
-    <ul>
-        <li>在「我的遥控」中自由编排控件：方向键、按钮、滑条、开关，以及标志性的<strong>音量组合环</strong>（音量环 + 方向键一体）。</li>
-        <li>控件可自由<strong>缩放、拖拽、对齐</strong>，按您的使用习惯排布。</li>
-        <li>支持<strong>多种遥控面板样式</strong>：按钮式、滑条式、圆环式、双区式等，一键切换。</li>
-        <li>组合环可分别绑定不同设备的音量（例如功放出声、电视屏显）。</li>
-    </ul>
-    <p class="en">Arrange controls freely on a flexible canvas — including the signature volume combo-ring. Resize, reposition and choose from multiple panel styles.</p>
-
-    <h3>4. 主题与壁纸 / Themes &amp; Wallpapers</h3>
-    <ul>
-        <li>内置 <strong>6 套主题</strong>：液态玻璃、水墨、霜玻璃、余烬、Nord、星纱，明暗风格各异。</li>
-        <li>每套主题可搭配<strong>自定义壁纸</strong>（内置多款渐变与实拍壁纸，也支持自选）。</li>
-    </ul>
-    <p class="en">Six carefully crafted themes with light/dark variants and customizable wallpapers.</p>
-
-    <h3>5. 场景联动 / Scenes &amp; Automation</h3>
-    <ul>
-        <li>把多台设备的操作组合成<strong>场景</strong>，一键触发（如「电影之夜」：开功放 + 切输入 + 调音量）。</li>
-        <li>场景支持自定义命名与图标，可随时编辑。</li>
-    </ul>
-    <p class="en">Group devices into scenes and trigger them with a tap. Dim, switch inputs and set volume — all at once.</p>
-
-    <h2>故障排查 / Troubleshooting</h2>
-
-    <h3>6. 找不到设备 / 连接被拒绝怎么办？ / Device not found or connection refused?</h3>
-    <ul>
-        <li>确认手机与设备在同一子网（部分路由器开启了 <strong>AP 隔离</strong>会阻断通信，需在路由器后台关闭）。</li>
-        <li>确认设备端已开启网络/局域网控制（不同品牌路径不同，详见 App 内「说明」按钮）。</li>
-        <li>尝试手动填写设备 IP（可在路由器后台或设备网络信息中查看）。</li>
-        <li>首次连接电视类设备时，请在电视屏幕上点击「允许」。</li>
-        <li>若使用访客 Wi-Fi 或企业网络，设备间通信常被隔离，建议切换到家庭主网络。</li>
-    </ul>
-    <p class="en">Check AP isolation on your router, enable network control on the device, or add the device by IP manually. Guest/enterprise networks often block device-to-device traffic.</p>
-
-    <h3>7. 连接不稳定 / 设备经常掉线？ / Unstable connection?</h3>
-    <ul>
-        <li>让手机与设备尽量连接<strong>同一路由器的 5GHz 频段</strong>，减少中继/扩展器带来的延迟。</li>
-        <li>在路由器后台为设备绑定<strong>静态 IP / DHCP 保留</strong>，避免 IP 变化导致失联。</li>
-        <li>部分设备的「节能模式」会关闭网络待机，建议关闭该选项。</li>
-    </ul>
-    <p class="en">Prefer 5 GHz on the same router, reserve a static IP for the device, and disable the device's power-saving network sleep.</p>
-
-    <h3>8. 多语言 / Languages</h3>
-    <p>Remote97 支持 <strong>English、简体中文、日本語、Deutsch、Español、Português</strong> 六种界面语言，跟随系统语言自动切换。</p>
-    <p class="en">Remote97 is available in English, Simplified Chinese, Japanese, German, Spanish and Portuguese — it follows your system language.</p>
-
-    <h2>隐私说明 / Privacy</h2>
-    <div class="card">
-        <p>Remote97 <strong>不收集任何个人数据</strong>，所有控制均在您本地局域网内完成，不上传云端。
-        详见 <a href="privacy.html">隐私政策 / Privacy Policy</a>。</p>
-        <p class="en">Remote97 collects <strong>no personal data</strong>. All control happens locally on your LAN. See the <a href="privacy.html">Privacy Policy</a>.</p>
-    </div>
-
-    <h2>联系我们 / Contact &amp; Support</h2>
-    <div class="card">
-        <p><strong>遇到问题或需要帮助？</strong>请通过以下方式反馈，我们会尽快回复：</p>
-        <p>
-            <a class="btn" href="https://github.com/Benjamin-LY777/remote97/issues" target="_blank" rel="noopener">在 GitHub 提交问题 / Open an Issue</a>
-            <a class="btn ghost" href="mailto:fzit@qq.com">邮件支持 / Email</a>
-        </p>
-        <p class="muted">建议优先使用 GitHub Issues，便于跟踪与公开回复。也可发送邮件至 fzit@qq.com。反馈设备型号与协议时，请尽量附上品牌、型号与网络环境信息。</p>
-        <p class="en">GitHub Issues is preferred for tracking. You can also reach us at <code>fzit@qq.com</code>. Please include your device brand, model and network setup when reporting issues.</p>
-    </div>
-
-    <footer>
-        <p>Remote97 支持中心 · 本页面为应用商店要求的「支持网址（Support URL）」所对应的支持信息页。</p>
-        <p class="en">This page is the support resource referenced by the App Store Support URL.</p>
-    </footer>
-    <!-- GoatCounter 访问统计（隐私友好，无 Cookie） -->
-    <script data-goatcounter="https://benjamin-ly.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+<div class="langbar" id="langBar"><button type="button" data-lang="en" title="en" aria-label="en"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0 L60 40 M60 0 L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0 L60 40 M60 0 L0 40" stroke="#C8102E" stroke-width="3.5"/><rect x="25" width="10" height="40" fill="#fff"/><rect y="15" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="40" fill="#C8102E"/><rect y="17" width="60" height="6" fill="#C8102E"/></svg></button><button type="button" data-lang="zh" title="zh" aria-label="zh"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#DE2910"/><polygon points="11,5 12.18,8.38 15.76,8.45 12.9,10.62 13.94,14.05 11,12 8.06,14.05 9.1,10.62 6.24,8.45 9.82,8.38" fill="#FFDE00"/><circle cx="20" cy="4.5" r="1.7" fill="#FFDE00"/><circle cx="23.5" cy="8.5" r="1.7" fill="#FFDE00"/><circle cx="23.5" cy="13.5" r="1.7" fill="#FFDE00"/><circle cx="20" cy="17.5" r="1.7" fill="#FFDE00"/></svg></button><button type="button" data-lang="ja" title="ja" aria-label="ja"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><circle cx="30" cy="20" r="10" fill="#BC002D"/></svg></button><button type="button" data-lang="de" title="de" aria-label="de"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="13.3" fill="#000"/><rect y="13.3" width="60" height="13.4" fill="#DD0000"/><rect y="26.7" width="60" height="13.3" fill="#FFCE00"/></svg></button><button type="button" data-lang="es" title="es" aria-label="es"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#AA151B"/><rect y="10" width="60" height="20" fill="#F1BF00"/></svg></button><button type="button" data-lang="pt" title="pt" aria-label="pt"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#FF0000"/><rect width="24" height="40" fill="#006600"/><circle cx="24" cy="20" r="7" fill="#FFFF00"/><circle cx="24" cy="20" r="3.5" fill="#FF0000"/><rect width="60" height="40" fill="none" stroke="rgba(128,128,128,.25)" stroke-width="1"/></svg></button></div>
+<h1 data-i18n="support.h1">Remote97 Support Center</h1>
+<p class="muted" data-i18n="support.sub"></p>
+<div class="card">
+  <p data-i18n="support.intro"></p>
+</div>
+<h2 data-i18n="support.start">Getting Started</h2>
+<h3 data-i18n="support.add.t"></h3>
+<ul>
+  <li data-i18n="support.add.l1"></li>
+  <li data-i18n="support.add.l2"></li>
+  <li data-i18n="support.add.l3"></li>
+  <li data-i18n="support.add.l4"></li>
+</ul>
+<h3 data-i18n="support.dev.t"></h3>
+<p data-i18n="support.dev.p"></p>
+<div class="grid">
+  <div class="gitem"><strong data-i18n="support.dev.g1"></strong><span data-i18n="support.dev.g1s"></span></div>
+  <div class="gitem"><strong data-i18n="support.dev.g2"></strong><span data-i18n="support.dev.g2s"></span></div>
+  <div class="gitem"><strong data-i18n="support.dev.g3"></strong><span data-i18n="support.dev.g3s"></span></div>
+  <div class="gitem"><strong data-i18n="support.dev.g4"></strong><span data-i18n="support.dev.g4s"></span></div>
+  <div class="gitem"><strong data-i18n="support.dev.g5"></strong><span data-i18n="support.dev.g5s"></span></div>
+  <div class="gitem"><strong data-i18n="support.dev.g6"></strong><span data-i18n="support.dev.g6s"></span></div>
+</div>
+<p class="muted" data-i18n="support.dev.note"></p>
+<h3 data-i18n="support.custom.t"></h3>
+<ul>
+  <li data-i18n="support.custom.l1"></li>
+  <li data-i18n="support.custom.l2"></li>
+  <li data-i18n="support.custom.l3"></li>
+  <li data-i18n="support.custom.l4"></li>
+</ul>
+<h3 data-i18n="support.theme.t"></h3>
+<ul>
+  <li data-i18n="support.theme.l1"></li>
+  <li data-i18n="support.theme.l2"></li>
+</ul>
+<h3 data-i18n="support.scene.t"></h3>
+<ul>
+  <li data-i18n="support.scene.l1"></li>
+  <li data-i18n="support.scene.l2"></li>
+</ul>
+<h2 data-i18n="support.trouble">Troubleshooting</h2>
+<h3 data-i18n="support.notfound.t"></h3>
+<ul>
+  <li data-i18n="support.notfound.l1"></li>
+  <li data-i18n="support.notfound.l2"></li>
+  <li data-i18n="support.notfound.l3"></li>
+  <li data-i18n="support.notfound.l4"></li>
+  <li data-i18n="support.notfound.l5"></li>
+</ul>
+<h3 data-i18n="support.unstable.t"></h3>
+<ul>
+  <li data-i18n="support.unstable.l1"></li>
+  <li data-i18n="support.unstable.l2"></li>
+  <li data-i18n="support.unstable.l3"></li>
+</ul>
+<h3 data-i18n="support.lang.t"></h3>
+<p data-i18n="support.lang.p"></p>
+<h2 data-i18n="support.privacy.t">Privacy</h2>
+<div class="card">
+  <p data-i18n="support.privacy.p"></p>
+</div>
+<h2 data-i18n="support.contact.t">Contact & Support</h2>
+<div class="card">
+  <p data-i18n="support.contact.p"></p>
+  <p>
+    <a class="btn" href="https://github.com/Benjamin-LY777/remote97/issues" target="_blank" rel="noopener" data-i18n="support.contact.gh">Open an Issue on GitHub</a>
+    <a class="btn ghost" href="mailto:fzit@qq.com" data-i18n="support.contact.email">Email support</a>
+  </p>
+  <p class="muted" data-i18n="support.contact.note"></p>
+</div>
+<footer>
+  <p data-i18n="support.footer"></p>
+  <p><a href="index.html" data-i18n="support.back">&larr; Back to home</a></p>
+</footer>
+<script>window.I18N_TITLE_KEY="support.title";</script>
+<script src="i18n.js"></script>
 </body>
 </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Control Denon &amp; Marantz AVR from your phone (Telnet/IP, no hub) | Remote97</title>
+<meta name="description" content="Turn your phone into a Denon or Marantz AVR remote. Control volume, input, sound modes and power over local Telnet/IP — no hub, no cloud, no subscription. Step-by-step guide." />
+<meta name="keywords" content="Denon remote app, Marantz control, AVR remote iPhone, Denon telnet control, HEOS alternative, receiver remote" />
+<link rel="canonical" href="https://remote97.com/guides/denon-marantz.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/denon-marantz.html" />
+<meta property="og:title" content="Control Denon &amp; Marantz AVR from your phone" />
+<meta property="og:description" content="Volume, input, sound modes and power over local Telnet/IP — no hub, no cloud." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="remote97_wordmark.png" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; Denon &amp; Marantz</div>
+  <div class="article-head">
+    <span class="kicker">AV receiver</span>
+    <h1>Control Denon &amp; Marantz AVR from your phone</h1>
+    <p class="sub">Replace the lost plastic remote — and the expensive control hub — with your phone. Remote97 talks to Denon and Marantz receivers over your local network.</p>
+    <div class="meta">6 min read · Works on Android, Windows &amp; iOS</div>
+  </div>
+
+  <div class="article-body">
+    <p>If your Denon or Marantz receiver is on the network but the handset remote is lost, dead, or buried in the couch, you don't need a replacement remote or a $500 control processor. Any phone on the same WiFi can drive it.</p>
+
+    <h2>What you can control</h2>
+    <ul>
+      <li><strong>Volume &amp; mute</strong> — including relative and absolute levels across zones</li>
+      <li><strong>Input / source</strong> — switch HDMI, TV, Blu-ray, Streaming, HEOS and more in one tap</li>
+      <li><strong>Sound modes</strong> — Dolby, DTS, stereo, Pure Direct and others your model supports</li>
+      <li><strong>Power &amp; standby</strong> — on, off and eco standby</li>
+      <li><strong>Multi-room (HEOS)</strong> — group and level HEOS zones where available</li>
+    </ul>
+
+    <h2>How it works (no cloud, no hub)</h2>
+    <div class="callout"><strong>Local only.</strong> Denon and Marantz receivers speak a simple text protocol over <strong>Telnet (port 23)</strong> or HTTP on the local network. Remote97 sends commands directly to the receiver's IP address — nothing leaves your home, and it keeps working when the internet is down.</div>
+
+    <h2>Steps</h2>
+    <div class="steps-num">
+      <div class="step-row"><div class="n">1</div><div><h3>Install Remote97</h3><p>Get it from <a href="https://remote97.com/#download">Google Play, the App Store or Microsoft Store</a>. No account, no setup wizard.</p></div></div>
+      <div class="step-row"><div class="n">2</div><div><h3>Put your phone on the same WiFi</h3><p>The receiver and phone must be on the same local network. (Avoid VPN/tunnel apps that redirect traffic.)</p></div></div>
+      <div class="step-row"><div class="n">3</div><div><h3>Open Remote97 and let it discover</h3><p>It scans with SSDP and mDNS and lists compatible receivers. Pick yours.</p></div></div>
+      <div class="step-row"><div class="n">4</div><div><h3>Control</h3><p>Tap the receiver to adjust volume, switch inputs, change sound modes and power it on/off.</p></div></div>
+    </div>
+
+    <h2>Which models are supported?</h2>
+    <p>Essentially any Denon or Marantz AVR with an Ethernet or WiFi connection and network control — the same models that work with the manufacturer's own HEOS/AVR apps. That covers the X-series, A-series, SR-series and most network receivers from roughly the last decade.</p>
+
+    <h2>Tips</h2>
+    <ul>
+      <li>Assign your receiver a <strong>reserved IP</strong> in your router so it never changes address.</li>
+      <li>Group the AVR with your TV in a <a href="movie-night-scenes.html">"Movie night" scene</a> so one tap powers and configures the whole setup.</li>
+      <li>Prefer a wired connection for the AVR if you ever see lag — WiFi is fine, but Ethernet is rock-solid.</li>
+    </ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="movie-night-scenes.html"><h3>One-tap "Movie night" scenes</h3><p>Chain power, input and volume across devices.</p></a>
+      <a class="rcard" href="local-ip-control.html"><h3>Why local IP control beats cloud hubs</h3><p>Offline-capable, no subscription, private.</p></a>
+    </div>
+  </div>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to retire the remote drawer?</h2>
+    <p>Remote97 is free, works on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>

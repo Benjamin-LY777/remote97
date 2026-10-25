@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Remote97 Guides — Control your home theater from one app</title>
+<meta name="description" content="Step-by-step guides for Remote97: control Denon/Marantz AVRs, Sony BRAVIA, Samsung, Apple TV, Roku and Sonos from your phone over local WiFi. No hub, no cloud, no subscription." />
+<meta name="keywords" content="Denon remote app, Marantz control, Sony BRAVIA remote, Samsung TV remote, Apple TV remote iPhone, Roku remote, Sonos whole home audio, local IP control" />
+<link rel="canonical" href="https://remote97.com/guides/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://remote97.com/guides/" />
+<meta property="og:title" content="Remote97 Guides — Control your home theater from one app" />
+<meta property="og:description" content="How to turn your phone into a universal remote for AVRs, TVs, streamers and whole-home audio." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="remote97_wordmark.png" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav>
+      <a href="https://remote97.com/">Home</a>
+      <a href="./" class="active">Guides</a>
+      <a href="https://remote97.com/#download">Download</a>
+    </nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; Guides</div>
+  <div class="article-head">
+    <span class="kicker">Guides &amp; tutorials</span>
+    <h1>Turn your phone into a universal remote</h1>
+    <p class="sub">Practical, no-jargon walkthroughs for controlling real home theater gear over your local WiFi — AVRs, TVs, streamers and whole-home audio. Every guide works with Remote97's pure-local, no-cloud approach.</p>
+  </div>
+
+  <div class="guide-grid">
+    <a class="gcard" href="denon-marantz.html">
+      <span class="gtag">AV receiver</span>
+      <h3>Control Denon &amp; Marantz AVR from your phone</h3>
+      <p>Volume, input, sound modes and power — over Telnet/IP, no hub required.</p>
+      <span class="more">Read guide →</span>
+    </a>
+    <a class="gcard" href="sony-bravia.html">
+      <span class="gtag">TV</span>
+      <h3>Turn your Android into a Sony BRAVIA remote</h3>
+      <p>Ditch the lost physical remote. Power, input and text entry from your phone.</p>
+      <span class="more">Read guide →</span>
+    </a>
+    <a class="gcard" href="samsung-tv.html">
+      <span class="gtag">TV</span>
+      <h3>Control Samsung TV without the physical remote</h3>
+      <p>Regain control when the remote is lost or dead — local network control.</p>
+      <span class="more">Read guide →</span>
+    </a>
+    <a class="gcard" href="apple-tv.html">
+      <span class="gtag">Streamer</span>
+      <h3>Best Apple TV remote alternative for iPhone</h3>
+      <p>A reliable on-screen remote with keyboard input for accounts and search.</p>
+      <span class="more">Read guide →</span>
+    </a>
+    <a class="gcard" href="roku.html">
+      <span class="gtag">Streamer</span>
+      <h3>Control Roku from your phone — no paid app</h3>
+      <p>Use the free ECP protocol to navigate and type on any Roku.</p>
+      <span class="more">Read guide →</span>
+    </a>
+    <a class="gcard" href="whole-home-audio.html">
+      <span class="gtag">Multi-room</span>
+      <h3>Whole-home audio: Sonos, BluOS, WiiM</h3>
+      <p>Group scattered speakers into one zone and control them from a single screen.</p>
+      <span class="more">Read guide →</span>
+    </a>
+    <a class="gcard" href="local-ip-control.html">
+      <span class="gtag">How it works</span>
+      <h3>Why local IP control beats cloud hubs</h3>
+      <p>Works offline, no subscription, no data leaving your home. Here's how.</p>
+      <span class="more">Read guide →</span>
+    </a>
+    <a class="gcard" href="movie-night-scenes.html">
+      <span class="gtag">Automation</span>
+      <h3>Set up one-tap "Movie night" scenes</h3>
+      <p>Chain power, input and volume into a single tap across every device.</p>
+      <span class="more">Read guide →</span>
+    </a>
+  </div>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to retire the remote drawer?</h2>
+    <p>Remote97 is free, works on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a>
+      <a class="btn" href="https://remote97.com/">Learn more</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links">
+      <a href="https://remote97.com/">Home</a>
+      <a href="./">Guides</a>
+      <a href="https://remote97.com/support.html">Support</a>
+      <a href="https://remote97.com/privacy.html">Privacy</a>
+    </div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var t=document.getElementById('themeToggle');
+  if(!t)return;
+  var saved=localStorage.getItem('r97theme');
+  if(saved){document.documentElement.setAttribute('data-theme',saved);
+    t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===saved)});}
+  t.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);
+    localStorage.setItem('r97theme',v);
+    t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});
+  });
+})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>
