@@ -162,10 +162,29 @@
     animation:rise .8s cubic-bezier(.2,.7,.2,1) both;
   }
   [data-theme="glass"] .phone{box-shadow:0 30px 70px -20px rgba(90,200,250,.28),0 2px 8px rgba(0,0,0,.4)}
-  .phone img{
-    display:block;width:100%;height:auto;aspect-ratio:869/1850;object-fit:cover;object-position:top;
+  .phone-screen{
+    position:relative;width:100%;aspect-ratio:442/957;overflow:hidden;
     border-radius:33px;background:var(--paper2);
   }
+  .phone-track{display:flex;height:100%;width:100%;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+  .phone-track .slide{
+    flex:0 0 100%;width:100%;height:100%;object-fit:cover;object-position:top;
+    user-select:none;-webkit-user-drag:none;
+  }
+  .phone-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+    width:30px;height:30px;border:none;border-radius:50%;
+    background:rgba(0,0,0,.42);color:#fff;font-size:18px;line-height:1;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    opacity:0;transition:opacity .25s ease,background .25s ease;
+  }
+  .phone-screen:hover .phone-arrow{opacity:.85}
+  .phone-arrow:hover{background:rgba(0,0,0,.62)}
+  .phone-prev{left:8px}
+  .phone-next{right:8px}
+  .phone-dots{position:absolute;left:0;right:0;bottom:10px;z-index:3;display:flex;gap:6px;justify-content:center}
+  .phone-dots b{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45);transition:background .3s ease,width .3s ease;cursor:pointer}
+  .phone-dots b.on{background:#fff;width:16px;border-radius:3px}
   .phone::after{
     content:"";position:absolute;top:11px;left:50%;transform:translateX(-50%);
     width:96px;height:22px;border-radius:0 0 15px 15px;background:#161616;z-index:2;
@@ -176,6 +195,7 @@
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .phone,.fade,.fade2{animation:none}
+    .phone-track{transition:none}
     .btn,.btn:hover{transition:none;transform:none}
   }
 
@@ -442,7 +462,19 @@
       </div>
       <div class="phone-stage">
         <div class="phone">
-          <img src="screenshots/hero_en.png" alt="Remote97 app — AV receiver remote (English UI)" loading="eager" />
+          <div class="phone-screen" id="phoneScreen">
+            <div class="phone-track" id="phoneTrack">
+              <img class="slide" src="screenshots/iphone/iphone-1.png" alt="Remote97 home — your devices on one screen" />
+              <img class="slide" src="screenshots/iphone/iphone-6.png" alt="Add Device — auto-discover devices on your Wi-Fi" />
+              <img class="slide" src="screenshots/iphone/iphone-5.png" alt="Apple TV remote — D-pad, playback and volume" />
+              <img class="slide" src="screenshots/iphone/iphone-4.png" alt="DEMO mode — try a remote without a real device" />
+              <img class="slide" src="screenshots/iphone/iphone-2.png" alt="Scenes — one-tap automation across devices" />
+              <img class="slide" src="screenshots/iphone/iphone-3.png" alt="New Scene — pick an icon and chain actions" />
+            </div>
+            <button class="phone-arrow phone-prev" type="button" aria-label="Previous screenshot">&#8249;</button>
+            <button class="phone-arrow phone-next" type="button" aria-label="Next screenshot">&#8250;</button>
+            <div class="phone-dots" id="phoneDots" aria-hidden="true"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1172,6 +1204,46 @@
       if (b) setTheme(b.getAttribute("data-theme-set"));
     });
   }
+
+  /* ===== 手机截图自动轮播 ===== */
+  (function(){
+    var track = document.getElementById("phoneTrack");
+    var screenEl = document.getElementById("phoneScreen");
+    var dotsWrap = document.getElementById("phoneDots");
+    if (!track || !screenEl || !dotsWrap) return;
+    var slides = track.children;
+    var n = slides.length;
+    if (n <= 1) return;
+    var idx = 0, timer = null;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var dots = [];
+    for (var i = 0; i < n; i++){
+      var d = document.createElement("b");
+      d.setAttribute("role", "button");
+      d.setAttribute("aria-label", "Go to screenshot " + (i + 1));
+      (function(k){ d.addEventListener("click", function(){ go(k); restart(); }); })(i);
+      dotsWrap.appendChild(d);
+      dots.push(d);
+    }
+    function paint(){
+      track.style.transform = "translateX(" + (-idx * 100) + "%)";
+      for (var i = 0; i < n; i++) dots[i].classList.toggle("on", i === idx);
+    }
+    function go(k){ idx = (k + n) % n; paint(); }
+    function restart(){
+      if (reduce || n <= 1) return;
+      if (timer) clearInterval(timer);
+      timer = setInterval(function(){ go(idx + 1); }, 3800);
+    }
+    var prevBtn = screenEl.querySelector(".phone-prev");
+    var nextBtn = screenEl.querySelector(".phone-next");
+    if (prevBtn) prevBtn.addEventListener("click", function(){ go(idx - 1); restart(); });
+    if (nextBtn) nextBtn.addEventListener("click", function(){ go(idx + 1); restart(); });
+    screenEl.addEventListener("mouseenter", function(){ if (timer){ clearInterval(timer); timer = null; } });
+    screenEl.addEventListener("mouseleave", restart);
+    paint();
+    restart();
+  })();
 })();
 </script>
     <!-- GoatCounter 访问统计（隐私友好，无 Cookie） -->
