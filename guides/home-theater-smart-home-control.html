@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart-Home AV Control for Home Theater &amp; KTV Rooms | Remote97</title>
+<meta name="description" content="How one app controls an entire AV room: Denon, Marantz, Sony, Samsung, LG, Apple TV, Roku, Sonos and PJLink over IP, plus RS-232 power sequencers through a serial-over-IP gateway. Scene control for home theater and KTV. Local network only, no cloud, no subscription." />
+<meta name="keywords" content="smart home AV control app, home theater control software, KTV room control, karaoke room controller, power sequencer RS-232 control, serial over IP gateway, IP to serial converter app, Denon remote app, Marantz control, Sony BRAVIA, Samsung Tizen remote, LG webOS, Apple TV control, Roku ECP, Sonos multiroom, PJLink projector control, no subscription remote" />
+<link rel="canonical" href="https://remote97.com/guides/home-theater-smart-home-control.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/home-theater-smart-home-control.html" />
+<meta property="og:title" content="One App for the Whole AV Room: Home Theater, KTV and Serial Control" />
+<meta property="og:description" content="Native IP control for receivers, TVs and streamers, RS-232 over IP for power sequencers and third-party gear, and scene buttons that fire the whole room in order." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="One App for the Whole AV Room: Home Theater, KTV and Serial Control" />
+<meta name="twitter:description" content="Native IP control, RS-232 over IP and sequenced scenes for home theater and KTV rooms. Local only, no subscription." />
+<meta name="twitter:image" content="https://remote97.com/og-image.png" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<style>
+  /* 本文专用的轻量表格样式（不污染 guide.css） */
+  .tblwrap{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+  .tbl{width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px}
+  .tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  .tbl th{font-weight:700;color:var(--ink);background:var(--card);white-space:nowrap}
+  .tbl td{color:var(--mid)}
+  .tbl tr:last-child td{border-bottom:0}
+  .tbl code{white-space:nowrap}
+  .tblwrap + .tbl-note{font-size:13px;color:var(--low);margin-top:-8px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; Whole-room control</div>
+
+  <div class="article-head">
+    <span class="kicker">Whole-room control</span>
+    <h1>One app for the whole AV room: home theater, KTV and serial control</h1>
+    <p class="sub">A serious media room is rarely one brand. There is a receiver, a TV or projector, a streamer, a karaoke machine, maybe a power sequencer in a rack. Remote97 is a control layer that talks to all of them over the local network — and to anything else through a cheap RS-232 gateway.</p>
+    <div class="meta">9 min read · Android, Windows &amp; iOS</div>
+  </div>
+
+  <div class="article-body">
+
+    <p>Walk into most home theaters and you will find four or five remotes in a drawer: one for the receiver, one for the TV, one for the streaming box, one for the projector, and one nobody can identify. Each controls a slice of the room. None controls the room.</p>
+
+    <p>The obvious fix — a universal remote — works by blasting infrared at whatever is in front of it. That is fine for a TV and a soundbar. It falls apart the moment you put the equipment in a cabinet, run a projector from the back of the room, or try to make five devices change state <em>in the right order</em> with one press.</p>
+
+    <p>This article is about the other approach: controlling the room over the network, where every command is a message with a destination and a confirmation, not an invisible beam that may or may not have landed.</p>
+
+    <h2>What Remote97 actually is</h2>
+
+    <p>Remote97 is control software for home theaters and AV rooms. It runs on Android, Windows and iOS, discovers equipment on your local WiFi or Ethernet, and drives it with each manufacturer's own IP protocol — the same interfaces the vendor apps use, without the vendor app.</p>
+
+    <p>Three things define it:</p>
+
+    <ul>
+      <li><strong>It is software only.</strong> No hub, no dongle, no IR blaster, no cloud account. Your phone or a small Windows PC is the controller.</li>
+      <li><strong>It speaks native protocols.</strong> Denon and Marantz over telnet and HTTP, Sony BRAVIA over REST, Roku over ECP, LG over webOS SSAP, Apple TV over MRP, Sonos over UPnP/SOAP, projectors over PJLink — not a generic "smart IR" database.</li>
+      <li><strong>It has an escape hatch.</strong> For anything that has no native driver — a power sequencer, a lighting controller, an old DSP, a karaoke machine with a serial port — you add it as an <em>IP communication device</em> and send it raw commands over a serial-over-IP gateway.</li>
+    </ul>
+
+    <div class="callout"><strong>Why this matters for a real room:</strong> a native protocol gives you state. You can ask the receiver what input it is on, ask the TV whether it is awake, ask the projector for lamp hours. Infrared can only shout into the dark and hope.</div>
+
+    <h2>Three kinds of control, one interface</h2>
+
+    <h3>1. Native IP control</h3>
+    <p>Most equipment made in the last decade has a control port on the network. Remote97 discovers these devices automatically over SSDP, mDNS and targeted probes, then connects to the right port and speaks the right dialect. Volume, input switching, power, sound modes, playback transport and app launching all come from the device itself.</p>
+
+    <h3>2. Serial over IP (RS-232 / RS-485)</h3>
+    <p>A great deal of professional and semi-professional AV gear still exposes an RS-232 port: power sequencers, matrix switchers, motorised screens, lighting controllers, DSPs, and plenty of projectors. A serial-over-IP gateway — a small box, or a piece of software on a PC — puts that serial port on your network as a TCP socket.</p>
+    <p>Remote97 treats such a gateway as a device with two possible roles: <strong>client</strong> (the app dials the gateway's IP and port) or <strong>server</strong> (the gateway or controller dials the app, which listens on a port you choose). You then build a small command library — ASCII or HEX, with an optional CR / LF / CRLF terminator, an optional keep-alive byte, and automatic reconnection — and those commands become buttons, panel widgets and scene steps.</p>
+
+    <h3>3. Scenes — the part you use every day</h3>
+    <p>A scene is an ordered list of steps: set device A to input X, set volume to −28 dB, wait 800 ms, send a command to the sequencer, wait 2 s, power on the amplifier. Because delay is an explicit step you can insert anywhere, scenes handle the sequencing problem that infrared remotes cannot — and that "all at once" automation usually gets wrong.</p>
+
+    <h2>What it controls</h2>
+
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead>
+        <tr><th>Device family</th><th>Protocol</th><th>Typical port</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Denon / Marantz AVR</td><td>Telnet ASCII + HTTP status</td><td><code>23</code>, <code>8080</code></td></tr>
+        <tr><td>Yamaha receivers</td><td>Yamaha Extended Control (HTTP/XML)</td><td><code>80</code></td></tr>
+        <tr><td>Sony BRAVIA</td><td>REST / IRCC over HTTP, Simple IP Control</td><td><code>80</code>, <code>20060</code></td></tr>
+        <tr><td>Samsung TV (Tizen)</td><td>WebSocket remote control</td><td><code>8001</code></td></tr>
+        <tr><td>LG webOS TV</td><td>SSAP over WebSocket</td><td><code>3000</code></td></tr>
+        <tr><td>Xiaomi / Redmi TV</td><td>Xiaomi TV control protocol</td><td><code>6095</code></td></tr>
+        <tr><td>Apple TV</td><td>MRP / Companion over mDNS</td><td><code>49152–49155</code></td></tr>
+        <tr><td>Roku</td><td>External Control Protocol (ECP)</td><td><code>8060</code></td></tr>
+        <tr><td>Zidoo media players</td><td>Zidoo HTTP API</td><td><code>9529</code></td></tr>
+        <tr><td>Projectors</td><td>PJLink (Class 1 / 2)</td><td><code>4352</code></td></tr>
+        <tr><td>Sonos</td><td>UPnP / SOAP</td><td><code>1400</code></td></tr>
+        <tr><td>Bluesound (BluOS)</td><td>BluOS HTTP API</td><td><code>11000</code></td></tr>
+        <tr><td>WiiM / Arylic</td><td>LinkPlay HTTP API</td><td><code>80</code>, <code>443</code></td></tr>
+        <tr><td>ONVIF cameras</td><td>WS-Discovery + SOAP</td><td><code>3702</code>, <code>80</code></td></tr>
+        <tr><td>Anything with RS-232</td><td>Serial over IP gateway (TCP)</td><td>your gateway</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-note">Ports are the manufacturer defaults. Some devices can be reassigned — Remote97 probes the common ones and also lets you add a device by IP.</p>
+
+    <h2>Movie night: the five-remote problem, solved</h2>
+
+    <p>The classic scene is also the one that proves the concept. One button should do what you currently do by hand: amplifier on, correct input selected, projector or TV on, aspect and volume set, lights down if you control them.</p>
+
+    <p>In Remote97 that is a scene with ordered steps:</p>
+
+    <div class="steps-num">
+      <div class="step-row"><div class="n">1</div><div><h3>Wake the display</h3><p>Power on the projector (PJLink) or TV, then wait for it to accept commands.</p></div></div>
+      <div class="step-row"><div class="n">2</div><div><h3>Set the receiver</h3><p>Power on, switch to the media player input, apply the calibrated volume for that source.</p></div></div>
+      <div class="step-row"><div class="n">3</div><div><h3>Wake the source</h3><p>Bring the Apple TV or Roku out of standby and launch the app you actually use.</p></div></div>
+      <div class="step-row"><div class="n">4</div><div><h3>Trim the room</h3><p>Sound mode, subwoofer level, or a second zone for the bar area.</p></div></div>
+    </div>
+
+    <p>A second scene reverses it. "Good night" mutes the room, powers the amplifier down and leaves the projector to cool — in that order, with a delay long enough that the amplifier is not asked to reproduce the projector's shutdown thump.</p>
+
+    <h2>KTV rooms: the case nobody else handles</h2>
+
+    <p>Karaoke — a KTV room in most of Asia — is a harder control problem than a cinema, and it is where general-purpose "smart home" apps usually stop. A KTV room is not one source and one display. It is a karaoke player with its own song library and video output, a microphone mixer or DSP with echo and reverb, an amplifier, a TV or projector, and often a lighting circuit that should change mood between songs.</p>
+
+    <p>Worse, the equipment is spread across three control worlds. The player may be IR-only. The mixer is RS-232. The amplifier is IP. The lights are on a relay or DMX box. No single remote covers that, and no infrared blaster can reach the rack.</p>
+
+    <p>Remote97 approaches it as one room with three scene states rather than as four unrelated devices:</p>
+
+    <ul>
+      <li><strong>KTV on</strong> — sequencer powers up in the correct order, karaoke player and TV wake, amplifier selects the karaoke input, microphone channel and music channel are set to their saved levels, lighting goes to "party".</li>
+      <li><strong>Song break</strong> — music channel down, microphone up, display dimmed, lighting to a warmer preset. One press, no fumbling for a mixer knob in the dark.</li>
+      <li><strong>KTV off</strong> — amplifier muted and powered down first, then sources, then the sequencer cuts the rack in reverse order.</li>
+    </ul>
+
+    <div class="callout"><strong>Why scenes beat macros on a remote:</strong> a scene is editable text you can inspect — device, command, value, delay. A macro on a universal remote is a black box that, when it misbehaves, you can only re-record and hope.</div>
+
+    <h2>Power sequencers: order matters</h2>
+
+    <p>A power sequencer is a rack unit that switches several outlets on and off in a defined order. It exists for two reasons: inrush current, and noise. Turning on a rack of amplifiers at once can trip a breaker; powering an amplifier before its sources are stable puts a thump through expensive speakers.</p>
+
+    <p>The professional convention is simple, and worth getting right even at home:</p>
+
+    <ul>
+      <li><strong>Power up:</strong> sources first (player, mixer, DSP), then processing, and the power amplifiers <em>last</em>.</li>
+      <li><strong>Power down:</strong> amplifiers first, then processing, then sources.</li>
+      <li><strong>Never</strong> let the amplifier be the first thing on or the last thing off.</li>
+    </ul>
+
+    <p>Most sequencers use one of two control methods: a contact-closure trigger, or a serial command. If yours takes RS-232, it slots into Remote97 as an IP communication device behind your serial gateway. You then write one command per stage — outlet 1 on, outlet 2 on — into the command library, and place them in a scene with delays between them:</p>
+
+    <pre><code>Step 1   send  "PWR1 ON\r"   to  Sequencer (IP comm)
+Step 2   delay 1500 ms
+Step 3   send  "PWR2 ON\r"   to  Sequencer (IP comm)
+Step 4   delay 1500 ms
+Step 5   send  "PWR3 ON\r"   to  Sequencer (IP comm)
+Step 6   delay 3000 ms
+Step 7   power on  AVR        (native IP)</code></pre>
+
+    <p>The exact bytes come from your sequencer's manual — some use ASCII, some use HEX with a checksum. Remote97's command library accepts both, with CR / LF / CRLF line endings, so you can copy the string straight out of the documentation.</p>
+
+    <div class="callout"><strong>A note on honesty:</strong> Remote97 does not ship a driver for every sequencer on the market. It gives you a transport (TCP to an RS-232 gateway), an encoding choice (ASCII or HEX) and a delay-capable scene engine. If your unit understands serial commands, it can be controlled — you supply the command string.</div>
+
+    <h2>Cameras and the rest of the room</h2>
+
+    <p>Many media rooms also have a camera or two — a door camera, a kids' room, a rack camera. Remote97 discovers ONVIF cameras over WS-Discovery and shows a live thumbnail, with pan/tilt/zoom controls and image settings where the camera exposes them. Streams are pulled directly from the camera, not through a cloud relay, and the app caps how many live previews run at once so a wall of cameras does not saturate your network.</p>
+
+    <h2>Local first: no cloud, no account, no subscription</h2>
+
+    <p>Every command described above travels from your phone to a device on your own network. There is no vendor server in between, which has three practical consequences:</p>
+
+    <ul>
+      <li><strong>It keeps working when the internet does not.</strong> Storm, ISP outage, router in bridge mode — the room still turns on.</li>
+      <li><strong>Latency is LAN latency.</strong> Volume ramps respond immediately instead of waiting for a round trip to a data centre.</li>
+      <li><strong>Nobody is watching.</strong> No account, no telemetry, no usage analytics. The privacy policy is short because there is little to disclose.</li>
+    </ul>
+
+    <p>It also means no subscription. There is no tier that unlocks "advanced" control, because the app is not paying for cloud infrastructure on your behalf.</p>
+
+    <h2>Platforms and installation</h2>
+
+    <p>Remote97 runs on Android, Windows and iOS. In practice that means the controller can be a phone in your pocket, a wall-mounted tablet, or the small PC that already lives in the rack. Devices are found automatically on the same subnet; anything that refuses to be discovered can be added by IP address and port.</p>
+
+    <div class="steps-num">
+      <div class="step-row"><div class="n">1</div><div><h3>Install the app</h3><p>Google Play, the App Store, or the Microsoft Store. No account required.</p></div></div>
+      <div class="step-row"><div class="n">2</div><div><h3>Put the controller on the same network</h3><p>Same WiFi or Ethernet as the equipment. This is a local-control app by design.</p></div></div>
+      <div class="step-row"><div class="n">3</div><div><h3>Scan, or add by IP</h3><p>Discovery covers receivers, TVs, streamers, speakers, projectors and cameras. Manual entry covers the rest.</p></div></div>
+      <div class="step-row"><div class="n">4</div><div><h3>Build one scene</h3><p>Start with movie night. Once that button works, the rest of the room follows.</p></div></div>
+    </div>
+
+    <h2>Frequently asked</h2>
+
+    <h3>Can it control a receiver over WiFi instead of IR?</h3>
+    <p>Yes, when the receiver exposes an IP control interface. Denon and Marantz, for example, accept telnet commands and publish HTTP status, so input, volume, power and sound mode all come back as real state rather than assumptions.</p>
+
+    <h3>Does it work without internet?</h3>
+    <p>Yes. Control traffic stays on the local network. You only need internet to download the app and updates.</p>
+
+    <h3>Can I control an RS-232 power sequencer?</h3>
+    <p>Yes, through a serial-over-IP gateway. Add the gateway as an IP communication device, store your sequencer's commands in the command library, then place them in a scene with delays to enforce power-up and power-down order.</p>
+
+    <h3>What about devices that are IR-only?</h3>
+    <p>Remote97 has no IR blaster, so a device with no network and no serial port is out of reach. In practice most IR-only gear in a modern room — players, TVs, projectors — also has an IP or serial control port; the IR remote is simply the consumer interface.</p>
+
+    <h3>Is there a subscription?</h3>
+    <p>No. No account, no in-app purchase for control features, no cloud relay.</p>
+
+    <h3>Can one app handle both a cinema and a KTV room?</h3>
+    <p>Yes. Rooms are separate spaces in the app, each with its own devices and its own scenes. A single controller can hold both, and a scene can span rooms if you want a "whole house off" button.</p>
+
+    <h2>Where to go next</h2>
+
+    <p>If you are building this out one device at a time, the device-specific guides go deeper on each protocol and what it can actually report:</p>
+
+    <ul>
+      <li><a href="denon-marantz.html">Denon and Marantz receivers</a> — telnet control, zones, sound modes.</li>
+      <li><a href="sony-bravia.html">Sony BRAVIA</a> and <a href="samsung-tv.html">Samsung Tizen</a> — REST and WebSocket control.</li>
+      <li><a href="apple-tv.html">Apple TV</a> and <a href="roku.html">Roku</a> — MRP and ECP.</li>
+      <li><a href="movie-night-scenes.html">Movie-night scenes</a> — building the sequence properly.</li>
+      <li><a href="local-ip-control.html">Why local IP control beats cloud hubs</a> — the architecture argument.</li>
+      <li><a href="whole-home-audio.html">Whole-home audio</a> — grouping Sonos, BluOS and WiiM.</li>
+    </ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="movie-night-scenes.html"><h3>Build a movie-night scene</h3><p>Ordered steps, delays and the right power sequence.</p></a>
+      <a class="rcard" href="local-ip-control.html"><h3>Why local IP control beats cloud hubs</h3><p>No account, no relay, works when the internet does not.</p></a>
+    </div>
+  </div>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>One button for the whole room</h2>
+    <p>Remote97 is free, runs on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "One app for the whole AV room: home theater, KTV and serial control",
+      "description": "How one app controls an entire AV room over native IP protocols, plus RS-232 power sequencers through a serial-over-IP gateway, with ordered scenes for home theater and KTV rooms.",
+      "author": { "@type": "Organization", "name": "Remote97" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Remote97",
+        "logo": { "@type": "ImageObject", "url": "https://remote97.com/remote97_wordmark.png" }
+      },
+      "mainEntityOfPage": "https://remote97.com/guides/home-theater-smart-home-control.html",
+      "image": "https://remote97.com/og-image.png",
+      "datePublished": "2026-11-03",
+      "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can Remote97 control a receiver over WiFi instead of IR?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, when the receiver exposes an IP control interface. Denon and Marantz accept telnet commands and publish HTTP status, so input, volume, power and sound mode come back as real state."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Remote97 work without internet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Control traffic stays on the local network; internet is only needed to download the app and updates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Remote97 control an RS-232 power sequencer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, through a serial-over-IP gateway. Add the gateway as an IP communication device, store the sequencer commands in the command library, then place them in a scene with delays to enforce power-up and power-down order."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a subscription for Remote97?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. There is no account, no in-app purchase for control features and no cloud relay."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can one app handle both a cinema and a KTV room?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Rooms are separate spaces with their own devices and scenes; one controller can hold both."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>
