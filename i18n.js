@@ -3,7 +3,7 @@
   var I18N = {
     zh:{
       "title":"Remote97 — 家庭影院中控",
-      "nav.features":"功能","nav.download":"下载","nav.devices":"支持设备","nav.privacy":"隐私政策",
+      "nav.features":"功能","nav.download":"下载","nav.devices":"支持设备","nav.privacy":"隐私政策","nav.guides":"指南","hero.btn.guides":"浏览指南 →","hero.btn.deep":"深度指南 →","dev.onvif.link":"ONVIF 摄像头：实时画面、云台与纯本地控制 →","dev.serial.link":"网转串口：控制 RS-232 / RS-485 设备 →","cta.btn.deep":"深度指南：家庭影院与智能家居控制 →",
       "theme.ink":"水墨","theme.glass":"液态玻璃",
       "hero.kicker":"纯软件中控 · 无需硬件",
       "hero.title_html":"一个 App，掌控<em>整个家庭影院</em>",
@@ -69,7 +69,7 @@
     },
     en:{
       "title":"Remote97 — Home Theater Control Hub",
-      "nav.features":"Features","nav.download":"Download","nav.devices":"Devices","nav.privacy":"Privacy",
+      "nav.features":"Features","nav.download":"Download","nav.devices":"Devices","nav.privacy":"Privacy","nav.guides":"Guides","hero.btn.guides":"Read the guides →","hero.btn.deep":"In-depth guide →","dev.onvif.link":"ONVIF cameras: live view, PTZ & local-only control →","dev.serial.link":"Serial over IP: control RS-232 / RS-485 devices →","cta.btn.deep":"In-depth guide: home theater & smart home control →",
       "theme.ink":"Ink","theme.glass":"Liquid Glass",
       "hero.kicker":"Pure software · no hardware hub",
       "hero.title_html":"One app for your <em>entire home theater</em>",
@@ -135,7 +135,7 @@
     },
     ja:{
       "title":"Remote97 — ホームシアター統合リモート",
-      "nav.features":"機能","nav.download":"ダウンロード","nav.devices":"対応デバイス","nav.privacy":"プライバシー",
+      "nav.features":"機能","nav.download":"ダウンロード","nav.devices":"対応デバイス","nav.privacy":"プライバシー","nav.guides":"ガイド","hero.btn.guides":"ガイドを見る →","hero.btn.deep":"詳細ガイド →","dev.onvif.link":"ONVIF カメラ：ライブ映像・PTZ・ローカル制御 →","dev.serial.link":"シリアル over IP：RS-232 / RS-485 機器の制御 →","cta.btn.deep":"詳細ガイド：ホームシアターとスマートホーム制御 →",
       "theme.ink":"墨","theme.glass":"液ガラス",
       "hero.kicker":"純ソフトウェア · ハブ不要",
       "hero.title_html":"ひとつのアプリで、<em>ホームシアター全体</em>を",
@@ -201,7 +201,7 @@
     },
     de:{
       "title":"Remote97 — Steuerzentrale für dein Heimkino",
-      "nav.features":"Funktionen","nav.download":"Download","nav.devices":"Geräte","nav.privacy":"Datenschutz",
+      "nav.features":"Funktionen","nav.download":"Download","nav.devices":"Geräte","nav.privacy":"Datenschutz","nav.guides":"Anleitungen","hero.btn.guides":"Anleitungen ansehen →","hero.btn.deep":"Ausführliche Anleitung →","dev.onvif.link":"ONVIF-Kameras: Live-Bild, PTZ & rein lokale Steuerung →","dev.serial.link":"Serial over IP: RS-232-/RS-485-Geräte steuern →","cta.btn.deep":"Ausführliche Anleitung: Heimkino & Smart-Home-Steuerung →",
       "theme.ink":"Tinte","theme.glass":"Flüssigglas",
       "hero.kicker":"Reine Software · keine Hardware nötig",
       "hero.title_html":"Eine App für dein <em>komplettes Heimkino</em>",
@@ -267,7 +267,7 @@
     },
     es:{
       "title":"Remote97 — Control total de tu home cinema",
-      "nav.features":"Funciones","nav.download":"Descargar","nav.devices":"Dispositivos","nav.privacy":"Privacidad",
+      "nav.features":"Funciones","nav.download":"Descargar","nav.devices":"Dispositivos","nav.privacy":"Privacidad","nav.guides":"Guías","hero.btn.guides":"Ver las guías →","hero.btn.deep":"Guía detallada →","dev.onvif.link":"Cámaras ONVIF: vista en vivo, PTZ y control solo local →","dev.serial.link":"Puerto serie sobre IP: controla dispositivos RS-232 / RS-485 →","cta.btn.deep":"Guía detallada: cine en casa y control del hogar inteligente →",
       "theme.ink":"Tinta","theme.glass":"Cristal líquido",
       "hero.kicker":"Software puro · sin hardware extra",
       "hero.title_html":"Una app para todo tu <em>home cinema</em>",
@@ -333,7 +333,7 @@
     },
     pt:{
       "title":"Remote97 — Central do seu home theater",
-      "nav.features":"Recursos","nav.download":"Download","nav.devices":"Dispositivos","nav.privacy":"Privacidade",
+      "nav.features":"Recursos","nav.download":"Download","nav.devices":"Dispositivos","nav.privacy":"Privacidade","nav.guides":"Guias","hero.btn.guides":"Ver os guias →","hero.btn.deep":"Guia detalhado →","dev.onvif.link":"Câmeras ONVIF: visualização ao vivo, PTZ e controle somente local →","dev.serial.link":"Serial sobre IP: controle dispositivos RS-232 / RS-485 →","cta.btn.deep":"Guia detalhado: home theater e controle de casa inteligente →",
       "theme.ink":"Tinta","theme.glass":"Vidro líquido",
       "hero.kicker":"Software puro · sem hardware extra",
       "hero.title_html":"Um app para todo o seu <em>home theater</em>",
