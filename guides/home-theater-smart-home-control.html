@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Smart-Home AV Control for Home Theater &amp; KTV Rooms | Remote97</title>
-<meta name="description" content="How one app controls an entire AV room: Denon, Marantz, Sony, Samsung, LG, Apple TV, Roku, Sonos and PJLink over IP, plus RS-232 power sequencers through a serial-over-IP gateway. Scene control for home theater and KTV. Local network only, no cloud, no subscription." />
-<meta name="keywords" content="smart home AV control app, home theater control software, KTV room control, karaoke room controller, power sequencer RS-232 control, serial over IP gateway, IP to serial converter app, Denon remote app, Marantz control, Sony BRAVIA, Samsung Tizen remote, LG webOS, Apple TV control, Roku ECP, Sonos multiroom, PJLink projector control, no subscription remote" />
+<meta name="description" content="How one app controls an entire AV room: Denon, Marantz, Sony, Samsung, LG, Apple TV, Roku, Sonos and PJLink over IP, plus RS-232 power sequencers through a serial-over-IP gateway. ONVIF cameras with live view, PTZ and main/sub streams, plus scene control for home theater and KTV. Local network only, no cloud, no subscription." />
+<meta name="keywords" content="smart home AV control app, home theater control software, KTV room control, karaoke room controller, power sequencer RS-232 control, serial over IP gateway, IP to serial converter app, Denon remote app, Marantz control, Sony BRAVIA, Samsung Tizen remote, LG webOS, Apple TV control, Roku ECP, Sonos multiroom, PJLink projector control, ONVIF camera app, PTZ camera control, RTSP live view, WS-Discovery, no subscription remote" />
 <link rel="canonical" href="https://remote97.com/guides/home-theater-smart-home-control.html" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://remote97.com/guides/home-theater-smart-home-control.html" />
@@ -73,7 +73,7 @@
     <ul>
       <li><strong>It is software only.</strong> No hub, no dongle, no IR blaster, no cloud account. Your phone or a small Windows PC is the controller.</li>
       <li><strong>It speaks native protocols.</strong> Denon and Marantz over telnet and HTTP, Sony BRAVIA over REST, Roku over ECP, LG over webOS SSAP, Apple TV over MRP, Sonos over UPnP/SOAP, projectors over PJLink — not a generic "smart IR" database.</li>
-      <li><strong>It has an escape hatch.</strong> For anything that has no native driver — a power sequencer, a lighting controller, an old DSP, a karaoke machine with a serial port — you add it as an <em>IP communication device</em> and send it raw commands over a serial-over-IP gateway.</li>
+      <li><strong>It has an escape hatch.</strong> For anything that has no native driver — a power sequencer, a lighting controller, an old DSP, a karaoke machine with a serial port — you add it as an <em>IP communication device</em> and send it raw commands over a serial-over-IP gateway (<a href="serial-over-ip.html">full setup guide</a>).</li>
     </ul>
 
     <div class="callout"><strong>Why this matters for a real room:</strong> a native protocol gives you state. You can ask the receiver what input it is on, ask the TV whether it is awake, ask the projector for lamp hours. Infrared can only shout into the dark and hope.</div>
@@ -85,7 +85,7 @@
 
     <h3>2. Serial over IP (RS-232 / RS-485)</h3>
     <p>A great deal of professional and semi-professional AV gear still exposes an RS-232 port: power sequencers, matrix switchers, motorised screens, lighting controllers, DSPs, and plenty of projectors. A serial-over-IP gateway — a small box, or a piece of software on a PC — puts that serial port on your network as a TCP socket.</p>
-    <p>Remote97 treats such a gateway as a device with two possible roles: <strong>client</strong> (the app dials the gateway's IP and port) or <strong>server</strong> (the gateway or controller dials the app, which listens on a port you choose). You then build a small command library — ASCII or HEX, with an optional CR / LF / CRLF terminator, an optional keep-alive byte, and automatic reconnection — and those commands become buttons, panel widgets and scene steps.</p>
+    <p>Remote97 treats such a gateway as a device with two possible roles: <strong>client</strong> (the app dials the gateway's IP and port) or <strong>server</strong> (the gateway or controller dials the app, which listens on a port you choose). You then build a small command library — ASCII or HEX, with an optional CR / LF / CRLF terminator, an optional keep-alive byte, and automatic reconnection — and those commands become buttons, panel widgets and scene steps. The <a href="serial-over-ip.html">serial-over-IP guide</a> walks through client/server mode, command encoding and delays in detail.</p>
 
     <h3>3. Scenes — the part you use every day</h3>
     <p>A scene is an ordered list of steps: set device A to input X, set volume to −28 dB, wait 800 ms, send a command to the sequencer, wait 2 s, power on the amplifier. Because delay is an explicit step you can insert anywhere, scenes handle the sequencing problem that infrared remotes cannot — and that "all at once" automation usually gets wrong.</p>
@@ -111,7 +111,7 @@
         <tr><td>Sonos</td><td>UPnP / SOAP</td><td><code>1400</code></td></tr>
         <tr><td>Bluesound (BluOS)</td><td>BluOS HTTP API</td><td><code>11000</code></td></tr>
         <tr><td>WiiM / Arylic</td><td>LinkPlay HTTP API</td><td><code>80</code>, <code>443</code></td></tr>
-        <tr><td>ONVIF cameras</td><td>WS-Discovery + SOAP</td><td><code>3702</code>, <code>80</code></td></tr>
+        <tr><td><a href="onvif-camera.html">ONVIF cameras</a></td><td>WS-Discovery + SOAP</td><td><code>3702</code>, <code>80</code></td></tr>
         <tr><td>Anything with RS-232</td><td>Serial over IP gateway (TCP)</td><td>your gateway</td></tr>
       </tbody>
     </table>
@@ -177,7 +177,7 @@ Step 7   power on  AVR        (native IP)</code></pre>
 
     <h2>Cameras and the rest of the room</h2>
 
-    <p>Many media rooms also have a camera or two — a door camera, a kids' room, a rack camera. Remote97 discovers ONVIF cameras over WS-Discovery and shows a live thumbnail, with pan/tilt/zoom controls and image settings where the camera exposes them. Streams are pulled directly from the camera, not through a cloud relay, and the app caps how many live previews run at once so a wall of cameras does not saturate your network.</p>
+    <p>Many media rooms also have a camera or two — a door camera, a kids' room, a rack camera. Remote97 discovers ONVIF cameras over WS-Discovery (or you add one by IP), shows a live thumbnail on the home screen, and opens a full-screen view with pan/tilt/zoom, presets and image settings where the camera exposes them, plus main/sub stream switching. You can also place a live camera view on a custom remote panel. Streams are pulled directly from the camera over RTSP, not through a cloud relay; previews are warmed in the background so a view opens almost instantly, and the app caps how many warm up at once so a wall of cameras does not saturate your network. <a href="onvif-camera.html">The ONVIF camera guide</a> covers discovery, credentials, ports and troubleshooting in detail.</p>
 
     <h2>Local first: no cloud, no account, no subscription</h2>
 
@@ -233,6 +233,8 @@ Step 7   power on  AVR        (native IP)</code></pre>
       <li><a href="movie-night-scenes.html">Movie-night scenes</a> — building the sequence properly.</li>
       <li><a href="local-ip-control.html">Why local IP control beats cloud hubs</a> — the architecture argument.</li>
       <li><a href="whole-home-audio.html">Whole-home audio</a> — grouping Sonos, BluOS and WiiM.</li>
+      <li><a href="onvif-camera.html">ONVIF cameras</a> — WS-Discovery, credentials, RTSP live view, main/sub streams and PTZ.</li>
+      <li><a href="serial-over-ip.html">Serial over IP</a> — TCP client/server, ASCII/HEX commands, terminators and scene delays.</li>
     </ul>
   </div>
 
@@ -241,6 +243,8 @@ Step 7   power on  AVR        (native IP)</code></pre>
     <div class="related-grid">
       <a class="rcard" href="movie-night-scenes.html"><h3>Build a movie-night scene</h3><p>Ordered steps, delays and the right power sequence.</p></a>
       <a class="rcard" href="local-ip-control.html"><h3>Why local IP control beats cloud hubs</h3><p>No account, no relay, works when the internet does not.</p></a>
+      <a class="rcard" href="onvif-camera.html"><h3>ONVIF cameras: live view &amp; PTZ</h3><p>Discovery, credentials, main/sub streams and pan-tilt-zoom.</p></a>
+      <a class="rcard" href="serial-over-ip.html"><h3>Serial over IP gateways</h3><p>Control RS-232 gear with an ASCII / HEX command library.</p></a>
     </div>
   </div>
 </main>
