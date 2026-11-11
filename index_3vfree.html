@@ -280,6 +280,10 @@
   .vcard h3{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--ink)}
   .vcard h3 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:11px;vertical-align:2px}
   .vcard p{color:var(--mid);font-size:14.5px}
+  .devlinks{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+  .devlinks a{font-size:14px;font-weight:600;color:var(--accent-ink);border:1px solid var(--accent-line);
+    background:var(--accent-soft);border-radius:999px;padding:9px 17px;transition:.18s}
+  .devlinks a:hover{transform:translateY(-2px);border-color:var(--accent)}
 
   /* footer */
   footer{border-top:1px solid var(--line);padding:44px 0 52px;background:var(--footer-bg)}
@@ -629,6 +633,7 @@
           </div>
           <span class="dbtn"><span data-i18n="btn.store">前往商店</span></span>
         </a>
+        <!-- TESTFLIGHT_TILE_SLOT: public external-testing join link goes here once generated in App Store Connect. Insert a .dtile with href="https://testflight.apple.com/join/XXXXXXXX" immediately after this comment. -->
         <a class="dtile" href="https://apps.microsoft.com/detail/9pdxn0618930" target="_blank" rel="noopener">
           <div class="dicon"><svg viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm0 13 7.5 1.1v-7H3v5.9zM11.5 4.2 21 3v8.5h-9.5V4.2zm0 15.6 9.5 1.2v-8.5h-9.5v7.3z"/></svg></div>
           <div>
@@ -671,6 +676,10 @@
       <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g1.t">功放 AVR</span></h3><p>Denon · Marantz · Yamaha · Onkyo</p></div>
       <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g2.t">电视与盒子</span></h3><p>Sony BRAVIA · Samsung · LG webOS · Xiaomi / Redmi · Apple TV · Roku</p></div>
         <div class="vcard"><h3><span class="dot"></span><span data-i18n="dev.g3.t">流媒体与音响</span></h3><p>Sonos · Bluesound (BluOS) · WiiM · Arylic (LinkPlay)</p></div>
+      </div>
+      <div class="devlinks">
+        <a href="guides/onvif-camera.html">ONVIF cameras: live view, PTZ &amp; local-only control →</a>
+        <a href="guides/serial-over-ip.html">Serial over IP: control RS-232 / RS-485 devices →</a>
       </div>
   </section>
 

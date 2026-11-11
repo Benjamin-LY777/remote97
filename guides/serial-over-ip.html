@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Serial over IP: Control RS-232 / RS-485 Devices From One App | Remote97</title>
+<meta name="description" content="Turn any RS-232 or RS-485 device into a network-controlled one with a serial-over-IP gateway. A practical guide to TCP client and server modes, ASCII and HEX commands, line endings, a reusable command library, custom control panels and scenes with delays — all local, no cloud." />
+<meta name="keywords" content="serial over IP, RS-232 over IP, RS-485 TCP control, IP to serial converter app, TCP serial command app, ASCII HEX command sender, power sequencer control app, serial device server, control RS-232 from phone, no cloud serial control" />
+<link rel="canonical" href="https://remote97.com/guides/serial-over-ip.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/serial-over-ip.html" />
+<meta property="og:title" content="Serial over IP: control RS-232 / RS-485 gear from one app" />
+<meta property="og:description" content="A serial-over-IP gateway puts an old RS-232 port on your network. Here is how to send ASCII or HEX commands, build a command library and use them in panels and scenes." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Serial over IP: control RS-232 / RS-485 gear from one app" />
+<meta name="twitter:description" content="TCP client or server, ASCII/HEX commands, a command library, panels and scenes with delays. Local only." />
+<meta name="twitter:image" content="https://remote97.com/og-image.png" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<style>
+  .tblwrap{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+  .tbl{width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px}
+  .tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  .tbl th{font-weight:700;color:var(--ink);background:var(--card);white-space:nowrap}
+  .tbl td{color:var(--mid)}
+  .tbl tr:last-child td{border-bottom:0}
+  .tbl code{white-space:nowrap}
+  .tblwrap + .tbl-note{font-size:13px;color:var(--low);margin-top:-8px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; Serial over IP</div>
+
+  <div class="article-head">
+    <span class="kicker">Serial &amp; integration</span>
+    <h1>Serial over IP: control RS-232 and RS-485 gear from the same app as your TV</h1>
+    <p class="sub">Power sequencers, matrix switchers, motorised screens, lighting controllers, DSPs, older projectors and karaoke mixers often have no network port at all — just a serial connector. A cheap serial-over-IP gateway puts that port on your LAN, and Remote97 turns it into buttons, a direction pad and scene steps.</p>
+    <div class="meta">10 min read · Android, Windows &amp; iOS</div>
+  </div>
+
+  <div class="article-body">
+
+    <p>Native IP control is great until you meet the equipment in the rack. Professional and semi-professional AV gear frequently exposes only RS-232 or RS-485, with a terse command table buried in a PDF manual. No app, no API, no cloud — just bytes on a wire.</p>
+
+    <p>The bridge is a <strong>serial-over-IP gateway</strong> (also called a serial device server, IP-to-serial converter, or "IPserver" when it is software running on a PC). It converts serial signals to a plain TCP socket. Once that socket exists, your phone can talk to the device over the local network from the same app that controls the receiver and the TV.</p>
+
+    <div class="callout"><strong>The division of labour:</strong> the gateway owns all serial-side settings — baud rate, data bits, parity, stop bits and flow control. Remote97 never touches those. It only takes your command bytes and delivers them over TCP. If the bytes are right but nothing happens, check the gateway's serial settings first.</div>
+
+    <h2>What you need</h2>
+    <ul>
+      <li>A serial-over-IP gateway configured for your device's serial parameters, with a known IP address and TCP port.</li>
+      <li>The command strings from the device manual — as ASCII text (e.g. <code>PWR 1 ON</code>) or as HEX bytes (e.g. <code>A5 01 00 FF</code>).</li>
+      <li>The controller (phone or PC) on the same local network as the gateway.</li>
+    </ul>
+
+    <h2>Two connection modes</h2>
+    <p>Which side initiates the TCP connection depends on the hardware. Remote97 supports both, selected when you add the device.</p>
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead><tr><th>Mode</th><th>Who connects</th><th>Typical use</th><th>Status shown</th></tr></thead>
+      <tbody>
+        <tr><td><strong>TCP client</strong></td><td>Remote97 dials the gateway's IP and port</td><td>A hardware serial device server, or IP-to-serial software on a PC</td><td>Connected / disconnected</td></tr>
+        <tr><td><strong>TCP server</strong></td><td>The gateway (or a PC controller) dials Remote97, which listens on a port you choose</td><td>Setups where the gateway is configured as a TCP client, or a PC sends commands to the app</td><td>Listening / not listening</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-note">In server mode the app binds to all local interfaces and accepts multiple simultaneous clients; commands are sent to every connected client. The connected client IPs are listed, and you can attach a local note to each one so you remember which is which. There is no "power on / standby" concept for this device family — the status reflects the connection, not the device's power state.</p>
+
+    <h2>Adding the device</h2>
+    <div class="steps-num">
+      <div class="step-row"><div class="n">1</div><div><h3>Choose the IP communication category</h3><p>In the add-device screen, pick the IP communication device category. It skips network scanning and goes straight to the manual form — there is no reliable way to auto-discover an arbitrary TCP port.</p></div></div>
+      <div class="step-row"><div class="n">2</div><div><h3>Enter host and port</h3><p>For client mode, the gateway's address. For server mode, the local listening port (use a port above 1024).</p></div></div>
+      <div class="step-row"><div class="n">3</div><div><h3>Set encoding and line ending</h3><p>ASCII or HEX, plus the device's default terminator: none, CR, LF, CRLF or a custom HEX suffix. Optional keep-alive bytes and a reconnect timeout are available for gateways that need them.</p></div></div>
+      <div class="step-row"><div class="n">4</div><div><h3>Test, then name and assign a room</h3><p>Send a command from the quick-send box to confirm the wiring before you start building buttons.</p></div></div>
+    </div>
+
+    <h2>The command library</h2>
+    <p>Rather than pasting raw strings into every button, you build a small library of named commands. Each entry stores its payload, formatting and timing:</p>
+    <ul>
+      <li><strong>Name, description and folder</strong> — so "Screen down" still makes sense six months later.</li>
+      <li><strong>Scope</strong> — global, or tied to one specific device.</li>
+      <li><strong>Payload</strong> — ASCII text or HEX byte pairs.</li>
+      <li><strong>Line ending override</strong> — inherit the device default, or set none / CR / LF / CRLF / custom HEX per command.</li>
+      <li><strong>Timing</strong> — a pre-delay, a post-delay and a repeat count, because serial gear often needs a pause between frames.</li>
+    </ul>
+
+    <h3>ASCII and HEX, always in sync</h3>
+    <p>The command editor shows two fields at once: an ASCII line and a HEX line, kept in real time from a single byte array. Type <code>PWR ON</code> above and the bytes appear below; type <code>A5 01 00 FF</code> below and the text representation appears above. You never have to choose a mode or convert by hand.</p>
+    <p>The HEX field is built for real manuals, not just careful typing: it auto-inserts spaces every two characters, uppercases on blur, and accepts pasted values in almost any shape — <code>A1B2C3</code>, <code>A1 B2 C3</code>, <code>0xA1 0xB2</code>, or comma-separated. Bytes that cannot be printed (control codes, high bytes that are not valid UTF-8) are shown as a middle dot so byte positions are preserved without garbage characters. A live byte counter tells you the frame length.</p>
+    <p>Terminators are deliberately separate from the payload. You put only the command body in the field; the app appends the chosen CR / LF / CRLF or custom HEX suffix exactly once when sending. That avoids the classic double-<code>0D</code> bug where a terminator is typed into the payload and then added again.</p>
+
+    <h2>Where commands become controls</h2>
+    <p>A saved command is not tied to one screen. The same library entry can be referenced from several places, so editing the command once updates everything that uses it:</p>
+    <ul>
+      <li><strong>Custom buttons on control panels</strong> — build your own remote layout with buttons bound to library commands.</li>
+      <li><strong>Direction pads</strong> — each direction (up, down, left, right, centre) can be bound independently, so a D-pad can drive a matrix switcher or an on-screen menu instead of a transport control.</li>
+      <li><strong>Scenes</strong> — an ordered list of steps with explicit delays, mixing serial commands with native IP commands for other devices.</li>
+      <li><strong>Quick send on the device page</strong> — type ASCII or HEX directly and fire it once while testing.</li>
+    </ul>
+
+    <h2>Why the delay step matters: a power sequencer</h2>
+    <p>A power sequencer switches rack outlets on and off in a defined order, to avoid inrush current tripping a breaker and to keep an amplifier from reproducing the thump of its sources powering up. Sources go on first, processing next, power amplifiers last; power-down is the reverse.</p>
+    <p>Because a scene lets you insert a delay as an explicit step, the sequence is readable and editable text rather than a black-box macro:</p>
+    <pre><code>Step 1   send  "PWR 1 ON\r"   to  Sequencer (IP communication)
+Step 2   delay 1500 ms
+Step 3   send  "PWR 2 ON\r"   to  Sequencer (IP communication)
+Step 4   delay 1500 ms
+Step 5   send  "PWR 3 ON\r"   to  Sequencer (IP communication)
+Step 6   delay 3000 ms
+Step 7   power on  AVR        (native IP)</code></pre>
+    <p>The exact bytes come from your sequencer's manual. Some use ASCII with a carriage return, others use HEX frames with a checksum. Both are supported — you supply the string, Remote97 supplies the transport, encoding and timing.</p>
+
+    <h2>Debugging without a laptop</h2>
+    <p>Serial gear is trial-and-error by nature, so the app keeps a <strong>communication log</strong>: sent and received bytes are written together, with a short HEX preview for each entry. Logs survive an app restart, can be viewed in full on a dedicated activity-history screen, filtered per device, and cleared when you are done. A retention setting controls how many days of history are kept. That makes "which command did I send before it worked?" answerable from the phone rather than from memory.</p>
+
+    <div class="callout"><strong>A note on honesty:</strong> Remote97 does not ship a driver for every sequencer, switcher or mixer on the market. It gives you a TCP transport (client or server), an encoding choice (ASCII or HEX), configurable terminators and delays, a reusable command library, and the buttons, panels and scenes to fire them. If your unit accepts serial commands, it can be controlled — but you supply the command strings from its documentation. There is also no infrared blaster: a device with neither a network port nor a serial port is out of reach.</div>
+
+    <h2>The technical summary</h2>
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead><tr><th>Item</th><th>What Remote97 does</th></tr></thead>
+      <tbody>
+        <tr><td>Transport</td><td>Raw TCP, client mode (outbound) or server mode (inbound listener)</td></tr>
+        <tr><td>Encoding</td><td>ASCII text (UTF-8 / Latin-1) or HEX byte pairs, edited together in one live-syncing control</td></tr>
+        <tr><td>Framing</td><td>Device-level default terminator (none / CR / LF / CRLF / custom HEX), overridable per command; optional keep-alive bytes</td></tr>
+        <tr><td>Timing</td><td>Per-command pre-delay, post-delay and repeat count; explicit delay steps in scenes</td></tr>
+        <tr><td>Reliability</td><td>Automatic reconnection with a configurable timeout</td></tr>
+        <tr><td>Server mode</td><td>Binds to all local interfaces, accepts multiple clients, lists their IPs, broadcasts commands</td></tr>
+        <tr><td>Serial parameters</td><td>Not handled by the app — baud rate, parity and flow control belong to the gateway</td></tr>
+        <tr><td>Discovery</td><td>Manual add only; arbitrary TCP ports are not auto-scanned</td></tr>
+        <tr><td>Storage</td><td>Commands, connection settings and communication logs stay on the device — no cloud, no account</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Troubleshooting</h2>
+    <h3>Connection refused or always disconnected</h3>
+    <p>Confirm the gateway's IP and TCP port, that the phone is on the same subnet, and that no firewall is blocking the port. In server mode, connect to the phone's actual LAN IP and use a port above 1024.</p>
+    <h3>Connected, but nothing happens</h3>
+    <p>Check the gateway's baud rate, parity and flow control against the device manual. Then check the terminator — a device expecting <code>0D</code> will ignore a frame without it, and a device expecting no terminator may reject one. Finally check ASCII versus HEX: the same characters sent as text and as bytes are different frames.</p>
+    <h3>Commands work in quick send but not from a button or scene</h3>
+    <p>Make sure the widget is bound to the right library command and that the command's scope matches the device. Remember that bindings resolve the library entry at send time, so renaming or editing a command updates every bound control.</p>
+
+    <h2>Local first</h2>
+    <p>Commands travel from the phone to the gateway on your own network. There is no vendor server, no account and no telemetry, so the whole setup keeps working during an internet outage. It also means controlling the gear from outside the home requires your own VPN into the LAN.</p>
+
+    <h2>Frequently asked</h2>
+
+    <h3>What hardware do I need?</h3>
+    <p>A serial-over-IP gateway (a small hardware serial device server, or IP-to-serial software on a PC) wired to the device's RS-232 or RS-485 port, plus the device's command list from its manual.</p>
+
+    <h3>Does Remote97 set baud rate or parity?</h3>
+    <p>No. Those are serial-side settings and belong to the gateway. Remote97 only sends bytes over TCP. If the framing is wrong, configure the gateway to match the device manual.</p>
+
+    <h3>Do I have to choose between ASCII and HEX?</h3>
+    <p>No. The command editor shows both lines at once and keeps them synchronised from the same byte array. Paste HEX in almost any format and the text line follows; type ASCII and the byte line follows. Non-printable bytes are shown as a placeholder dot.</p>
+
+    <h3>What is a line ending / terminator for?</h3>
+    <p>Many serial devices only act on a complete frame, marked by CR (<code>0D</code>), LF (<code>0A</code>), CRLF, or a custom byte sequence. You set a default per device and can override it per command. The terminator is appended once at send time, so it is not typed into the payload.</p>
+
+    <h3>Can I use these commands in scenes with other devices?</h3>
+    <p>Yes. A scene is an ordered list of steps that can mix serial commands with native IP commands, with explicit delays between them. That is how a power sequencer can bring sources up before the amplifier.</p>
+
+    <h3>Can the app act as a TCP server?</h3>
+    <p>Yes. In server mode Remote97 listens on a port you choose, accepts multiple clients, lists their IP addresses and sends commands to all connected clients. This is for gateways or PC controllers configured to dial in.</p>
+
+    <h3>Will it find my gateway automatically?</h3>
+    <p>No. Arbitrary TCP ports cannot be discovered reliably, so this device family is added manually by host and port. Native-IP devices such as receivers, TVs and cameras are still auto-discovered.</p>
+
+    <h3>Does it work without internet?</h3>
+    <p>Yes. Control traffic stays on the local network; internet is only needed to download the app and updates.</p>
+
+    <h2>Where to go next</h2>
+    <ul>
+      <li><a href="onvif-camera.html">ONVIF cameras: live view, PTZ and local-only control</a> — the other "no native driver" addition.</li>
+      <li><a href="home-theater-smart-home-control.html">Home theater &amp; smart home control: the complete guide</a> — where serial gateways fit in a whole room.</li>
+      <li><a href="movie-night-scenes.html">Set up one-tap movie-night scenes</a> — ordered steps and the right power sequence.</li>
+      <li><a href="local-ip-control.html">Why local IP control beats cloud hubs</a> — the architecture argument.</li>
+    </ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="onvif-camera.html"><h3>ONVIF cameras: live view &amp; PTZ</h3><p>Add by IP, view the RTSP stream, control pan-tilt-zoom.</p></a>
+      <a class="rcard" href="movie-night-scenes.html"><h3>One-tap movie-night scenes</h3><p>Ordered steps, delays and the right power sequence.</p></a>
+    </div>
+  </div>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>One app for the whole rack</h2>
+    <p>Remote97 is free, runs on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Serial over IP: control RS-232 and RS-485 gear from the same app as your TV",
+      "description": "How to use a serial-over-IP gateway to control RS-232 and RS-485 AV equipment over TCP, with ASCII and HEX commands, a reusable command library, custom panels and scenes with delays.",
+      "author": { "@type": "Organization", "name": "Remote97" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Remote97",
+        "logo": { "@type": "ImageObject", "url": "https://remote97.com/remote97_wordmark.png" }
+      },
+      "mainEntityOfPage": "https://remote97.com/guides/serial-over-ip.html",
+      "image": "https://remote97.com/og-image.png",
+      "datePublished": "2026-11-11",
+      "dateModified": "2026-11-11"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What hardware do I need to control an RS-232 device with Remote97?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A serial-over-IP gateway — a hardware serial device server or IP-to-serial software on a PC — wired to the device's RS-232 or RS-485 port, plus the command list from the device manual."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Remote97 set baud rate or parity for serial devices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Baud rate, parity and flow control are serial-side settings owned by the gateway. Remote97 only sends bytes over TCP."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to choose between ASCII and HEX commands?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The command editor shows an ASCII line and a HEX line at once, kept in sync from a single byte array. Pasted HEX in almost any format is normalised, and non-printable bytes appear as a placeholder dot."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a line ending or terminator for in serial control?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many serial devices only act on a complete frame marked by CR, LF, CRLF or a custom byte sequence. You set a default terminator per device and can override it per command; it is appended once at send time rather than typed into the payload."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can serial commands be used in scenes with native IP devices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. A scene is an ordered list of steps that can mix serial commands with native IP commands, with explicit delays between them — for example powering sources before an amplifier."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Remote97 act as a TCP server for serial gateways?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. In server mode the app listens on a chosen port, accepts multiple clients, lists their IP addresses and sends commands to all connected clients. Client mode, where the app dials the gateway, is also supported."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will Remote97 discover my serial gateway automatically?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Arbitrary TCP ports cannot be discovered reliably, so this device family is added manually by host and port. Native IP devices such as receivers, TVs and cameras are still auto-discovered."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does serial-over-IP control work without internet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Control traffic stays on the local network; internet is only needed to download the app and updates."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>

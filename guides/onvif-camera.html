@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ONVIF Camera App: Live View, PTZ &amp; Local-Only Control | Remote97</title>
+<meta name="description" content="How to add an ONVIF IP camera by IP or WS-Discovery, view its RTSP live stream, switch main/sub streams, and control pan-tilt-zoom — all over your local network, with no cloud and no account. A practical setup guide with the technical details." />
+<meta name="keywords" content="ONVIF camera app, view ONVIF camera on phone, ONVIF PTZ control, add ONVIF camera by IP, WS-Discovery 3702, RTSP camera viewer, local IP camera app no cloud, ONVIF username password, main stream sub stream, IP camera remote app" />
+<link rel="canonical" href="https://remote97.com/guides/onvif-camera.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/onvif-camera.html" />
+<meta property="og:title" content="ONVIF cameras in Remote97: live view, PTZ and local-only control" />
+<meta property="og:description" content="Add an ONVIF camera with just its IP and credentials, get a live RTSP view, and control pan-tilt-zoom — no cloud relay, no account, no subscription." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ONVIF cameras in Remote97: live view, PTZ and local-only control" />
+<meta name="twitter:description" content="Add by IP or WS-Discovery, view the RTSP stream, control PTZ. Local network only, no cloud." />
+<meta name="twitter:image" content="https://remote97.com/og-image.png" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<style>
+  .tblwrap{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+  .tbl{width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px}
+  .tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  .tbl th{font-weight:700;color:var(--ink);background:var(--card);white-space:nowrap}
+  .tbl td{color:var(--mid)}
+  .tbl tr:last-child td{border-bottom:0}
+  .tbl code{white-space:nowrap}
+  .tblwrap + .tbl-note{font-size:13px;color:var(--low);margin-top:-8px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; ONVIF cameras</div>
+
+  <div class="article-head">
+    <span class="kicker">Cameras &amp; ONVIF</span>
+    <h1>Add an ONVIF camera, watch it live, and control PTZ — without a cloud account</h1>
+    <p class="sub">Most IP cameras speak one open standard: ONVIF. That means you do not need the manufacturer's app, a vendor account, or a subscription to see the picture and move the camera. Here is exactly how Remote97 does it, what works, and what does not.</p>
+    <div class="meta">11 min read · Android, Windows &amp; iOS</div>
+  </div>
+
+  <div class="article-body">
+
+    <p>A modern IP camera is a small computer with a network port. It can tell you its name, list its video streams, hand you a live video URL, and accept a command to pan left. All of that is standardised in ONVIF, an open industry specification supported by camera makers across the price range.</p>
+
+    <p>The practical consequence is that a standards-based app can control a camera from almost any brand in exactly the same way. Remote97 is built on that idea: it discovers the camera, authenticates with the username and password you already set on the camera, and pulls the video <em>directly</em> from the device on your own network. There is no relay server in between, and no account to create.</p>
+
+    <div class="callout"><strong>What you need:</strong> a camera with ONVIF enabled, its IP address, and an ONVIF username and password. That is the whole list. On many cameras ONVIF is switched off by default — you enable it once in the camera's own web admin page.</div>
+
+    <h2>Two ways to add a camera</h2>
+
+    <h3>1. Automatic discovery (WS-Discovery)</h3>
+    <p>When you open the device scan, Remote97 sends an ONVIF <strong>WS-Discovery Probe</strong> as a UDP multicast to <code>239.255.255.250:3702</code>, announcing it is looking for a <code>NetworkVideoTransmitter</code>. Cameras that speak ONVIF answer with a <code>ProbeMatches</code> message containing an <code>XAddrs</code> field — the URL of their device service, typically something like <code>http://192.168.1.64/onvif/device_service</code>.</p>
+    <p>The app then verifies each candidate before calling it "supported". This matters more than it sounds: plenty of consumer cameras answer the discovery probe but have no ONVIF service at all. Remote97 classifies by the <em>response body</em>, not just the HTTP status code. A SOAP authentication fault means "real ONVIF camera, you just need credentials"; an HTML login page means "ONVIF probably disabled — check the camera's admin page". A non-ONVIF device is not quietly added as a broken camera.</p>
+
+    <h3>2. Manual add by IP</h3>
+    <p>If multicast does not cross your network — a VPN, a managed switch, or a router with multicast filtering — add the camera manually. You enter the host/IP, port, username, password, and whether to use TLS. The app probes the usual device-service paths (<code>/onvif/device_service</code>, <code>/onvif/device</code>, <code>/</code>, <code>/onvif/Device</code>) and keeps the one that returns a valid capabilities document.</p>
+
+    <div class="steps-num">
+      <div class="step-row"><div class="n">1</div><div><h3>Enable ONVIF on the camera</h3><p>Open the camera's web admin page, turn ONVIF on, and create a dedicated ONVIF user. Give it administrator or operator rights if you want PTZ control.</p></div></div>
+      <div class="step-row"><div class="n">2</div><div><h3>Put the phone on the same network</h3><p>Same WiFi or Ethernet subnet as the camera. This is a local-control app by design.</p></div></div>
+      <div class="step-row"><div class="n">3</div><div><h3>Scan, or add by IP</h3><p>Use auto-discovery, or choose the camera category and enter the address manually.</p></div></div>
+      <div class="step-row"><div class="n">4</div><div><h3>Enter credentials and test</h3><p>The app runs a real authenticated request before it will save the device. A wrong password is reported as an authentication error, not silently accepted.</p></div></div>
+      <div class="step-row"><div class="n">5</div><div><h3>Name it and assign a room</h3><p>Once saved, the camera appears on the home screen with a live thumbnail and in its room's device list.</p></div></div>
+    </div>
+
+    <h2>Why credentials are checked properly</h2>
+    <p>ONVIF authenticates each SOAP request with a <strong>WS-Security UsernameToken</strong>: a username, a nonce, a UTC creation timestamp, and a password digest computed as <code>Base64(SHA1(nonce + created + password))</code>. There is no "login" session — every request carries its own proof.</p>
+    <p>There is a subtlety that trips up a lot of clients. ONVIF defines two commands as <em>pre-authentication</em> — <code>GetCapabilities</code> and <code>GetSystemDateAndTime</code> — which a camera must answer even with bad credentials. A client that only calls those will happily declare "connected" while every later command fails. Remote97 therefore verifies credentials with a command outside that whitelist (<code>GetDeviceInformation</code>) before it considers the camera online.</p>
+    <p>The two failure modes are kept distinct, because the fix is different:</p>
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead><tr><th>Response</th><th>Meaning</th><th>What to do</th></tr></thead>
+      <tbody>
+        <tr><td><code>401</code> / <code>NotAuthorized</code></td><td>Wrong username or password</td><td>Edit the credentials on the device — there is a button for it on the detail page</td></tr>
+        <tr><td><code>403</code> / <code>AccessDenied</code></td><td>Account exists but lacks permission</td><td>Use an Administrator or Operator account on the camera</td></tr>
+        <tr><td>Timeout / connection refused</td><td>Camera offline or unreachable</td><td>Check power, IP and subnet</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>ONVIF accounts have three levels — <strong>Administrator</strong> (everything, including user management), <strong>Operator</strong> (PTZ and control) and <strong>User</strong> (read-only). Remote97 detects the level after connecting and shows a badge on the detail page. With a read-only or anonymous account, PTZ, imaging and relay controls are disabled rather than failing one by one when you press them. If someone later changes the camera password, the home row shows "re-authentication required" instead of a vague "offline".</p>
+
+    <h2>Live view: what actually happens</h2>
+    <p>After authenticating, the app asks the camera for its capabilities and then its media profiles. <code>GetProfiles</code> returns the available streams; Remote97 picks the highest-resolution profile as the <strong>main stream</strong> and the lowest as the <strong>sub stream</strong>. Both Media and Media2 services are queried, because some cameras only advertise their H.265 profile through Media2.</p>
+    <p>For each profile, <code>GetStreamUri</code> returns an RTSP URL (commonly on port <code>554</code>). That URL — not the snapshot URL — is the real video. Remote97 plays it with an embedded player that handles H.264 and H.265, injecting the camera credentials into the stream URL so RTSP's own Basic/Digest challenge is satisfied. The app does <strong>not</strong> hardcode any manufacturer's URL pattern: whatever standard-compliant address the camera returns is used.</p>
+    <p>If the stream cannot be opened, or no first frame arrives within about ten seconds, the app falls back to a JPEG snapshot via <code>GetSnapshotUri</code> and labels it clearly as a still image. You never stare at a black rectangle wondering whether it is broken.</p>
+
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead><tr><th>Where</th><th>Which stream</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Home screen thumbnail</td><td>Sub stream (or snapshot)</td><td>Low bandwidth; many cameras allow only a few concurrent RTSP sessions</td></tr>
+        <tr><td>Camera wall / multi-camera view</td><td>Sub stream</td><td>Keeps a wall of cameras from saturating the network</td></tr>
+        <tr><td>Device detail page</td><td>Main stream, switchable</td><td>Full quality when you are looking at one camera</td></tr>
+        <tr><td>Fullscreen</td><td>Main stream, switchable</td><td>Full quality with a main/sub switch and PTZ overlay</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-note">Streams are pre-warmed when the home screen opens so the first frame appears quickly, and live decoding stops when the app goes to the background. The number of simultaneous warmed cameras is capped.</p>
+
+    <h2>Controlling the camera</h2>
+    <p>Every control below is only shown if the camera actually advertises the corresponding service. A fixed camera will not get a fake PTZ pad.</p>
+    <ul>
+      <li><strong>Pan / tilt / zoom</strong> — press-and-hold on a direction pad sends <code>PTZ:ContinuousMove</code> with a normalised velocity, and releasing sends <code>PTZ:Stop</code>. Short taps from a remote key map to brief timed pulses with an automatic stop.</li>
+      <li><strong>Presets</strong> — save the current position, jump to a saved preset, or delete one (<code>SetPreset</code> / <code>GotoPreset</code> / <code>RemovePreset</code>).</li>
+      <li><strong>Imaging</strong> — brightness, contrast, saturation and sharpness sliders, where the camera exposes an Imaging service. Values are normalised 0–1 as the spec requires.</li>
+      <li><strong>Relay outputs</strong> — switch relay outputs on and off where the camera exposes DeviceIO.</li>
+      <li><strong>Fullscreen and controls</strong> — a fullscreen view with main/sub switching, a PTZ overlay, and the option to show or hide the camera name.</li>
+      <li><strong>Control panels</strong> — a live camera widget can be placed on a custom control panel, with a chosen camera and stream, resized on the canvas.</li>
+    </ul>
+
+    <h2>The technical summary</h2>
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead><tr><th>Function</th><th>Protocol / call</th><th>Typical port</th></tr></thead>
+      <tbody>
+        <tr><td>Discovery</td><td>WS-Discovery Probe (UDP multicast <code>239.255.255.250</code>)</td><td><code>3702</code></td></tr>
+        <tr><td>Device service</td><td>SOAP over HTTP(S), <code>GetCapabilities</code>, <code>GetDeviceInformation</code></td><td><code>80</code> / <code>443</code> / <code>8443</code></td></tr>
+        <tr><td>Authentication</td><td>WS-Security UsernameToken (PasswordDigest, SHA-1 + Base64)</td><td>same</td></tr>
+        <tr><td>Profiles &amp; capabilities</td><td><code>GetProfiles</code>, <code>GetServices</code> (Media and Media2)</td><td>same</td></tr>
+        <tr><td>Live video</td><td><code>GetStreamUri</code> → RTSP / RTP, H.264 or H.265</td><td><code>554</code></td></tr>
+        <tr><td>Still fallback</td><td><code>GetSnapshotUri</code> → HTTP JPEG</td><td><code>80</code></td></tr>
+        <tr><td>PTZ</td><td><code>ContinuousMove</code>, <code>Stop</code>, <code>GotoPreset</code>, <code>SetPreset</code>, <code>RemovePreset</code></td><td>same device service</td></tr>
+        <tr><td>Imaging / relays</td><td><code>Get/SetImagingSettings</code>, <code>GetRelayOutputs</code>, <code>SetRelayOutputState</code></td><td>same device service</td></tr>
+        <tr><td>Keep-alive</td><td>lightweight <code>GetDeviceInformation</code> polls</td><td>same device service</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-note">Ports are manufacturer defaults. ONVIF device-service paths and XML namespace prefixes vary between vendors; the app matches XML by local element name and tolerates both singular and plural collection names.</p>
+
+    <div class="callout"><strong>An honest boundary:</strong> Remote97 focuses on live viewing, PTZ, presets, imaging, relays and local thumbnails. It is not an NVR: there is no multi-channel recorder view, no Profile G recording playback, no event/alert subscription, no two-way audio and no video analytics or cloud recording. If a camera only exposes those, this app is not the right tool for that job.</div>
+
+    <h2>Troubleshooting</h2>
+    <h3>The camera is not found</h3>
+    <p>Check that ONVIF is enabled in the camera's own admin page and that an ONVIF user exists. Confirm the phone and camera are on the same subnet. If a VPN or virtual network adapter is active on the phone, multicast may be routed into the tunnel instead of the LAN — turning it off, or adding the camera by IP, solves it. Remember that some consumer cameras reply to the discovery probe while having no ONVIF service; those show as "suspected" with a hint to enable ONVIF.</p>
+    <h3>Authentication failed</h3>
+    <p>Use the ONVIF username and password created in the camera's admin page — the web-interface admin login is not necessarily the same account. If the camera allows anonymous access, Remote97 tells you so rather than pretending your password was validated. If the password was changed after the camera was added, use "edit credentials" on the detail page; the app reconnects with the new value.</p>
+    <h3>PTZ or imaging controls are disabled</h3>
+    <p>Either the camera does not advertise those services, or the account is read-only (User level) or anonymous. Switch to an Administrator or Operator account on the camera.</p>
+    <h3>No picture, or a black frame</h3>
+    <p>RTSP usually requires the same credentials as SOAP — the app injects them automatically, so an authentication failure there is almost always a credential mismatch. Also check that port 554 is reachable, try the sub stream (some cameras allow only a handful of concurrent RTSP sessions), and note that the app falls back to a labelled snapshot if no frame arrives.</p>
+
+    <h2>Local first, and what that costs</h2>
+    <p>Video is pulled straight from the camera to your phone. Nothing is uploaded, there is no vendor server, no telemetry and no account. It keeps working during an internet outage, and latency is LAN latency. It also means remote viewing from outside your home network is not built in — you would need your own VPN into the LAN. That is a deliberate trade-off, not an omission.</p>
+
+    <h2>Frequently asked</h2>
+
+    <h3>Do I need the camera manufacturer's app or a cloud account?</h3>
+    <p>No. You need ONVIF enabled on the camera and its username and password. Remote97 talks to the camera directly over your local network.</p>
+
+    <h3>Which cameras work?</h3>
+    <p>Cameras that implement the ONVIF device, media and (optionally) PTZ services. Brand does not matter, because the app uses the standard service addresses the camera reports rather than brand-specific URL patterns. A device that only answers the discovery probe without an ONVIF service will be flagged as suspected, not added as supported.</p>
+
+    <h3>Why does it ask for a username and password?</h3>
+    <p>ONVIF signs each SOAP request with a WS-Security UsernameToken, and the RTSP stream normally requires the same credentials. Without them the camera will not return a stream URL. The app verifies the credentials with an authenticated command before saving the device, so a typo is reported immediately.</p>
+
+    <h3>Can I view H.265 cameras?</h3>
+    <p>Yes. The embedded player decodes H.264 and H.265, and the app queries both Media and Media2 services so H.265-only profiles are not missed.</p>
+
+    <h3>What is the difference between main and sub stream?</h3>
+    <p>Main is the highest-resolution profile, used for fullscreen and single-camera detail view. Sub is the lowest, used for home thumbnails and multi-camera views to save bandwidth and stay within the camera's RTSP session limit. You can switch between them on the detail and fullscreen views.</p>
+
+    <h3>Can it record video or play back recordings?</h3>
+    <p>No. Remote97 provides live viewing and control, not recording or NVR playback. There is no cloud storage and no local recorder in the app.</p>
+
+    <h3>Does it work without internet?</h3>
+    <p>Yes, as long as the phone and camera are on the same local network. Internet is only needed to download the app and updates.</p>
+
+    <h2>Where to go next</h2>
+    <ul>
+      <li><a href="serial-over-ip.html">Control RS-232 / RS-485 gear over IP</a> — the other half of "no native driver" setups.</li>
+      <li><a href="home-theater-smart-home-control.html">Home theater &amp; smart home control: the complete guide</a> — how cameras fit into a whole room.</li>
+      <li><a href="local-ip-control.html">Why local IP control beats cloud hubs</a> — the architecture argument.</li>
+      <li><a href="movie-night-scenes.html">One-tap movie-night scenes</a> — ordered steps and delays.</li>
+    </ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="serial-over-ip.html"><h3>Serial over IP: control RS-232 / RS-485 devices</h3><p>TCP client or server, ASCII/HEX commands, scenes with delays.</p></a>
+      <a class="rcard" href="home-theater-smart-home-control.html"><h3>The whole AV room in one app</h3><p>Native IP control, serial gateways and ordered scenes.</p></a>
+    </div>
+  </div>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>See your cameras without another app</h2>
+    <p>Remote97 is free, runs on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Add an ONVIF camera, watch it live, and control PTZ without a cloud account",
+      "description": "How to add an ONVIF IP camera by IP or WS-Discovery, view its RTSP live stream, switch main and sub streams, and control pan-tilt-zoom over the local network.",
+      "author": { "@type": "Organization", "name": "Remote97" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Remote97",
+        "logo": { "@type": "ImageObject", "url": "https://remote97.com/remote97_wordmark.png" }
+      },
+      "mainEntityOfPage": "https://remote97.com/guides/onvif-camera.html",
+      "image": "https://remote97.com/og-image.png",
+      "datePublished": "2026-11-11",
+      "dateModified": "2026-11-11"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need the camera manufacturer's app or a cloud account to use Remote97 with an ONVIF camera?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. You need ONVIF enabled on the camera and its username and password. Remote97 talks to the camera directly over your local network, with no vendor app or cloud account."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which ONVIF cameras work with Remote97?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cameras implementing the ONVIF device, media and optionally PTZ services. Brand does not matter because the app uses the standard service addresses reported by the camera rather than brand-specific URL patterns. Devices that only answer the WS-Discovery probe without an ONVIF service are flagged as suspected."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does Remote97 ask for an ONVIF username and password?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ONVIF signs each SOAP request with a WS-Security UsernameToken and the RTSP stream normally needs the same credentials. Without them the camera will not return a stream URL. The app verifies credentials with an authenticated command before saving the device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Remote97 view H.265 ONVIF cameras?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The embedded player decodes H.264 and H.265, and the app queries both Media and Media2 services so H.265-only profiles are not missed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between the main stream and the sub stream?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Main is the highest-resolution profile, used for fullscreen and single-camera detail view. Sub is the lowest, used for home thumbnails and multi-camera views to save bandwidth and stay within the camera's RTSP session limit. You can switch between them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Remote97 record video or play back recordings?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Remote97 provides live viewing and control, not recording or NVR playback. There is no cloud storage and no local recorder in the app."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does ONVIF camera control work without internet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, as long as the phone and camera are on the same local network. Internet is only needed to download the app and updates."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>
