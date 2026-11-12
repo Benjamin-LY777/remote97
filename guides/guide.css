@@ -77,6 +77,7 @@ nav a:hover,nav a.active{color:var(--accent-ink)}
 .gcard p{font-size:14px;color:var(--mid);flex:1}
 .gcard .more{font-size:13.5px;font-weight:600;color:var(--accent-ink)}
 
+.trademark{margin:22px 0 0;font-size:12.5px;line-height:1.7;color:var(--low)}
 .related{margin:46px 0 10px}
 .related h2{font-size:1.3rem;margin-bottom:18px;color:var(--ink)}
 .related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}

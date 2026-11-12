@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Onkyo AVR Remote App — eISCP Control Without a Hub | Remote97</title>
+<meta name="description" content="Control Onkyo and Integra AV receivers over the LAN with eISCP on port 60128. Power, volume, mute, input selection and listening modes — no IR, no hub, no subscription." />
+<meta name="keywords" content="Onkyo remote app, Onkyo AVR IP control, eISCP 60128, Integra receiver control app, control TX-NR from phone, Onkyo ISCP remote" />
+<link rel="canonical" href="https://remote97.com/guides/onkyo-avr.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/onkyo-avr.html" />
+<meta property="og:title" content="Control an Onkyo AVR from your phone with eISCP" />
+<meta property="og:description" content="A local-network remote for Onkyo / Integra receivers using eISCP on TCP 60128." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Control an Onkyo AVR from your phone with eISCP",
+  "description": "Control Onkyo and Integra AV receivers over the LAN with eISCP on port 60128. Power, volume, mute, input selection and listening modes — no IR, no hub, no subscription.",
+  "datePublished": "2026-11-12",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://remote97.com/guides/onkyo-avr.html"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "Remote97",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is eISCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is Onkyo/Integra's Ethernet-wrapped control protocol on port 60128, using a 16-byte frame header plus ASCII commands. Receivers reply with their actual state."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Remote97 work with Integra receivers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — Integra shares the ISCP/eISCP command family with Onkyo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I power on the receiver from the app after standby?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "With Network Standby enabled, generally yes. After a full power loss the network interface is down until the unit is powered on physically."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a subscription or account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Control is entirely local and the app has no login."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://remote97.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://remote97.com/guides/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Onkyo AVR",
+      "item": "https://remote97.com/guides/onkyo-avr.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; Onkyo AVR</div>
+  <div class="article-head">
+    <span class="kicker">AV receiver</span>
+    <h1>Control an Onkyo AVR from your phone with eISCP</h1>
+    <p class="sub">Onkyo receivers have had a documented network control protocol for years. Remote97 speaks it locally, so you get real volume, input and power feedback instead of a one-way IR blast.</p>
+    <div class="meta">6 min read · Onkyo / Integra TX-NR, TX-RZ · Android, Windows &amp; iOS</div>
+  </div>
+
+  <div class="article-body">
+<p>Onkyo (and its Integra sibling) use <strong>ISCP / eISCP</strong> — Integra Serial Control Protocol wrapped for Ethernet — on <code>TCP/UDP 60128</code>. Each eISCP frame is a 16-byte header followed by an ASCII command such as <code>MVLUP</code> or <code>SLI26</code>. The receiver replies with the actual resulting state, which is why the app can show a real volume level rather than an optimistic guess.</p>
+    <h2>What you can control</h2>
+
+<ul>
+  <li><strong>Power</strong> — on / standby with state read back.</li>
+  <li><strong>Volume and mute</strong> — absolute level, step up/down, mute toggle.</li>
+  <li><strong>Input selection</strong> — the receiver's full selector list (HDMI, optical, phono, network, Bluetooth).</li>
+  <li><strong>Listening modes</strong> — stereo, Dolby / DTS variants and the receiver's own presets.</li>
+  <li><strong>Second zone</strong> — on models that support it, Zone 2 power/volume/source are separate commands.</li>
+</ul>
+    <h2>Set it up</h2>
+
+<div class="steps-num">
+  <div class="step-row"><div class="n">1</div><div><h3>Enable Network Standby</h3><p>On the receiver: Setup → Hardware / Network → Network Standby. The eISCP listener must survive standby.</p></div></div>
+  <div class="step-row"><div class="n">2</div><div><h3>Install Remote97 on the same LAN</h3><p>Get it from the <a href="https://remote97.com/#download">download page</a>.</p></div></div>
+  <div class="step-row"><div class="n">3</div><div><h3>Discover or add the IP</h3><p>Remote97 probes port 60128 across the selected subnet; manual IP add works too when multicast is filtered.</p></div></div>
+  <div class="step-row"><div class="n">4</div><div><h3>Use status feedback</h3><p>Because eISCP answers with the resulting state, volume and input shown in the app stay in sync with the front panel.</p></div></div>
+</div>
+    <h2>Honest limitations and troubleshooting</h2>
+
+<div class="callout"><strong>First power-on needs the real remote.</strong> A receiver in deep standby has no live network stack. Network Standby keeps it reachable for subsequent commands, but the initial power-on after a full unplug is a hardware action.</div>
+<ul>
+  <li><strong>Not discovered:</strong> reserve a DHCP lease, or add the IP manually; check that no VPN app is stealing the local route.</li>
+  <li><strong>Commands time out:</strong> confirm the receiver's "Network Control" / "Control via IP" option is enabled.</li>
+  <li><strong>Inputs look wrong:</strong> the selector list is read from the receiver; re-open the device page after changing HDMI assignments.</li>
+</ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="denon-marantz.html"><h3>Denon &amp; Marantz AVR from your phone</h3><p>Telnet/IP control, volume and sound modes.</p></a>
+      <a class="rcard" href="yamaha-musiccast.html"><h3>Yamaha MusicCast over YXC</h3><p>Power, inputs, zones and sound programs.</p></a>
+      <a class="rcard" href="whole-home-audio.html"><h3>Whole-home audio</h3><p>Sonos, BluOS and WiiM in one screen.</p></a>
+      <a class="rcard" href="local-ip-control.html"><h3>Why local IP control beats cloud hubs</h3><p>Offline, subscription-free control explained.</p></a>
+    </div>
+  </div>
+  <p class="trademark">Remote97 is an independent product and is not affiliated with, endorsed by, or sponsored by the device manufacturers named on this page. All trademarks belong to their respective owners.</p>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to retire the remote drawer?</h2>
+    <p>Remote97 is free, works on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>

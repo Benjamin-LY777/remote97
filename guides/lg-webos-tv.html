@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Control LG webOS TV From Your Phone — No IR Blaster | Remote97</title>
+<meta name="description" content="Turn your phone into an LG webOS TV remote. SSAP over local WiFi on port 3000, one-time on-screen pairing, volume, HDMI inputs, apps and pointer. No hub, no account, no subscription." />
+<meta name="keywords" content="LG webOS TV remote app, control LG TV from phone, LG TV remote app iPhone, webOS SSAP remote, LG OLED remote alternative, LG TV without the remote" />
+<link rel="canonical" href="https://remote97.com/guides/lg-webos-tv.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/lg-webos-tv.html" />
+<meta property="og:title" content="Control an LG webOS TV from your phone (no IR blaster)" />
+<meta property="og:description" content="A full LG webOS TV remote on your phone. SSAP over local WiFi, one-time pairing, no hardware." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Control an LG webOS TV from your phone (no IR blaster)",
+  "description": "Turn your phone into an LG webOS TV remote. SSAP over local WiFi on port 3000, one-time on-screen pairing, volume, HDMI inputs, apps and pointer. No hub, no account, no subscription.",
+  "datePublished": "2026-11-12",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://remote97.com/guides/lg-webos-tv.html"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "Remote97",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I turn on an LG TV with a phone remote app?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually not reliably. Once the TV is fully powered down its network interface sleeps, so a WiFi command has nothing to talk to. Use the physical remote for power-on, or enable your model's quick-start / network-standby option."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this need an internet connection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. SSAP commands travel from your phone to the TV over the local network. Internet access is only needed to download the app initially."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need an LG account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Pairing is a local consent prompt on the TV; no account, registration or cloud login is involved."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it work with OLED, QNED and older webOS models?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The SSAP interface is shared across webOS generations. Older sets may expose fewer apps or inputs, but volume, navigation and input switching are generally available."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://remote97.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://remote97.com/guides/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "LG webOS TV",
+      "item": "https://remote97.com/guides/lg-webos-tv.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; LG webOS TV</div>
+  <div class="article-head">
+    <span class="kicker">TV</span>
+    <h1>Control an LG webOS TV from your phone (no IR blaster)</h1>
+    <p class="sub">Lost the Magic Remote, or just tired of hunting for it? Remote97 talks to LG webOS TVs directly over your home network using the same SSAP interface that LG&#x27;s own tooling uses.</p>
+    <div class="meta">6 min read · LG webOS / OLED / QNED · Android, Windows &amp; iOS</div>
+  </div>
+
+  <div class="article-body">
+<p>webOS TVs expose a local control interface called <strong>SSAP</strong> (Simple Service Access Protocol) on a WebSocket at <code>TCP 3000</code>. Remote97 opens that socket, sends a hello, completes a one-time pairing handshake, and then speaks JSON requests such as <code>ssap://audio/setVolume</code> and <code>ssap://tv/switchInput</code>. Nothing goes through a cloud service — the phone and the TV talk across your LAN.</p>
+    <h2>What you can control</h2>
+
+<p>Once paired, the TV treats the app as a registered client:</p>
+<ul>
+  <li><strong>Volume and mute</strong> — absolute level, up/down and mute state, with the TV's real value read back.</li>
+  <li><strong>Inputs</strong> — enumerate the external input list and switch between HDMI ports, antenna and component inputs.</li>
+  <li><strong>Apps</strong> — list installed apps and launch one directly (Netflix, YouTube, Plex, a media server app).</li>
+  <li><strong>Navigation</strong> — D-pad, select, back, home, channel and media transport keys.</li>
+  <li><strong>Pointer and text</strong> — webOS offers a second pointer input socket, which is what makes an on-screen cursor and keyboard practical.</li>
+  <li><strong>Power off and power state</strong> — send the standby command and query current power state.</li>
+</ul>
+    <h2>Set it up in four steps</h2>
+
+<div class="steps-num">
+  <div class="step-row"><div class="n">1</div><div><h3>Install Remote97</h3><p>Get it from the <a href="https://remote97.com/#download">download page</a> — Android, Windows and iOS are supported.</p></div></div>
+  <div class="step-row"><div class="n">2</div><div><h3>Join the same network</h3><p>Phone and TV must be on the same LAN / VLAN. Guest WiFi and AP isolation will block discovery.</p></div></div>
+  <div class="step-row"><div class="n">3</div><div><h3>Let it discover, or add the IP manually</h3><p>Remote97 probes port 3000 on local addresses. If the TV does not advertise itself, use manual add and type the TV's IP address.</p></div></div>
+  <div class="step-row"><div class="n">4</div><div><h3>Accept the pairing prompt on the TV</h3><p>webOS shows a one-time consent dialog. Accept it and the pairing key stays on your device — no account is created.</p></div></div>
+</div>
+    <h2>The honest limitations</h2>
+
+<div class="callout"><strong>Power-on is the weak spot.</strong> When a webOS TV is fully off, its network stack usually sleeps, so a Wake-on-LAN style command is not reliable. Keep the physical remote handy for the first power-on, or enable the TV's quick-start / always-connected option if your model offers one.</div>
+<p>Remote97 is a WiFi remote, not an infrared blaster: there is no line-of-sight requirement between devices, but the TV must be reachable on the network at the moment you send a command. It also cannot reach the TV from outside your home network — that is a deliberate consequence of the no-cloud design, not a missing feature.</p>
+    <h2>Troubleshooting</h2>
+
+<ul>
+  <li><strong>iOS finds nothing:</strong> check that the Local Network permission is enabled in iOS Settings. Remote97 asks for it on first use.</li>
+  <li><strong>Pairing prompt never appears:</strong> reboot the TV, then remove and re-add the device in Remote97 to restart the register handshake.</li>
+  <li><strong>Works once, then stops:</strong> the TV may have renewed its DHCP lease. Re-run discovery or add the new IP.</li>
+  <li><strong>Inputs show but do not switch:</strong> some models require the input list subscription to be refreshed after an HDMI handshake. Re-open the device detail page.</li>
+</ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="samsung-tv.html"><h3>Samsung TV without the remote</h3><p>Local network control for Tizen sets.</p></a>
+      <a class="rcard" href="sony-bravia.html"><h3>Sony BRAVIA remote from Android</h3><p>Power, input and text entry over WiFi.</p></a>
+      <a class="rcard" href="apple-tv.html"><h3>Apple TV remote alternative</h3><p>On-screen keyboard for logins and search.</p></a>
+      <a class="rcard" href="universal-remote-app.html"><h3>Universal remote app without IR</h3><p>Which devices a WiFi remote can actually replace.</p></a>
+    </div>
+  </div>
+  <p class="trademark">Remote97 is an independent product and is not affiliated with, endorsed by, or sponsored by the device manufacturers named on this page. All trademarks belong to their respective owners.</p>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to retire the remote drawer?</h2>
+    <p>Remote97 is free, works on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>

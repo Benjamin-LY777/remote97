@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yamaha MusicCast Remote App — Control Your AVR Over WiFi | Remote97</title>
+<meta name="description" content="Control Yamaha AVRs and MusicCast receivers over the local network with Yamaha Extended Control (YXC). Power, volume, mute, inputs, sound programs and zones — no hub, no subscription." />
+<meta name="keywords" content="Yamaha AVR remote app, MusicCast control app alternative, Yamaha receiver IP control, YXC protocol, control RX-V from phone, Yamaha RX-A remote app" />
+<link rel="canonical" href="https://remote97.com/guides/yamaha-musiccast.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/yamaha-musiccast.html" />
+<meta property="og:title" content="Control a Yamaha AVR / MusicCast receiver from your phone" />
+<meta property="og:description" content="A local-network remote for Yamaha RX-A / RX-V / TSR receivers and MusicCast devices." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Control a Yamaha AVR / MusicCast receiver from your phone",
+  "description": "Control Yamaha AVRs and MusicCast receivers over the local network with Yamaha Extended Control (YXC). Power, volume, mute, inputs, sound programs and zones — no hub, no subscription.",
+  "datePublished": "2026-11-12",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://remote97.com/guides/yamaha-musiccast.html"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "Remote97",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which Yamaha models are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The YXC API is shared across the RX-A, RX-V, RX-S, TSR and HTR AVR families, plus MusicCast devices that expose YXC. Capabilities like extra zones depend on the individual model."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need the MusicCast app installed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Remote97 talks to the receiver's local HTTP API directly; no companion app or cloud account is required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work without internet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Only the LAN connection between your device and the receiver matters."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can it control Zone 2 volume and input?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On multi-zone receivers, yes — zone endpoints are exposed as separate controls when the device reports them."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://remote97.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://remote97.com/guides/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Yamaha MusicCast",
+      "item": "https://remote97.com/guides/yamaha-musiccast.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; Yamaha MusicCast</div>
+  <div class="article-head">
+    <span class="kicker">AV receiver</span>
+    <h1>Control a Yamaha AVR / MusicCast receiver from your phone</h1>
+    <p class="sub">Yamaha receivers speak a documented local HTTP API called YXC. Remote97 uses it directly, so volume, inputs and zones respond even with the internet unplugged.</p>
+    <div class="meta">7 min read · RX-A / RX-V / RX-S / TSR / HTR · Android, Windows &amp; iOS</div>
+  </div>
+
+  <div class="article-body">
+<p>Yamaha's whole AVR line — RX-A, RX-V, RX-S, TSR and HTR series — shares one control protocol: <strong>Yamaha Extended Control (YXC)</strong>, an HTTP API under <code>/YamahaExtendedControl/v1/</code> on <code>port 80</code>. That is why a single app entry covers the entire family instead of a per-model list.</p><p>Discovery is SSDP-based: the receiver's <code>desc.xml</code> must contain <code>&lt;manufacturer&gt;Yamaha&lt;/manufacturer&gt;</code> and an <code>X_yxcControlURL</code> entry. Remote97 also probes port 80 (and 8081–8084 as fallback) to catch receivers that do not advertise reliably.</p>
+    <h2>What you can control</h2>
+
+<ul>
+  <li><strong>Power / standby</strong> and current power state.</li>
+  <li><strong>Volume</strong> in the receiver's own scale, plus mute and volume stepping.</li>
+  <li><strong>Input selection</strong> — HDMI, optical, coaxial, phono, Bluetooth, network sources.</li>
+  <li><strong>Sound programs</strong> and listening modes, plus tone / dialogue adjustments where the model exposes them.</li>
+  <li><strong>Zones</strong> — multi-zone models expose Zone 2 (and above) as separate controllable endpoints.</li>
+  <li><strong>Playback and scenes</strong> — transport keys for network sources and one-tap scene recall.</li>
+</ul>
+    <h2>Set it up</h2>
+
+<div class="steps-num">
+  <div class="step-row"><div class="n">1</div><div><h3>Enable Network Standby on the receiver</h3><p>This keeps the YXC endpoint alive while the unit appears off. Without it, the receiver will not answer after standby.</p></div></div>
+  <div class="step-row"><div class="n">2</div><div><h3>Install Remote97 and join the same LAN</h3><p>Download from the <a href="https://remote97.com/#download">download page</a>.</p></div></div>
+  <div class="step-row"><div class="n">3</div><div><h3>Run discovery</h3><p>SSDP finds the receiver and confirms the manufacturer tag; a direct port-80 probe is used as a fallback.</p></div></div>
+  <div class="step-row"><div class="n">4</div><div><h3>Or add the IP manually</h3><p>Useful on managed switches or VLANs where multicast discovery is filtered.</p></div></div>
+</div>
+    <h2>Why this beats a cloud-based remote</h2>
+
+<p>YXC is a LAN protocol. Commands do not leave your router, response times are a few milliseconds, and the remote keeps working during an internet outage. There is no account to create and no subscription for "premium" volume buttons. See <a href="local-ip-control.html">why local IP control beats cloud hubs</a> for the longer explanation.</p>
+<div class="callout"><strong>Note:</strong> the older <code>YNCA</code> serial-over-IP style protocol on port 50000 is a different interface and is not used here. If a Yamaha device only answers on 50000, it will not appear as a YXC receiver.</div>
+    <h2>Troubleshooting</h2>
+
+<ul>
+  <li><strong>Receiver disappears after standby:</strong> turn on Network Standby in the receiver's setup menu.</li>
+  <li><strong>Discovery shows a wrong device on port 80:</strong> Remote97 requires the Yamaha manufacturer tag before it classifies a device, precisely to avoid misidentifying arbitrary web servers.</li>
+  <li><strong>Multi-zone controls missing:</strong> zone controls only appear on models that report additional zones; the app reads capability from the device rather than assuming it.</li>
+  <li><strong>Slow or no response:</strong> check for a guest network, AP isolation, or a VPN app that hijacks the local route.</li>
+</ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="denon-marantz.html"><h3>Denon &amp; Marantz AVR from your phone</h3><p>Telnet/IP control, volume and sound modes.</p></a>
+      <a class="rcard" href="onkyo-avr.html"><h3>Onkyo AVR over eISCP</h3><p>Power, volume and inputs on port 60128.</p></a>
+      <a class="rcard" href="whole-home-audio.html"><h3>Whole-home audio: Sonos, BluOS, WiiM</h3><p>Group scattered speakers into one zone.</p></a>
+      <a class="rcard" href="movie-night-scenes.html"><h3>One-tap movie night scenes</h3><p>Chain receiver, TV and player into one tap.</p></a>
+    </div>
+  </div>
+  <p class="trademark">Remote97 is an independent product and is not affiliated with, endorsed by, or sponsored by the device manufacturers named on this page. All trademarks belong to their respective owners.</p>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to retire the remote drawer?</h2>
+    <p>Remote97 is free, works on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zidoo / VidOn Media Player Remote App — LAN Control | Remote97</title>
+<meta name="description" content="Control Zidoo, VidOn and Egreat media players from your phone over the local network — Zidoo HTTP 9529 and VidOn TCP 33080. Navigation, playback, app launch and standby. No cloud." />
+<meta name="keywords" content="Zidoo remote app, control Zidoo from phone, Zidoo HTTP 9529, VidOn remote control 33080, Egreat player remote app, media player IP control, 芝杜 遥控器 app" />
+<link rel="canonical" href="https://remote97.com/guides/zidoo-vidon-player.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/zidoo-vidon-player.html" />
+<meta property="og:title" content="Control a Zidoo or VidOn media player from your phone" />
+<meta property="og:description" content="A phone remote for Zidoo, VidOn and Egreat media players over the local network." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Control a Zidoo or VidOn media player from your phone",
+  "description": "Control Zidoo, VidOn and Egreat media players from your phone over the local network — Zidoo HTTP 9529 and VidOn TCP 33080. Navigation, playback, app launch and standby. No cloud.",
+  "datePublished": "2026-11-12",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://remote97.com/guides/zidoo-vidon-player.html"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "Remote97",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Remote97 support both Zidoo and VidOn / Egreat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Zidoo uses HTTP on 9529 and VidOn / Egreat uses TCP on 33080; the app selects the right protocol per device family."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why doesn't the player show up in discovery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "These players generally do not broadcast SSDP/mDNS. Remote97 runs a directed probe on 9529 / 33080, and manual IP add is the dependable fallback."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I browse my movie library from the phone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The app sends navigation, playback and app-launch commands to the player's own interface. Library browsing itself stays on the big screen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a cloud account needed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Both APIs are local network services."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://remote97.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://remote97.com/guides/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Zidoo / VidOn players",
+      "item": "https://remote97.com/guides/zidoo-vidon-player.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; Zidoo / VidOn players</div>
+  <div class="article-head">
+    <span class="kicker">Media player</span>
+    <h1>Control a Zidoo or VidOn media player from your phone</h1>
+    <p class="sub">High-end media players are built for a big screen, not for hunting through a movie library with a six-button remote. Remote97 uses their local network control APIs to put navigation, playback and app launching on your phone.</p>
+    <div class="meta">6 min read · Zidoo / 芝杜 · VidOn / Egreat · Android, Windows &amp; iOS</div>
+  </div>
+
+  <div class="article-body">
+<p>These players expose different but equally local interfaces:</p><ul><li><strong>Zidoo</strong> — an HTTP API on <code>port 9529</code>. Endpoints include <code>ZidooControlCenter/getModel</code>, <code>ZidooControlCenter/RemoteControl/sendkey?key=</code>, <code>.../inputtext?key=</code>, <code>Apps/getAppList</code>, <code>Apps/openApp</code>, <code>Player/getPlayStatus</code> and <code>ZidooMusicControl/v2/setPowerOption</code>. Responses are JSON.</li><li><strong>VidOn / Egreat</strong> — a TCP control service on <code>port 33080</code> with case-sensitive frames in the form <code>CMD,&lt;keycode&gt;,END</code>. A separate web console and app icons live on HTTP 34080.</li></ul><p>Neither family broadcasts SSDP or mDNS reliably, so Remote97 actively probes 9529 / 33080 on the chosen subnet and also supports manual IP add.</p>
+    <h2>What you can control</h2>
+
+<ul>
+  <li><strong>Full navigation</strong> — D-pad, select, back, home, menu and number keys.</li>
+  <li><strong>Playback</strong> — play / pause, stop, next / previous, seek where the player exposes it, plus playback-state queries.</li>
+  <li><strong>Text input</strong> — send a search string or filename to the player instead of typing with a cursor.</li>
+  <li><strong>Apps</strong> — list installed apps and launch one by package name on Zidoo.</li>
+  <li><strong>Power</strong> — standby / power-off / reboot options on Zidoo's power endpoint.</li>
+</ul>
+    <h2>Set it up</h2>
+
+<div class="steps-num">
+  <div class="step-row"><div class="n">1</div><div><h3>Enable network control on the player</h3><p>On Zidoo this is the "Control Center" / 中控 option in settings; on VidOn check the network control service. Without it the ports stay closed.</p></div></div>
+  <div class="step-row"><div class="n">2</div><div><h3>Reserve an IP address</h3><p>Players often sit behind a wired switch — a DHCP reservation avoids re-adding the device later.</p></div></div>
+  <div class="step-row"><div class="n">3</div><div><h3>Install Remote97 and join the same LAN</h3><p>Download from the <a href="https://remote97.com/#download">download page</a>.</p></div></div>
+  <div class="step-row"><div class="n">4</div><div><h3>Discover or add by IP</h3><p>Let the directed scan find the player, or enter the IP manually if your network filters probes.</p></div></div>
+</div>
+    <h2>Honest limitations</h2>
+
+<div class="callout"><strong>Deep power-off is not wakeable.</strong> If the player physically cuts power to its network interface, no LAN command can bring it back. Keep the original remote or use the front-panel button for a cold start.</div>
+<p>These are vendor-specific APIs, not a universal standard: key names differ between Zidoo and VidOn, and some "best-effort" keys are simply ignored by firmware that does not implement them. The app sends them harmlessly rather than pretending the function exists.</p>
+    <h2>Troubleshooting</h2>
+
+<ul>
+  <li><strong>Port closed:</strong> re-check the player's network-control toggle and reboot the player.</li>
+  <li><strong>Keys ignored:</strong> the firmware may not implement that specific key code; navigation and playback keys are the reliable subset.</li>
+  <li><strong>App list empty:</strong> the Zidoo Control Center service must be running; open it once on the player.</li>
+  <li><strong>Appears as an unknown device:</strong> use manual add and pick the correct family so commands are encoded for the right protocol.</li>
+</ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="roku.html"><h3>Control Roku from your phone</h3><p>Free ECP navigation and typing.</p></a>
+      <a class="rcard" href="apple-tv.html"><h3>Apple TV remote alternative</h3><p>On-screen keyboard for logins and search.</p></a>
+      <a class="rcard" href="home-theater-smart-home-control.html"><h3>Complete home theater control guide</h3><p>Players, AVRs, screens and scenes together.</p></a>
+      <a class="rcard" href="onvif-camera.html"><h3>ONVIF cameras: live view &amp; PTZ</h3><p>Add camera tiles to the same control panel.</p></a>
+    </div>
+  </div>
+  <p class="trademark">Remote97 is an independent product and is not affiliated with, endorsed by, or sponsored by the device manufacturers named on this page. All trademarks belong to their respective owners.</p>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to retire the remote drawer?</h2>
+    <p>Remote97 is free, works on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>
