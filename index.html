@@ -273,6 +273,25 @@
   [data-theme="glass"] .direct .dbtn{color:#06121E}
   .direct .dbtn:hover{background:var(--accent-deep);border-color:var(--accent-deep)}
 
+  /* 商店官方徽章式按钮：各商店独立品牌，替代统一的"前往商店"大按钮 */
+  .sbadge{
+    display:inline-flex;align-items:center;gap:11px;align-self:flex-start;
+    background:rgba(127,127,127,.13);color:var(--ink);border:1px solid var(--line-strong);
+    border-radius:11px;padding:9px 15px 9px 11px;min-width:0;transition:transform .18s,background .18s;
+  }
+  .sbadge:hover{transform:translateY(-2px);background:rgba(127,127,127,.24)}
+  .sbadge .sb-txt small{opacity:.72}
+  .sb-ico{width:28px;height:28px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:7px}
+  .sb-ico svg{width:27px;height:27px;display:block}
+  .sb-txt{display:flex;flex-direction:column;line-height:1.12;text-align:left;white-space:nowrap}
+  .sb-txt small{font-size:10px;letter-spacing:.03em;opacity:.78;font-weight:400}
+  .sb-txt b{font-size:15px;font-weight:600;letter-spacing:-.01em}
+  .sb-gp .sb-ico{background:linear-gradient(135deg,#00d4ff40,#00f07640)}
+  .sb-as .sb-ico{background:#000}
+  .sb-tf .sb-ico{background:#007aff}
+  .sb-ms .sb-ico{background:#f3f3f3}
+  .dtile .dbtn.small{align-self:flex-start;padding:9px 15px;font-size:13px;border-radius:9px}
+
   /* devices */
   .vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .vcard{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--r);padding:28px;
@@ -802,12 +821,15 @@
       </div>
       <div class="dgrid">
         <a class="dtile" href="https://play.google.com/store/apps/details?id=com.cinahub.app" target="_blank" rel="noopener">
-          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M5 3.6c0-.9.95-1.45 1.7-1L19.2 10c.8.5.8 1.6 0 2.1L6.7 19.5c-.75.45-1.7-.1-1.7-1V3.6zM4.6 5.6 12 12l-7.4 6.4c-.4-.2-.6-.6-.6-1V6.6c0-.4.2-.8.6-1z" opacity=".55"/><path d="M4.6 5.6c0-.4.2-.8.6-1L15.9 12 5.2 19.4c-.4-.2-.6-.6-.6-1V5.6z"/></svg></div>
+          <div class="dicon"><svg viewBox="0 0 24 24"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.4-.6-1-.6-1.7V3.5c0-.7.2-1.3.6-1.7z" fill="#00c4ff"/><path d="M3.6 1.8c.3-.2.7-.3 1.2-.1l11.4 6.5-3.4 3.4L3.6 1.8z" fill="#00e676"/><path d="M17.9 9.1 21.2 11c.8.4.8 1.5 0 1.9l-3.3 1.9-3.3-3.3 3.3-2.4z" fill="#ffca28"/><path d="m12.8 13.4 3.4 3.4L5 23c-.6.3-1.1.2-1.4-.2v-.5l9.2-8.9z" fill="#ff5252"/></svg></div>
           <div>
             <h3>Google Play</h3>
             <p class="dd" data-i18n="t.gp.d">Android 官方商店</p>
           </div>
-          <span class="dbtn"><span data-i18n="btn.store">前往商店</span></span>
+          <span class="sbadge sb-gp">
+            <span class="sb-ico"><svg viewBox="0 0 24 24"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.4-.6-1-.6-1.7V3.5c0-.7.2-1.3.6-1.7z" fill="#00c4ff"/><path d="M3.6 1.8c.3-.2.7-.3 1.2-.1l11.4 6.5-3.4 3.4L3.6 1.8z" fill="#00e676"/><path d="M17.9 9.1 21.2 11c.8.4.8 1.5 0 1.9l-3.3 1.9-3.3-3.3 3.3-2.4z" fill="#ffca28"/><path d="m12.8 13.4 3.4 3.4L5 23c-.6.3-1.1.2-1.4-.2v-.5l9.2-8.9z" fill="#ff5252"/></svg></span>
+            <span class="sb-txt"><small data-i18n="badge.gp1">在 Google Play 获取</small><b>Google Play</b></span>
+          </span>
         </a>
         <a class="dtile" href="https://apps.apple.com/app/id6790016957" target="_blank" rel="noopener">
           <div class="dicon"><svg viewBox="0 0 24 24"><path d="M16.6 12.9c0-2.1 1.7-3.1 1.8-3.2-1-1.4-2.5-1.6-3-1.7-1.3-.1-2.5.8-3.1.8-.6 0-1.6-.8-2.7-.7-1.4 0-2.7.8-3.4 2-1.5 2.5-.4 6.3 1 8.3.7 1 1.5 2.1 2.6 2.1 1 0 1.4-.7 2.7-.7s1.6.7 2.7.7c1.1 0 1.8-1 2.5-2 .8-1.2 1.1-2.3 1.2-2.4-.1-.1-2.3-.9-2.3-3.2zM14.6 6.6c.6-.7 1-1.6.9-2.6-.9 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.5 1 .1 2-.5 2.5-1.2z"/></svg></div>
@@ -815,7 +837,10 @@
             <h3>App Store</h3>
             <p class="dd" data-i18n="t.as.d">iPhone / iPad</p>
           </div>
-          <span class="dbtn"><span data-i18n="btn.store">前往商店</span></span>
+          <span class="sbadge sb-as">
+            <span class="sb-ico"><svg viewBox="0 0 24 24"><path d="M16.6 12.9c0-2.1 1.7-3.1 1.8-3.2-1-1.4-2.5-1.6-3-1.7-1.3-.1-2.5.8-3.1.8-.6 0-1.6-.8-2.7-.7-1.4 0-2.7.8-3.4 2-1.5 2.5-.4 6.3 1 8.3.7 1 1.5 2.1 2.6 2.1 1 0 1.4-.7 2.7-.7s1.6.7 2.7.7c1.1 0 1.8-1 2.5-2 .8-1.2 1.1-2.3 1.2-2.4-.1-.1-2.3-.9-2.3-3.2zM14.6 6.6c.6-.7 1-1.6.9-2.6-.9 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.5 1 .1 2-.5 2.5-1.2z" fill="#fff"/></svg></span>
+            <span class="sb-txt"><small data-i18n="badge.as1">在 App Store 下载</small><b>App Store</b></span>
+          </span>
         </a>
         <!-- TESTFLIGHT_TILE_SLOT: public external-testing join link goes here once generated in App Store Connect. Insert a .dtile with href="https://testflight.apple.com/join/XXXXXXXX" immediately after this comment. -->
         <a class="dtile" href="https://testflight.apple.com/join/YJ3nWpZB" target="_blank" rel="noopener">
@@ -824,7 +849,10 @@
             <h3>TestFlight</h3>
             <p class="dd" data-i18n="t.tf.d">iOS 测试版</p>
           </div>
-          <span class="dbtn"><span data-i18n="btn.tf">加入 Beta</span></span>
+          <span class="sbadge sb-tf">
+            <span class="sb-ico"><svg viewBox="0 0 24 24"><path d="M21 4 3 11.5l5.5 2L10 19l3-3.5 5 2.5z" fill="#fff"/></svg></span>
+            <span class="sb-txt"><small data-i18n="badge.tf1">加入 Beta 测试</small><b>TestFlight</b></span>
+          </span>
         </a>
         <a class="dtile" href="https://apps.microsoft.com/detail/9pdxn0618930" target="_blank" rel="noopener">
           <div class="dicon"><svg viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm0 13 7.5 1.1v-7H3v5.9zM11.5 4.2 21 3v8.5h-9.5V4.2zm0 15.6 9.5 1.2v-8.5h-9.5v7.3z"/></svg></div>
@@ -832,7 +860,10 @@
             <h3>Microsoft Store</h3>
             <p class="dd" data-i18n="t.ms.d">Windows 官方商店</p>
           </div>
-          <span class="dbtn"><span data-i18n="btn.store">前往商店</span></span>
+          <span class="sbadge sb-ms">
+            <span class="sb-ico"><svg viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm0 13 7.5 1.1v-7H3v5.9z" fill="#f25022"/><path d="M11.5 4.2 21 3v8.5h-9.5V4.2z" fill="#00a4ef"/><path d="M11.5 12.7H21v8.5l-9.5-1.2v-7.3z" fill="#7fba00"/><path d="M3 12.7h7.5v7H3v-7z" fill="#ffb900"/></svg></span>
+            <span class="sb-txt"><small data-i18n="badge.ms1">从 Microsoft 获取</small><b>Microsoft Store</b></span>
+          </span>
         </a>
         <a class="dtile direct" href="https://remote97.com/Remote97-v1.2.8-android.apk" download="Remote97-v1.2.8-android.apk">
           <span class="badge" data-i18n="badge.direct">直链</span>
@@ -1002,6 +1033,7 @@
       "t.apk.d":"直接安装，无需应用商店","t.zip.d":"解压即用，无需安装",
       "t.gp.d":"Android 官方商店","t.as.d":"iPhone / iPad","t.ms.d":"Windows 官方商店","t.tf.d":"iOS 测试版",
       "btn.direct":"直接下载","btn.store":"前往商店","btn.tf":"加入 Beta",
+      "badge.gp1":"在 Google Play 获取","badge.as1":"在 App Store 下载","badge.tf1":"加入 Beta 测试","badge.ms1":"从 Microsoft 获取",
       "dev.title":"支持的设备","dev.sub":"覆盖主流家庭影院品牌，持续增加中。",
       "dev.g1.t":"功放 AVR","dev.g2.t":"电视与盒子","dev.g3.t":"流媒体与音响",
       "foot.support":"技术支持","foot.rights":"© 2026 Remote97 · 保留所有权利",
@@ -1068,6 +1100,7 @@
       "t.apk.d":"Install without an app store","t.zip.d":"Unzip and run — no installer",
       "t.gp.d":"Official Android store","t.as.d":"iPhone / iPad","t.ms.d":"Official Windows store","t.tf.d":"iOS beta · test build",
       "btn.direct":"Direct download","btn.store":"Open store","btn.tf":"Join beta",
+      "badge.gp1":"GET IT ON","badge.as1":"Download on the","badge.tf1":"Join the beta","badge.ms1":"Get it from",
       "dev.title":"Supported devices","dev.sub":"The mainstream brands of home theater, with more on the way.",
       "dev.g1.t":"AV receivers","dev.g2.t":"TVs & boxes","dev.g3.t":"Streamers & speakers",
       "foot.support":"Support","foot.rights":"© 2026 Remote97. All rights reserved.",
@@ -1134,6 +1167,7 @@
       "t.apk.d":"ストアなしで直接インストール","t.zip.d":"解凍してすぐ実行",
       "t.gp.d":"Android 公式ストア","t.as.d":"iPhone / iPad","t.ms.d":"Windows 公式ストア","t.tf.d":"iOS ベータ版・テストビルド",
       "btn.direct":"直接ダウンロード","btn.store":"ストアへ","btn.tf":"ベータに参加",
+      "badge.gp1":"Google Play で入手","badge.as1":"App Store でダウンロード","badge.tf1":"ベータに参加","badge.ms1":"Microsoft で入手",
       "dev.title":"対応デバイス","dev.sub":"ホームシアターの主要ブランドに対応、続々追加中。",
       "dev.g1.t":"AV アンプ","dev.g2.t":"テレビ & ボックス","dev.g3.t":"ストリーマー & スピーカー",
       "foot.support":"サポート","foot.rights":"© 2026 Remote97. All rights reserved.",
@@ -1200,6 +1234,7 @@
       "t.apk.d":"Installieren ohne App-Store","t.zip.d":"Entpacken und starten — kein Installer",
       "t.gp.d":"Offizieller Android-Store","t.as.d":"iPhone / iPad","t.ms.d":"Offizieller Windows-Store","t.tf.d":"iOS-Beta · Test-Build",
       "btn.direct":"Direktdownload","btn.store":"Zum Store","btn.tf":"Beta beitreten",
+      "badge.gp1":"Auf Google Play","badge.as1":"Im App Store laden","badge.tf1":"Beta beitreten","badge.ms1":"Bei Microsoft",
       "dev.title":"Unterstützte Geräte","dev.sub":"Die gängigen Marken des Heimkinos — laufend mehr.",
       "dev.g1.t":"AV-Receiver","dev.g2.t":"TVs & Boxen","dev.g3.t":"Streamer & Lautsprecher",
       "foot.support":"Support","foot.rights":"© 2026 Remote97. Alle Rechte vorbehalten.",
@@ -1266,6 +1301,7 @@
       "t.apk.d":"Instala sin tienda de apps","t.zip.d":"Descomprime y ejecuta, sin instalador",
       "t.gp.d":"Tienda oficial de Android","t.as.d":"iPhone / iPad","t.ms.d":"Tienda oficial de Windows","t.tf.d":"Beta de iOS · versión de prueba",
       "btn.direct":"Descarga directa","btn.store":"Abrir tienda","btn.tf":"Unirse a la beta",
+      "badge.gp1":"Consíguelo en Google Play","badge.as1":"Descárgalo en App Store","badge.tf1":"Únete a la beta","badge.ms1":"Obténlo en Microsoft",
       "dev.title":"Dispositivos compatibles","dev.sub":"Las principales marcas del home cinema, y siguen sumando.",
       "dev.g1.t":"Receptores AV","dev.g2.t":"TVs y boxes","dev.g3.t":"Streamers y altavoces",
       "foot.support":"Soporte","foot.rights":"© 2026 Remote97. Todos los derechos reservados.",
@@ -1332,6 +1368,7 @@
       "t.apk.d":"Instale sem loja de aplicativos","t.zip.d":"Extraia e execute, sem instalador",
       "t.gp.d":"Loja oficial do Android","t.as.d":"iPhone / iPad","t.ms.d":"Loja oficial do Windows","t.tf.d":"Beta do iOS · versão de teste",
       "btn.direct":"Download direto","btn.store":"Abrir loja","btn.tf":"Participar do beta",
+      "badge.gp1":"Obtenha no Google Play","badge.as1":"Baixe na App Store","badge.tf1":"Participe do beta","badge.ms1":"Obtenha na Microsoft",
       "dev.title":"Dispositivos compatíveis","dev.sub":"As principais marcas do home theater, e sempre crescendo.",
       "dev.g1.t":"Receivers AV","dev.g2.t":"TVs e boxes","dev.g3.t":"Players e caixas de som",
       "foot.support":"Suporte","foot.rights":"© 2026 Remote97. Todos os direitos reservados.",
