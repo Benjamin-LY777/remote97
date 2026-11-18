@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Control MAGNETAR UDP800/UDP900 MKII 4K Player From Your Phone | Remote97</title>
+<meta name="description" content="Control MAGNETAR (麦尼塔) UDP800 MKII and UDP900 MKII 4K UHD Blu-ray players from your phone over TCP 8102 — power, playback, navigation and volume, plus Wake-on-LAN power-on. No hub, no cloud." />
+<meta name="keywords" content="MAGNETAR remote app, 麦尼塔 remote control, UDP800 MKII control, UDP900 MKII remote, MAGNETAR IP control, 4K Blu-ray player remote app, Oppo compatible player remote, MAGNETAR TCP 8102, wake MAGNETAR over LAN" />
+<link rel="canonical" href="https://remote97.com/guides/magnetar-player.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/magnetar-player.html" />
+<meta property="og:title" content="Control a MAGNETAR 4K player from your phone" />
+<meta property="og:description" content="Power, disc eject, playback, menu navigation and volume for MAGNETAR UDP800/UDP900 MKII players over the local network — with WoL power-on support." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Control a MAGNETAR UDP800/UDP900 MKII 4K player from your phone",
+  "description": "Control MAGNETAR (麦尼塔) UDP800 MKII and UDP900 MKII 4K UHD Blu-ray players from your phone over TCP 8102 — power, playback, navigation and volume, plus Wake-on-LAN power-on. No hub, no cloud.",
+  "datePublished": "2026-11-06",
+  "dateModified": "2026-11-06",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://remote97.com/guides/magnetar-player.html"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "Remote97",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which MAGNETAR players does Remote97 support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Remote97 supports the MAGNETAR UDP800 MKII and UDP900 MKII 4K UHD Blu-ray players through their TCP 8102 network control port. The control protocol is the same across these models and is shared with the earlier UDP800/UDP900 generation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why can't Remote97 turn on my MAGNETAR player from standby?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In the default energy-saving standby mode the player does not accept a power-on command over IP. You must set the player to Network Standby, and Remote97 must send a Wake-on-LAN magic packet to the player's MAC address before the power command. Add the player with its MAC address so wake works reliably."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change the input source or set an exact volume?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The MAGNETAR network protocol has no source-selection command and no absolute volume or volume query — those belong to a different player protocol family. Remote97 shows only controls the device actually supports: power, disc eject, playback, navigation, number keys, colour keys and step volume/mute."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the player report its playback state?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is no official status-query command. Remote97 tracks state from the commands it sends, and can optionally read the player's unsolicited update stream for playback time and volume. This is an enhancement, not a requirement — Remote97 never marks the player offline just because a status update is missing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need the THX certification for network control to work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. THX certification concerns picture, sound and signal-path quality; it adds nothing to the network control interface. Network control has been in the player's manual since the first generation and is completely independent of THX."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://remote97.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://remote97.com/guides/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "MAGNETAR player",
+      "item": "https://remote97.com/guides/magnetar-player.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; MAGNETAR player</div>
+  <div class="article-head">
+    <span class="kicker">Media player</span>
+    <h1>Control a MAGNETAR 4K player from your phone</h1>
+    <p class="sub">The MAGNETAR UDP800 MKII and UDP900 MKII expose a plain text control port on TCP 8102. Remote97 speaks it directly — no IR blaster, no hub, no manufacturer cloud app.</p>
+    <div class="meta">6 min read · MAGNETAR UDP800 MKII / UDP900 MKII · 麦尼塔</div>
+  </div>
+
+  <div class="article-body">
+<p><strong>MAGNETAR (麦尼塔)</strong> UDP800 MKII and UDP900 MKII are 4K UHD Blu-ray / SACD universal players. Their manual documents a "Network Control" interface: a plain TCP socket on <code>port 8102</code> that accepts the same three-character commands as the RS-232 port, each frame terminated with <code>\r\n</code>, answered with <code>ack</code>. Remote97 uses that interface to give you a real on-screen remote, with the same commands the official remote sends.</p>
+    <h2>What you can control</h2>
+
+<ul>
+  <li><strong>Power and disc</strong> — power toggle / on / off, eject the tray, front-panel dimming and pure-audio mode.</li>
+  <li><strong>Playback and navigation</strong> — play, pause, stop, previous/next, fast forward/backward, D-pad, confirm, back, home and menu.</li>
+  <li><strong>Number and colour keys</strong> — 0–9, clear, go-to, and the four coloured keys for interactive disc menus.</li>
+  <li><strong>AV options</strong> — audio track, subtitle, angle, zoom, repeat, A-B repeat, picture-in-picture, output resolution and HDR selection.</li>
+  <li><strong>Step volume and mute</strong> — the protocol offers step-up / step-down / mute only; Remote97 does not pretend there is an absolute volume slider.</li>
+  <li><strong>Wake-on-LAN power-on</strong> — from network standby, Remote97 sends a WoL magic packet before the power command. See the <a href="wake-on-lan.html">WoL guide</a>.</li>
+</ul>
+    <h2>What the protocol does not offer</h2>
+
+<div class="callout"><strong>Honest limits.</strong> There is no source-input selection and no absolute volume or volume query in this protocol — those belong to a different player family. Remote97 will not put fake controls on the page. State is tracked locally from the commands you send and from optional status pushes, so it is an estimate, not a guaranteed readout.</div>
+<p>The player also allows only <strong>one control connection at a time</strong>. If another remote or app is connected, commands can be dropped. Remote97 keeps a single long-lived connection per device and spaces commands out, which matches the player's real behaviour.</p>
+    <h2>Set it up</h2>
+
+<div class="steps-num">
+  <div class="step-row"><div class="n">1</div><div><h3>Enable the player's network interface</h3><p>Give the player a wired LAN connection and set a static IP or DHCP reservation. The control port is fixed at TCP 8102.</p></div></div>
+  <div class="step-row"><div class="n">2</div><div><h3>Switch to Network Standby if you want power-on</h3><p>In the player's standby-mode setting choose Network Standby. In the default energy-saving standby the player will not wake from an IP command. Note its MAC address — Remote97 needs it for the WoL packet.</p></div></div>
+  <div class="step-row"><div class="n">3</div><div><h3>Install Remote97</h3><p>Get it from the <a href="https://remote97.com/#download">download page</a> on a phone on the same network.</p></div></div>
+  <div class="step-row"><div class="n">4</div><div><h3>Add the player</h3><p>Remote97 probes for the MAGNETAR signature and port 8102. If discovery misses it, add it manually by IP and enter the MAC address so wake-on-LAN works.</p></div></div>
+  <div class="step-row"><div class="n">5</div><div><h3>Allow a few seconds after wake</h3><p>Real players can take around 30 seconds after power-on before they accept commands. If a scene chains a wake with a playback command, add a short delay.</p></div></div>
+</div>
+    <h2>Troubleshooting</h2>
+
+<ul>
+  <li><strong>Cannot add from standby:</strong> turn the player on first — the control port does not answer in energy-saving standby.</li>
+  <li><strong>Power-on command ignored:</strong> you are in energy-saving standby. Switch to Network Standby and confirm the MAC address is set so WoL can be sent.</li>
+  <li><strong>Commands fail intermittently:</strong> another app or remote is probably holding the single control connection. Close it and retry.</li>
+  <li><strong>Volume or input controls missing:</strong> expected — the protocol does not expose them. Use the player's own remote for those functions.</li>
+</ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="wake-on-lan.html"><h3>Wake-on-LAN guide</h3><p>How the magic packet wakes a player from network standby.</p></a>
+      <a class="rcard" href="zidoo-vidon-player.html"><h3>Zidoo / VidOn media players</h3><p>Control other 4K players from the same app.</p></a>
+      <a class="rcard" href="movie-night-scenes.html"><h3>One-tap movie night scenes</h3><p>Chain the player, AVR and TV into a single tap.</p></a>
+      <a class="rcard" href="home-theater-smart-home-control.html"><h3>Complete home theater control guide</h3><p>The big-picture walkthrough for a media room.</p></a>
+    </div>
+  </div>
+  <p class="trademark">Remote97 is an independent product and is not affiliated with, endorsed by, or sponsored by the device manufacturers named on this page. All trademarks belong to their respective owners.</p>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to retire the remote drawer?</h2>
+    <p>Remote97 is free, works on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wake-on-LAN: Wake Your PC or NAS From Your Phone | Remote97</title>
+<meta name="description" content="Send a Wake-on-LAN magic packet to any WoL-capable computer, NAS or media player from your phone — over your local network, with no hub, no cloud and no subscription. Add it to scenes and custom control panels." />
+<meta name="keywords" content="wake on lan app, WoL remote, wake computer from phone, magic packet app, Wake-on-LAN Android, wake PC from iPhone, wake NAS remotely, WoL magic packet sender, wake on lan without hub, local network remote wake" />
+<link rel="canonical" href="https://remote97.com/guides/wake-on-lan.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/wake-on-lan.html" />
+<meta property="og:title" content="Wake-on-LAN: wake your PC or NAS from your phone" />
+<meta property="og:description" content="A one-tap wake button for any WoL-capable computer, NAS or media player — local-only, no hub, and it works inside scenes and custom panels." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Wake-on-LAN: wake your PC or NAS from your phone",
+  "description": "Send a Wake-on-LAN magic packet to any WoL-capable computer, NAS or media player from your phone — over your local network, with no hub, no cloud and no subscription.",
+  "datePublished": "2026-11-18",
+  "dateModified": "2026-11-18",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://remote97.com/guides/wake-on-lan.html"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "Remote97",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What devices can Remote97 wake with Wake-on-LAN?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Any device whose network interface supports WoL: desktop PCs, NAS units, home servers, HTPCs and some 4K media players (for example Magnetar UDP players, which need a magic packet before they will accept power commands). The target must be on the same LAN and correctly configured for WoL."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the phone receive a confirmation that the computer woke up?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. WoL is a fire-and-forget UDP broadcast with no reply. Remote97 shows a 'wakeable' state rather than online/offline, and it never fakes an online indicator. A successful tap means the packet was sent, not that the machine booted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why will a laptop not wake over WiFi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "True WoL almost always needs a wired Ethernet connection. Most laptops power down the WiFi chip in sleep/shutdown, so it cannot listen for magic packets. A USB-to-Ethernet adapter only works if it stays powered in standby and the driver supports WoL — many USB NICs do not."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I put a wake action into a scene or a custom control panel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A wake action can be added to one-tap scenes and to custom control panels. Scenes and panels store only the device ID and read the current MAC address at execution time, so editing the MAC in the device details automatically updates every scene and panel that wakes it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my MAC address sent to any server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The MAC address is stored locally only and is never included in analytics. Remote97 reports only an anonymous 'wake' event with the device family. The magic packet is sent from your phone directly on your LAN."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://remote97.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://remote97.com/guides/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Wake-on-LAN",
+      "item": "https://remote97.com/guides/wake-on-lan.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; Wake-on-LAN</div>
+  <div class="article-head">
+    <span class="kicker">Network wake</span>
+    <h1>Wake-on-LAN: wake your PC or NAS from your phone</h1>
+    <p class="sub">A sleeping home theater PC, a NAS that holds your movie library, a 4K player that will not respond until it is awake — Remote97 sends the Wake-on-LAN magic packet for you, from the same app that controls the rest of your gear.</p>
+    <div class="meta">6 min read · PC / NAS / HTPC / Wake-on-LAN media players</div>
+  </div>
+
+  <div class="article-body">
+<p><strong>Wake-on-LAN (WoL)</strong> is a standard way to turn on a computer over the local network. The device being woken stays in a low-power state with its network card listening. Another device on the LAN sends a small "magic packet" containing the target's MAC address, and the network card boots the machine. Remote97 turns that packet into a single wake button — and, unlike a lot of WoL tools, it drops the same action into your scenes and custom control panels.</p>
+    <h2>What you can do</h2>
+
+<ul>
+  <li><strong>One-tap wake</strong> — send a standard 102-byte magic packet (six <code>0xFF</code> bytes followed by the target MAC repeated 16 times) over UDP ports 9 and 7.</li>
+  <li><strong>Both broadcast forms</strong> — a subnet-directed broadcast (for iOS, which will not deliver <code>255.255.255.255</code>) plus the global broadcast as a fallback. Highest cross-platform success rate.</li>
+  <li><strong>Scenes</strong> — put "wake the HTPC" at the front of a Movie night scene, followed by power/input commands to the AVR and TV. See <a href="movie-night-scenes.html">movie night scenes</a>.</li>
+  <li><strong>Custom control panels</strong> — add a dedicated wake tile next to all your other device controls.</li>
+  <li><strong>Local, private</strong> — the packet goes from your phone straight over your LAN. No hub, no cloud relay, no account, and your MAC address is never uploaded.</li>
+</ul>
+    <h2>An honest limit: no status readback</h2>
+
+<div class="callout"><strong>WoL is fire-and-forget.</strong> There is no reply, so Remote97 cannot know whether the machine actually booted. The device appears as <em>wakeable</em>, not online/offline — we will not fake a green "online" dot for a device that cannot report its state.</div>
+<p>This matters in scenes. A wake action means "the packet was sent"; it does not guarantee the following commands will land instantly. A PC that is just powering on may take tens of seconds before its network services accept commands. Build a delay into the scene if the next step talks to the machine you just woke.</p>
+    <h2>Set it up</h2>
+
+<div class="steps-num">
+  <div class="step-row"><div class="n">1</div><div><h3>Enable WoL on the target machine</h3><p>In BIOS/UEFI turn on Wake on LAN / PCIe device wake and turn off ErP or Deep Sleep. In the OS, set the NIC's "Wake on Magic Packet" option to Enabled.</p></div></div>
+  <div class="step-row"><div class="n">2</div><div><h3>Use a wired connection</h3><p>Plug in an Ethernet cable. WiFi almost never survives sleep/shutdown. A USB-to-Ethernet adapter only works if it stays powered in standby <em>and</em> its driver supports WoL — many do not.</p></div></div>
+  <div class="step-row"><div class="n">3</div><div><h3>Allow the NIC to wake the computer</h3><p>On Windows, enable "Allow this device to wake the computer" (and "Only allow a magic packet") in the adapter's power-management settings, and disable Fast Startup — otherwise shutdown (S5) wake will not work.</p></div></div>
+  <div class="step-row"><div class="n">4</div><div><h3>Give it a stable IP</h3><p>A DHCP reservation in your router keeps the target reachable. Make sure AP/client isolation is off and the phone is on the same subnet.</p></div></div>
+  <div class="step-row"><div class="n">5</div><div><h3>Add the device in Remote97</h3><p>Install from the <a href="https://remote97.com/#download">download page</a>, add a "Network wake" device, and enter its MAC address using the six-box input (no colons needed). You can edit the MAC later in the device details; scenes and panels pick up the change automatically.</p></div></div>
+</div>
+    <h2>Troubleshooting: it still will not wake</h2>
+
+<ul>
+  <li><strong>Nothing happens at all:</strong> confirm the machine can be woken by another WoL tool first — that isolates the PC's own settings from the app.</li>
+  <li><strong>Works from sleep, not from shutdown:</strong> almost always Fast Startup, ErP power saving, or a USB NIC that loses power in S5.</li>
+  <li><strong>Phone on WiFi, target on Ethernet:</strong> check that the router is not isolating wireless clients and that both are on the same subnet.</li>
+  <li><strong>Sleep works but shutdown does not:</strong> that is a hardware/BIOS limitation on many laptops, not an app bug.</li>
+  <li><strong>Need vendor-specific power commands instead:</strong> a <a href="serial-over-ip.html">serial-over-IP gateway</a> or the device's own network protocol is the usual route.</li>
+</ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="magnetar-player.html"><h3>MAGNETAR 4K player control</h3><p>These players need a magic packet before they accept power commands.</p></a>
+      <a class="rcard" href="movie-night-scenes.html"><h3>One-tap movie night scenes</h3><p>Put a wake action at the start of an automation chain.</p></a>
+      <a class="rcard" href="home-theater-smart-home-control.html"><h3>Complete home theater control guide</h3><p>Wake, power, inputs and scenes in one walkthrough.</p></a>
+      <a class="rcard" href="local-ip-control.html"><h3>Why local IP control beats cloud hubs</h3><p>How Remote97 keeps your traffic on your LAN.</p></a>
+    </div>
+  </div>
+  <p class="trademark">Remote97 is an independent product and is not affiliated with, endorsed by, or sponsored by the device manufacturers named on this page. All trademarks belong to their respective owners.</p>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to retire the remote drawer?</h2>
+    <p>Remote97 is free, works on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>
