@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glass">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Control Amazon Fire TV from your phone over ADB | Remote97</title>
+<meta name="description" content="Turn on ADB debugging and control an Amazon Fire TV Stick or Cube from your phone: navigation, playback, volume, app shortcuts and power. Free, local, no hub — step-by-step guide." />
+<meta name="keywords" content="Fire TV remote app, control Fire TV from phone, Fire TV Stick ADB, Amazon Fire TV remote, Fire TV ADB debugging, free Fire TV remote, Fire TV app launcher" />
+<link rel="canonical" href="https://remote97.com/guides/fire-tv.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://remote97.com/guides/fire-tv.html" />
+<meta property="og:title" content="Control Amazon Fire TV from your phone over ADB" />
+<meta property="og:description" content="Navigation, playback, volume and app shortcuts for Fire TV Stick / Cube — local ADB control, no subscription." />
+<meta property="og:image" content="https://remote97.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="favicon.png" sizes="any" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="guide.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Control Amazon Fire TV from your phone over ADB",
+  "description": "Enable ADB debugging and control an Amazon Fire TV Stick or Cube from your phone: navigation, playback, volume, app shortcuts and power. Free, local, no hub.",
+  "datePublished": "2026-11-19",
+  "dateModified": "2026-11-19",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Remote97",
+    "url": "https://remote97.com/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://remote97.com/guides/fire-tv.html"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "Remote97",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Fire TV have an official remote-control API?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Amazon does not publish a local remote-control API for Fire TV. The practical local path is Android Debug Bridge (ADB) over TCP port 5555, which lets a client send key events, launch apps and read status. Remote97 and Home Assistant's official Android TV integration both use this route."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does Remote97 not offer input-source switching for Fire TV?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Fire TV Stick or Cube plugs into an HDMI port and is itself one input source. It has no concept of switching the TV's inputs — that happens on the TV or the A/V receiver. Remote97 only exposes functions the device can actually perform."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The Fire TV disappeared from Remote97 after I turned it off. Why?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Deep sleep drops the Wi-Fi connection, and the ADB port closes with it. Remote97 reports the device as offline instead of pretending it is reachable. Wake the Fire TV with its own remote and it reconnects on the next refresh."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is ADB debugging safe to leave enabled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ADB debugging only accepts connections from clients you authorise on the TV screen, and each client signs with its own RSA key. Only enable it on a network you trust, and revoke unknown entries under Developer Options → Revoke USB debugging authorizations if you stop using a client."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://remote97.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://remote97.com/guides/"},
+    {"@type": "ListItem", "position": 3, "name": "Amazon Fire TV", "item": "https://remote97.com/guides/fire-tv.html"}
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://remote97.com/"><img src="remote97_wordmark_light.png" alt="Remote97" /></a>
+    <nav><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/#download">Download</a></nav>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="ink">Ink</button>
+      <button type="button" data-theme-set="glass" class="active">Glass</button>
+    </div>
+  </div>
+</header>
+
+<main class="article-wrap">
+  <div class="breadcrumb"><a href="https://remote97.com/">Home</a> &nbsp;/&nbsp; <a href="./">Guides</a> &nbsp;/&nbsp; Amazon Fire TV</div>
+  <div class="article-head">
+    <span class="kicker">Streamer</span>
+    <h1>Control Amazon Fire TV from your phone over ADB</h1>
+    <p class="sub">Amazon has no local remote API, but Fire TV runs Android underneath — and Android speaks ADB. Enable debugging once and your phone becomes a full keypad: navigation, playback, volume and app shortcuts.</p>
+    <div class="meta">5 min read · Android, Windows &amp; iOS</div>
+  </div>
+
+  <div class="article-body">
+    <p>A Fire TV Stick or Cube is a small Android box that plugs straight into an HDMI port. There is no cloud account handshake and no vendor SDK: the device listens for Android Debug Bridge connections on TCP port 5555 on your own network. That is the same channel Home Assistant uses for its official Android TV integration.</p>
+
+    <h2>What you can do</h2>
+    <ul>
+      <li><strong>Navigation</strong> — D-pad, select, back, home and menu</li>
+      <li><strong>Playback</strong> — play, pause, rewind, fast-forward, previous / next</li>
+      <li><strong>Volume</strong> — absolute level plus mute</li>
+      <li><strong>App shortcuts</strong> — Netflix, Prime Video, YouTube, Disney+, Plex, Spotify</li>
+      <li><strong>Power</strong> — screen off (sleep) and wake back to the home screen</li>
+    </ul>
+
+    <h2>Before you start: enable ADB debugging</h2>
+    <div class="steps-num">
+      <div class="step-row"><div class="n">1</div><div><h3>Unlock Developer Options</h3><p>On the Fire TV go to <em>Settings → My Fire TV → About</em> and click <em>Fire TV</em> seven times.</p></div></div>
+      <div class="step-row"><div class="n">2</div><div><h3>Turn on ADB debugging</h3><p><em>Settings → My Fire TV → Developer Options → ADB debugging</em> → On.</p></div></div>
+      <div class="step-row"><div class="n">3</div><div><h3>Note the IP address</h3><p><em>Settings → My Fire TV → About → Network</em> shows the address and the Wi-Fi network it is on.</p></div></div>
+      <div class="step-row"><div class="n">4</div><div><h3>Add it in Remote97</h3><p>Open Remote97 → add device → <em>Player</em> → <em>Amazon Fire TV</em>, then enter the IP (port is fixed at 5555).</p></div></div>
+      <div class="step-row"><div class="n">5</div><div><h3>Allow the key on the TV</h3><p>The first connection shows “Allow USB debugging?”. Choose <em>Allow</em> and tick “Always allow” — Remote97 stores its key, so you only do this once.</p></div></div>
+    </div>
+
+    <div class="callout"><strong>Only one ADB client at a time.</strong> If another tool (an IDE, a debug app, Home Assistant) holds the connection, Remote97 will report the device as busy. Close the other client and refresh.</div>
+
+    <h2>No input switching — by design</h2>
+    <p>A Fire TV is not a TV. It sits on one HDMI input and stays there, so “switch to HDMI 3” is a job for the television or the receiver. Remote97 deliberately does not show an input selector for Fire TV: a button that cannot do anything is worse than no button. Put the TV on the right input in a <a href="movie-night-scenes.html">scene</a> and let the Fire TV handle everything after that.</p>
+
+    <h2>Known limits</h2>
+    <ul>
+      <li><strong>Deep sleep drops the network.</strong> In full standby the Wi-Fi radio turns off and port 5555 closes; the app then shows the device offline rather than faking a connection.</li>
+      <li><strong>Wi-Fi only.</strong> Fire TV Sticks have no Ethernet port (the Cube has one), so keep both devices on the same access point and avoid guest-network isolation.</li>
+      <li><strong>No volume arbitration.</strong> The level Remote97 sets is the Fire TV’s own media stream. If your TV or soundbar controls volume over HDMI-CEC, the two can disagree — pick one place to change volume.</li>
+    </ul>
+
+    <h2>Take it further</h2>
+    <ul>
+      <li>Combine the Fire TV with your AVR and lights in a <a href="movie-night-scenes.html">“Movie night” scene</a>.</li>
+      <li>See <a href="local-ip-control.html">why local control needs no cloud</a>.</li>
+      <li>Already using Home Assistant? The same device works with its Android TV integration.</li>
+    </ul>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="related-grid">
+      <a class="rcard" href="roku.html"><h3>Control Roku from your phone</h3><p>Open ECP protocol, no paid remote app.</p></a>
+      <a class="rcard" href="apple-tv.html"><h3>Apple TV remote for iPhone</h3><p>The best Siri Remote alternative.</p></a>
+      <a class="rcard" href="local-ip-control.html"><h3>Why local IP control beats cloud hubs</h3><p>Offline, private, no subscription.</p></a>
+      <a class="rcard" href="wake-on-lan.html"><h3>Wake devices with Wake-on-LAN</h3><p>Power on PCs, NAS and players from your phone.</p></a>
+    </div>
+  </div>
+</main>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to retire the remote drawer?</h2>
+    <p>Remote97 is free, works on Android, Windows and iOS, and needs no account.</p>
+    <div class="ctas"><a class="btn btn-primary" href="https://remote97.com/#download">Download Remote97</a><a class="btn" href="./">All guides</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-links"><a href="https://remote97.com/">Home</a><a href="./">Guides</a><a href="https://remote97.com/support.html">Support</a><a href="https://remote97.com/privacy.html">Privacy</a></div>
+    <div class="f-note">Remote97 — pure-software home theater control. No cloud, no hub, no subscription.</div>
+  </div>
+</footer>
+<script>
+(function(){var t=document.getElementById('themeToggle');if(!t)return;var s=localStorage.getItem('r97theme');if(s){document.documentElement.setAttribute('data-theme',s);t.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.themeSet===s)});}t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.dataset.themeSet;document.documentElement.setAttribute('data-theme',v);localStorage.setItem('r97theme',v);t.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});});})();
+</script>
+<script>
+(function(){var t=document.getElementById('themeToggle');function b(){var i=document.querySelector('.brand img');if(i)i.src=(document.documentElement.getAttribute('data-theme')==='glass')?'remote97_wordmark_light.png':'remote97_wordmark.png';}b();if(t)t.addEventListener('click',b);})();
+</script>
+</body>
+</html>
